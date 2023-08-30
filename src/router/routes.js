@@ -11,6 +11,7 @@ import ControleDeFuncionalidade from "@/views/ControleDeFuncionalidade"
 import LoginView from "@/views/LoginView"
 import ControleDeUsuarios from "@/views/ControleDeUsuarios"
 import UsuarioView from "@/views/UsuarioView"
+import VinculoDeFuncionalidade from "@/views/VinculoDeFuncionalidade"
 
 const routes = [
 {
@@ -108,6 +109,14 @@ const routes = [
     title: 'Vincular Grupo'
     
   },
+  {
+    path: '/vinculo-de-funcionalidade',
+    name: 'VincularFuncionalidade',
+    component: VinculoDeFuncionalidade,
+    title: 'Vincular Funcionalidade'
+    
+  },
+
   {
     path: '/funcionalidade',
     name: 'ControleDeFuncionalidade',

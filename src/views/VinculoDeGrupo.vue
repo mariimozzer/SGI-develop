@@ -47,9 +47,7 @@
             </div>
         <div> 
 
-            <v-autocomplete 
-            v-model="grupoUsuario">
-        </v-autocomplete>
+           
         </div>
             <hr>
             <br>

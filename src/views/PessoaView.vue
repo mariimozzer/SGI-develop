@@ -8,12 +8,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-2">
+            <!-- <div class="col-sm-2">
                 <div class="form-group">
                     <label for="id">ID</label>
                     <input id="id" type="text" v-model="pessoa.id" disabled class="form-control">
                 </div>
-            </div>
+            </div> -->
             <br>
             <div class="col-sm-10">
                 <div class="form-group">

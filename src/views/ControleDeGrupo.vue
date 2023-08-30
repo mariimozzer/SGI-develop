@@ -16,12 +16,13 @@
         </div>
     
         <div class="row">
-            <div class="col-sm-16">
+            <div class="col-sm-3">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nome </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +31,7 @@
     
                             <td>{{ item.id }}</td>
                             <td>{{ item.nome }}</td>
+                            <td></td>
                             <td class="icon-tabela">
                                 <i @click="editarGrupo(item)" class="fa fa-edit icones-tabela"></i> |
                                 <i @click="excluirGrupo(item)" class="fa fa-trash icones-tabela"></i>
@@ -125,10 +127,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.icon-tabela {
-    margin: 5px;
-    cursor: pointer;
-    color: dimgray;
-}
-</style>

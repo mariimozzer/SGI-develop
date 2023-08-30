@@ -9,7 +9,12 @@
         <div class="row sub-container">
             <div class="col-sm-2">
                 <Button :callback="adicionarFuncionalidade" value=" Adicionar "></Button>
+    
             </div>
+            <div class="col-sm-2">
+                <Button :callback="vincularFuncionalidade" value="Funcionalidade Grupo "></Button>
+            </div>
+    
         </div>
     
         <div class="row">
@@ -31,7 +36,7 @@
     
                             <td>{{ item.id }}</td>
                             <td>{{ item.nome }}</td>
-                            <td>{{ item.url }}</td>
+                            <td>{{ item.URL }}</td>
                             <td>{{ item.menu }}</td>
                             <td>{{ item.sistema_id }}</td>
                             <td class="icon-tabela">
@@ -51,7 +56,6 @@
 import Button from '../components/button/ButtonComponent.vue'
 import funcionalidadeService from '@/services/funcionalidade-service'
 import Funcionalidade from '@/models/Funcionalidade'
-import conversorDeData from '../utils/conversor-data'
 
 export default {
     name: "ControleDeFuncionalidades",
@@ -59,9 +63,7 @@ export default {
         Button
     },
     filters: {
-        data(data) {
-            return conversorDeData.dataConversor(data);
-        }
+        data() {}
     },
     data() {
         return {
@@ -74,11 +76,17 @@ export default {
 
     methods: {
 
+        vincularFuncionalidade(){
+            this.$router.push({ name: "VincularFuncionalidade" })
+
+        },
+
+
         getAllFuncionalidades() {
             funcionalidadeService.obterTodos()
                 .then((response) => {
                     this.funcionalidades = response.data.data.map((p) => new Funcionalidade(p));
-                    //console.log(this.pessoas)
+                    // console.log(this.funcionalidades)
                 })
                 .catch(error => {
                     console.log(error)
@@ -125,10 +133,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.icon-tabela {
-    margin: 5px;
-    cursor: pointer;
-    color: dimgray;
-}
-</style>

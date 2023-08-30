@@ -127,10 +127,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.icon-tabela {
-    margin: 5px;
-    cursor: pointer;
-    color: dimgray;
-}
-</style>

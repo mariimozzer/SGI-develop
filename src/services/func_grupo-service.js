@@ -19,9 +19,24 @@ function obterGrupos(id){
 }
 
 
+function deletar(funcId, grupoId){
+    const payload = {
+      idFunc: funcId,
+        idGrupo: grupoId
+    };
+  
+    return new Promise((resolve, reject) => {
+      return api.delete(`/funcionalidade/grupo`, payload)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  }
+
+
 export default {
 
     obterFuncionalidade,
-    obterGrupos
+    obterGrupos,
+    deletar
   
 }

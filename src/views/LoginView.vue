@@ -2,12 +2,12 @@
     <div class="box-login">
     
         <div class="logo">
-            <h1>Login</h1>
+            <h2>Login</h2>
           
             
         </div>
     
-        <Input label="E-mail" placeHolder="exemplo@exemplo.com"></Input>
+        <Input label="E-mail" placeHolder="roboflex@roboflex.com.br"></Input>
     
         <Input label="Senha" placeHolder="123456" type="password"></Input>
     

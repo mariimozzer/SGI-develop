@@ -8,13 +8,7 @@
             </div>
         </div>
         <div class="row">
-            <h1>{{ usuario }}</h1>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <input id="id" type="text" v-model="usuario.id" disabled class="form-control">
-                </div>
-            </div>
+    
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="nome">Nome</label>
@@ -35,13 +29,21 @@
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="grupo_id">Grupo ID</label>
-                    <input id="grupo_id" type="text" v-model="usuario.grupo_id" class="form-control">
+                    <label for="grupo_id">Grupo</label>
+                    <select class="form-control combo" v-model="grupoSelecionado">
+                                    <option value="" disabled>Selecione o grupo</option>
+                                    <option v-for="item in grupos" :key="item.id" :value="item.id">(ID: {{item.id}} Nome: {{ item.nome }})</option></select>
+    
+    
+    
                 </div>
+                <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
+                <button @click="salvarUsuario" class="btn btn-primary float-right mr-2">Salvar</button>
+    
+    
             </div>
     
-            <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
-            <button @click="salvarUsuario" class="btn btn-primary float-right mr-2">Salvar</button>
+    
         </div>
     </div>
 </template>
@@ -49,6 +51,8 @@
 <script>
 import Usuario from '@/models/Usuario'
 import usuarioService from '@/services/usuario-service';
+import grupoService from '@/services/grupo-service';
+import Grupo from '@/models/Grupo'
 
 
 export default {
@@ -56,12 +60,17 @@ export default {
     data() {
         return {
             usuario: new Usuario(),
-            modoCadastro: true
+            modoCadastro: true,
+            grupos: [],
+            grupoSelecionado: null
         }
     },
 
 
     mounted() {
+
+        this.getAllGrupos()
+
         let id = this.$route.params.id;
         if (!id)
 
@@ -72,6 +81,18 @@ export default {
 
     },
     methods: {
+
+        getAllGrupos() {
+            grupoService.obterTodos()
+                .then(response => {
+                    this.grupos = response.data.data.map((p) => new Grupo(p));
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+        },
+
         obterUsuarioPorId(id) {
             usuarioService.obterPorId(id)
                 .then(response => {
@@ -85,12 +106,8 @@ export default {
 
             usuarioService.cadastrar(this.usuario)
                 .then(() => {
-                    console.log(this.usuario)
-                    //alert("Setor cadastrado com sucesso!");
+
                     this.usuario = new Usuario();
-
-
-
                     this.$router.push({ name: "ControleDeUsuarios" })
 
                 })

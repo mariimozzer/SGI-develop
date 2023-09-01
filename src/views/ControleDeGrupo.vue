@@ -7,10 +7,10 @@
             </div>
         </div>
         <div class="row sub-container">
-            <div class="col-sm-2">
+            <div class="col-sm-4">
                 <Button :callback="adicionarGrupo" value=" Adicionar Grupo"></Button>
-            </div>
-            <div>
+            
+            
                 <Button :callback="vincularGrupo" value=" Vincular Grupo"></Button>
             </div>
         </div>

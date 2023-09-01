@@ -1,5 +1,18 @@
 import api from './api';
 
+function cadastrar(funcId, grupoId) {
+    const payload = {
+        idFunc: funcId,
+      idGrupo: grupoId
+    };
+  
+    return new Promise((resolve, reject) => {
+      return api.post(`/funcionalidade/grupo`, payload)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  }
+
 //Lista Grupos de uma funcionalidade
 function obterFuncionalidade(id){
     return new Promise((resolve, reject) => {
@@ -37,6 +50,7 @@ export default {
 
     obterFuncionalidade,
     obterGrupos,
-    deletar
+    deletar,
+    cadastrar
   
 }

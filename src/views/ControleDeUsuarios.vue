@@ -34,6 +34,7 @@
                             <td class="icon-tabela">
                                 <i @click="editarUsuario(item)" class="fa fa-edit icones-tabela"></i> |
                                 <i @click="excluirUsuario(item)" class="fa fa-trash icones-tabela"></i>
+                             
                             </td>
                         </tr>
                     </tbody>

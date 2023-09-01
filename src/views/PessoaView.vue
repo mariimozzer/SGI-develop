@@ -8,26 +8,20 @@
             </div>
         </div>
         <div class="row">
-            <!-- <div class="col-sm-2">
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <input id="id" type="text" v-model="pessoa.id" disabled class="form-control">
-                </div>
-            </div> -->
             <br>
-            <div class="col-sm-10">
+            <div class="col-sm-12">
                 <div class="form-group">
                     <label for="nomeCompleto">Nome Completo</label>
                     <input id="nomeCompleto" v-model="pessoa.nomeCompleto" type="text" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-12">
                 <div class="form-group">
                     <label for="sexo">Sexo</label>
                     <input id="sexo" type="text" v-model="pessoa.sexo" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-12">
                 <div class="form-group">
                     <label for="dtNasc">Data de Nascimento</label>
                     <input id="dtNasc" type="date" v-model="pessoa.dtNasc" class="form-control">
@@ -39,22 +33,27 @@
                     <input id="CPF" type="number" v-model="pessoa.CPF" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-12">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" v-model="pessoa.email" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-12">
                 <div class="form-group">
                     <label for="celular">Celular</label>
                     <input id="celular" type="text" v-model="pessoa.celular" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="id_setor">ID Setor</label>
-                    <input id="id_setor" type="number" v-model="pessoa.id_setor" class="form-control">
+                    <label for="id_setor">Setor</label>
+                    <select class="combo form-control" v-model="pessoa.id_setor">
+                            <option value="" disabled> Selecione o Setor </option>
+                            <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+
+
+
                 </div>
     
             </div>
@@ -93,6 +92,9 @@
 import Pessoa from '@/models/Pessoa'
 import pessoaService from '@/services/pessoa-service'
 import conversorDeData from '@/utils/conversor-data'
+import Setor from '@/models/Setor'
+import setorService from '@/services/setor-service'
+
 
 export default {
     name: "PessoaComponent",
@@ -100,10 +102,14 @@ export default {
         return {
             pessoa: new Pessoa(),
             modoCadastro: true,
-            continuarAdicionando: false
+            continuarAdicionando: false,
+            setores: [],
+            setorSelecionado: null
         }
     },
     mounted() {
+        this.getAllSetor()
+
         let id = this.$route.params.id;
         if (!id)
 
@@ -114,6 +120,17 @@ export default {
         //alert(this.$route.params.id)
     },
     methods: {
+
+        getAllSetor(){
+             setorService.obterTodos()
+                .then((response) => {
+                    this.setores = response.data.map((p) => new Setor(p));
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
         obterPessoaPorId(id) {
             pessoaService.obterPorId(id)
                 .then(response => {
@@ -152,9 +169,11 @@ export default {
                 conversorDeData.aplicarMascaraISOEmFormatoAmericano(this.pessoa.dtNasc);
 
             pessoaService.atualizar(this.pessoa)
+
                 .then(() => {
                     alert("Pessoa atualizada com sucesso!");
                     this.$router.push({ name: "ControleDePessoas" });
+                    console.log(this.pessoa)
 
                 })
                 .catch(error => {

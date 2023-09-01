@@ -38,7 +38,7 @@ function cadastrar(usuario){
 
 function deletar(id){
     return new Promise((resolve, reject) => {
-        return api.patch(`/usuario/${id}`)
+        return api.delete(`/usuario/${id}`)
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

@@ -10,8 +10,8 @@
             <div>
                 <label>Selecione um grupo: </label>
                 <select class="combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                                                                                    <option value="" disabled>Selecione o grupo</option>
-                                                                                                    <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">(ID: {{item.id}} Nome: {{ item.nome }})</option></select>
+                                                                                                            <option value="" disabled>Selecione o grupo</option>
+                                                                                                            <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">ID: {{item.id}} Nome: {{ item.nome }}</option></select>
             </div>
             <hr>
             <br>
@@ -21,8 +21,8 @@
                 <ul>
                     <li v-for="user in grupoUsuario" :key="user.id">
                         <label>
-                                                                        <input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @change="toggleUserToRemove(user.id)"/> ID: {{ user.id }} Nome: {{ user.name }} 
-                                                                    </label>
+                                                                                <input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @change="toggleUserToRemove(user.id)"/> ID: {{ user.id }} Nome: {{ user.name }} 
+                                                                            </label>
                     </li>
                     {{ selectUsersToRemove }}
                 </ul>
@@ -35,20 +35,20 @@
                     <ul>
                         <li v-for="user in usuariosParaAdicionar" :key="user.id">
                             <label>
-                                                                <input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @change="toggleUserToAdd(user.id)"/>
-                                                                ID: {{ user.id }} Nome: {{ user.name }}          
-                                                                </label>
+                                                                        <input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @change="toggleUserToAdd(user.id)"/>
+                                                                        ID: {{ user.id }} Nome: {{ user.name }}          
+                                                                        </label>
                         </li>
                     </ul>
                     {{ selectedUsersToAdd }}
                 </div>
     
-                
+    
             </div>
-        <div> 
-
-           
-        </div>
+            <div>
+    
+    
+            </div>
             <hr>
             <br>
             <div>
@@ -109,7 +109,7 @@ export default {
             if (!grupoSelecionado || selectUsersToRemove.length === 0) {
                 return;
             }
-        
+
             grupoUsuarioService.deletarTeste(selectUsersToRemove, grupoSelecionado)
                 .then(() => {
                     this.obterUsuarioPorGrupo(grupoSelecionado);

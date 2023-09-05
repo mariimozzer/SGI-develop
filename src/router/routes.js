@@ -15,15 +15,19 @@ import VinculoDeFuncionalidade from "@/views/VinculoDeFuncionalidade"
 
 const routes = [
 {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: HomeView
   },
 
   {
-    path: '/login',
+    path: '/',
     name: 'login',
-    component: LoginView
+   
+    component: LoginView,
+    meta: {
+      hideMenu: true
+    }
   },
   {
     path: '/pessoa',

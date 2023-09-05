@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Usuário </h1>
+                <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Usuário </h3>
                 <hr/>
                 <br>
             </div>
@@ -30,9 +30,9 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="grupo_id">Grupo</label>
-                    <select class="form-control combo" v-model="grupoSelecionado">
+                    <select class="form-select combo" v-model="grupoSelecionado">
                                     <option value="" disabled>Selecione o grupo</option>
-                                    <option v-for="item in grupos" :key="item.id" :value="item.id">(ID: {{item.id}} Nome: {{ item.nome }})</option></select>
+                                    <option v-for="item in grupos" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
     
     
     

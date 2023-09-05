@@ -16,8 +16,8 @@
   <style scoped>
   button{
       width: 100%;
-      background-color: var(--first-color);
-      color: rgb(233, 201, 21);
+      background-color: var(--second-color);
+      color: rgb(255, 255, 255);
       padding: 14px;
       margin: 8px 0;
       border: none;
@@ -28,7 +28,7 @@
   }
   
   button:hover{
-      background-color: var(--second-color);
+      background-color: #FBBF77;;
   }
   
   </style>

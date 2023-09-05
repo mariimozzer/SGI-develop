@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="titulo"> Gerenciamento de Setores </h2>
+                <h3 class="titulo"> Gerenciamento de Setores </h3>
                 <hr>
             </div>
         </div>
@@ -12,22 +12,29 @@
             </div>
         </div>
     
-        <div class="row">
-            <div class="col-sm-16">
-                <table class="table table-hover">
+        <div class="container">
+            <div>
+                <table style="width: 100%;"   class="table table-hover ">
+                   
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nome </th>
+                            <th scope="col" >ID</th>
+                            <th scope="col" >Nome </th>
+                            <th></th>
                         </tr>
+
+
                     </thead>
+                      
+                
                     <tbody>
     
                         <tr v-for="item in setores" :key="item.id">
     
                             <td>{{ item.id }}</td>
                             <td>{{ item.nome }}</td>
-                            <td class="icon-tabela">
+                          
+                            <td class="icon-tabela" style="text-align: center;">
                                 <i @click="editarSetor(item)" class="fa fa-edit icones-tabela"></i> |
                                 <i @click="excluirSetor(item)" class="fa fa-trash icones-tabela"></i>
                             </td>

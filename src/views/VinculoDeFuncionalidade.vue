@@ -3,7 +3,7 @@
     
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="titulo"> Vincular Funcionalidade </h2>
+                <h3 class="titulo"> Vincular Funcionalidade a Grupo</h3>
                 <hr/>
                 <br>
             </div>
@@ -13,19 +13,24 @@
             <div class="col-sm-10">
                 <div class="form-group">
     
-                    <label> Selecione um grupo: </label>
+                    <h6> Selecione um grupo: </h6>
                     <br>
     
-                    <select class="form-control combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
+                    <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
                                                         <option value="" disabled> Selecione </option>  
                                                      <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
                 </div>
             </div>
+            <br>
+            <br>
+            <br>
             <hr>
+            <br>
             <div class="col-sm-10">
                 <div class="form-group">
     
-                    <label> Funcionalidades para adicionar: </label>
+                    <h6> Funcionalidades para adicionar: </h6>
+                    <br>
                     <tr>
                         <!-- <select class="combo" v-model="selectedFuncToAdd" @change="toggleGrupoToAdd(func.id)">
                     <option value="" disabled> Lista de Funcionalidades </option>
@@ -42,18 +47,20 @@
                             </li>
                         </ul>
     
-    
+                        {{ selectedFuncToAdd }}
+                        {{ grupoSelecionado }}
     
                     </tr>
-                    <Button :callback="adicionarFuncGrupo" value=" Adicionar Func Grupo"></Button> 
-    
+                    <div class="col-3">
+                    <Button :callback="adicionarFuncGrupo" value="Adicionar"></Button> 
+                    </div>
                 </div>
             </div>
             <hr>
     
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label v-if="grupoSelecionado"> Funcionalidade no grupo: </label>
+                    <h6 v-if="grupoSelecionado"> Funcionalidade no grupo: </h6>
                     <div>
     
                         <table class="table table-bordered">
@@ -131,14 +138,17 @@ export default {
             console.log(selectedFuncToAdd)
             console.log(grupoSelecionado)
         },
-
         toggleGrupoToAdd(grupoId) {
-            if (this.selectedFuncToAdd.includes(grupoId)) {
-                this.selectedFuncToAdd = this.selectedFuncToAdd.filter(id => id !== grupoId);
-            } else {
-                this.selectedFuncToAdd.push(grupoId);
-            }
-        },
+  const index = this.selectedFuncToAdd.indexOf(grupoId);
+  if (index !== -1) {
+    this.selectedFuncToAdd.splice(index, 1); // Remove the item
+  } else {
+    this.selectedFuncToAdd.push(grupoId); // Add the item
+  }
+},
+
+
+
 
         toggleUserToRemove(funId) {
             if (this.selectedFuncToRemove.includes(funId)) {

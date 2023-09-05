@@ -2,18 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Funcionalidade </h1>
+                <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Funcionalidade </h3>
                 <hr/>
                 <br>
             </div>
         </div>
         <div class="row">
-            <!-- <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="id">ID</label>
-                                                    <input id="id" type="text" v-model="funcionalidade.id" disabled class="form-control">
-                                                </div>
-                                            </div> -->
+    
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="nome">Nome</label>
@@ -26,30 +21,39 @@
                     <input id="url" type="text" v-model="funcionalidade.URL" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="form-group">
+    
                     <label>Menu</label>
                     <br>
-                    <input type="radio" id="sim" value="1" v-model="funcionalidade.menu" class="form-group">
-                    <label for="sim"> Sim </label>
-                    <br>
-                    <input type="radio" id="nao" value="0" v-model="funcionalidade.menu">
-                    <label for="nao"> Não </label>
-                    <br>
+    
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="sim" value="1" v-model="funcionalidade.menu">
+                        <label class="form-check-label" for="sim"> Sim </label>
+                        <br>
+                        <input class="form-check-input" type="radio" id="nao" value="0" v-model="funcionalidade.menu">
+                        <label class="form-check-label" for="nao"> Não </label>
+    
+                    </div>
                 </div>
+    
             </div>
+            <br>
+    
             <div class="col-sm-12">
                 <div class="form-group">
     
                     <label>Sistema</label>
                     <br>
-                    <select class="combo" v-model="funcionalidade.sistema_id">
-                                <option value="" disabled>Selecione o sistema</option>
-                                <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+                    <select class="form-select" v-model="funcionalidade.sistema_id">
+                                                    <option value="" disabled>Selecione o sistema</option>
+                                                    <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
                     <!-- <input id="sistema" type="text" v-model="funcionalidade.sistema_id" class="form-control"> -->
     
     
                 </div>
+            </div>
+            <div class="form-group">
                 <div class="col-sm-12">
                     <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
                     <button @click="salvarFuncionalidade" class="btn btn-primary float-right mr-2">Salvar</button>

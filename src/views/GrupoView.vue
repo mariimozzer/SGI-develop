@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Grupo </h1>
+                <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Grupo </h3>
                 <hr/>
                 <br>
             </div>
@@ -16,7 +16,7 @@
             </div> -->
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="nome">Grupo</label>
+                    <label for="nome">Nome do Grupo</label>
                     <input id="nome" type="text" v-model="grupo.nome" class="form-control">
                 </div>
                 <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>

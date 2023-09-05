@@ -18,7 +18,7 @@ function dataConversorDateTime(data){
 
 function aplicarMascaraISOEmFormatoAmericano(data){
     if(data){
-        let dataAmericana = moment(data).locale('pt-br').format('YYYY-MM-DD');
+        let dataAmericana = moment(data).locale('pt-br').format('yyyy-MM-DD');
         return dataAmericana + "T00:00:00";
     }
     return undefined;

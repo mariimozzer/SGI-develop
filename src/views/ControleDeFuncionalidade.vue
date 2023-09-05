@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="titulo"> Gerenciamento de Funcionalidades </h2>
+                <h3 class="titulo"> Gerenciamento de Funcionalidades </h3>
                 <hr>
             </div>
         </div>
@@ -11,7 +11,7 @@
                 <Button :callback="adicionarFuncionalidade" value=" Adicionar "></Button>
     
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <Button :callback="vincularFuncionalidade" value="Funcionalidade Grupo "></Button>
             </div>
     
@@ -19,7 +19,7 @@
     
         <div class="row">
             <div class="col-sm-16">
-                <table class="table table-hover">
+                <table class="table table-hover ">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -27,6 +27,7 @@
                             <th>URL</th>
                             <th>Menu Principal</th>
                             <th>ID Sistema</th>
+                            <th></th>
     
                         </tr>
                     </thead>
@@ -48,7 +49,10 @@
                 </table>
             </div>
         </div>
+        <br>
+        <br>
     </div>
+   
 </template>
 
   

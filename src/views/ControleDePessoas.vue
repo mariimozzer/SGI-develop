@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="titulo"> Gerenciamento de Pessoas </h2>
+                <h3 class="titulo"> Gerenciamento de Pessoas </h3>
                 <hr>
             </div>
         </div>
@@ -14,7 +14,7 @@
     
         <div class="row">
             <div class="col-sm-16">
-                <table class="table table-hover">
+                <table class="table  table-hover ">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -25,6 +25,7 @@
                             <th>Email</th>
                             <th>Celular</th>
                             <th>ID Setor</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

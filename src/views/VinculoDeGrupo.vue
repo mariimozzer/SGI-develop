@@ -3,41 +3,42 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="titulo"> Vincular Grupos </h2>
+                <h3 class="titulo"> Vincular Grupos </h3>
                 <hr>
                 <br>
             </div>
-            <div>
+            <div class="col-sm-6">
                 <label>Selecione um grupo: </label>
-                <select class="combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                                                                                            <option value="" disabled>Selecione o grupo</option>
-                                                                                                            <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">ID: {{item.id}} Nome: {{ item.nome }}</option></select>
+                <select class="combo form-select" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
+                                                                                                                <option value="" disabled>Selecione o grupo</option>
+                                                                                                                <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">ID: {{item.id}} Nome: {{ item.nome }}</option></select>
             </div>
+            <br>
             <hr>
             <br>
-            <div>
+            <div class="col-sm-12">
     
                 <label>Usuários no grupo: </label>
                 <ul>
                     <li v-for="user in grupoUsuario" :key="user.id">
                         <label>
-                                                                                <input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @change="toggleUserToRemove(user.id)"/> ID: {{ user.id }} Nome: {{ user.name }} 
-                                                                            </label>
+                                                                                    <input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @change="toggleUserToRemove(user.id)"/> ID: {{ user.id }} Nome: {{ user.name }} 
+                                                                                </label>
                     </li>
                     {{ selectUsersToRemove }}
                 </ul>
             </div>
             <hr>
             <br>
-            <div>
+            <div class="col-sm-12">
                 <label>Usuários disponíveis: </label>
                 <div>
                     <ul>
                         <li v-for="user in usuariosParaAdicionar" :key="user.id">
                             <label>
-                                                                        <input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @change="toggleUserToAdd(user.id)"/>
-                                                                        ID: {{ user.id }} Nome: {{ user.name }}          
-                                                                        </label>
+                                                                            <input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @change="toggleUserToAdd(user.id)"/>
+                                                                            ID: {{ user.id }} Nome: {{ user.name }}          
+                                                                            </label>
                         </li>
                     </ul>
                     {{ selectedUsersToAdd }}
@@ -51,10 +52,13 @@
             </div>
             <hr>
             <br>
-            <div>
-                <Button :callback="adicionarUsuarios" value=" Adicionar Usuários"></Button>
-                <Button :callback="adicionarUsuariosGrupo" value=" Adicionar Usuários em Grupo"></Button>
-                <Button :callback="removerUsuariosGrupo" value=" Remover Usuários em Grupo"></Button>
+            <div class="row sub-container">
+                <div class="col-sm-3">
+                    <Button :callback="adicionarUsuariosGrupo" value=" Adicionar Usuários em Grupo"></Button>
+                </div>
+                <div class="col-sm-3">
+                    <Button :callback="removerUsuariosGrupo" value=" Remover Usuários em Grupo"></Button>
+                </div>
     
             </div>
     

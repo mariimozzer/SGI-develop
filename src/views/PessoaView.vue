@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Pessoa </h1>
+                <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Pessoa </h3>
                 <hr/>
                 <br>
             </div>
@@ -48,11 +48,9 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="id_setor">Setor</label>
-                    <select class="combo form-control" v-model="pessoa.id_setor">
-                            <option value="" disabled> Selecione o Setor </option>
-                            <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
-
-
+                    <select class="combo form-select" v-model="pessoa.id_setor">
+                                <option value="" disabled> Selecione o Setor </option>
+                                <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
 
                 </div>
     
@@ -65,22 +63,9 @@
     
         </div>
         <div class="row">
+           
             <div class="col-sm-12">
-                <hr>
-                <h1>
-                    <!-- {{ pessoa }} -->
-                </h1>
-                <br>
-    
-            </div>
-            <div class="col-sm-12">
-                <!-- <h1>check {{ continuarAdicionando }}</h1> -->
-                <div v-show="modoCadastro" class="form-check-inline">
-                    <label class="form-check-label">
-                                                      <input type="checkbox" class="form-check-input" v-model="continuarAdicionando">
-                                                      Continuar adicionando
-                                                  </label>
-                </div>
+              
                 <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
                 <button @click="salvarPessoa" class="btn btn-primary float-right mr-2">Salvar</button>
             </div>
@@ -91,7 +76,6 @@
 <script>
 import Pessoa from '@/models/Pessoa'
 import pessoaService from '@/services/pessoa-service'
-import conversorDeData from '@/utils/conversor-data'
 import Setor from '@/models/Setor'
 import setorService from '@/services/setor-service'
 
@@ -121,8 +105,8 @@ export default {
     },
     methods: {
 
-        getAllSetor(){
-             setorService.obterTodos()
+        getAllSetor() {
+            setorService.obterTodos()
                 .then((response) => {
                     this.setores = response.data.map((p) => new Setor(p));
                 })
@@ -141,9 +125,6 @@ export default {
                 })
         },
         cadastrarPessoa() {
-
-            this.pessoa.dtNasc =
-                conversorDeData.aplicarMascaraISOEmFormatoAmericano(this.pessoa.dtNasc);
 
             pessoaService.cadastrar(this.pessoa)
                 .then(() => {
@@ -164,9 +145,6 @@ export default {
             (this.modoCadastro) ? this.cadastrarPessoa(): this.atualizarPessoa();
         },
         atualizarPessoa() {
-
-            this.pessoa.dtNasc =
-                conversorDeData.aplicarMascaraISOEmFormatoAmericano(this.pessoa.dtNasc);
 
             pessoaService.atualizar(this.pessoa)
 

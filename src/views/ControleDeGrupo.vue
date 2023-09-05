@@ -2,46 +2,48 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2 class="titulo"> Gerenciamento de Grupo </h2>
+                <h3 class="titulo"> Gerenciamento de Grupo </h3>
                 <hr>
             </div>
         </div>
         <div class="row sub-container">
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <Button :callback="adicionarGrupo" value=" Adicionar Grupo"></Button>
-            
-            
+            </div>
+    
+    
+            <div class="col-sm-2">
                 <Button :callback="vincularGrupo" value=" Vincular Grupo"></Button>
+    
+            </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+    
+                            <tr v-for="item in grupos" :key="item.id">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.nome }}</td>
+                    
+                                <td class="icon-tabela">
+                                    <i @click="editarGrupo(item)" class="fa fa-edit icones-tabela"></i> |
+                                    <i @click="excluirGrupo(item)" class="fa fa-trash icones-tabela"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    
-        <div class="row">
-            <div class="col-sm-3">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-    
-                        <tr v-for="item in grupos" :key="item.id">
-    
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.nome }}</td>
-                            <td></td>
-                            <td class="icon-tabela">
-                                <i @click="editarGrupo(item)" class="fa fa-edit icones-tabela"></i> |
-                                <i @click="excluirGrupo(item)" class="fa fa-trash icones-tabela"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 </template>
 
   
@@ -50,12 +52,14 @@ import Button from '../components/button/ButtonComponent.vue'
 import grupoService from '@/services/grupo-service'
 import Grupo from '@/models/Grupo'
 import conversorDeData from '../utils/conversor-data'
+ 
 
 
 export default {
     name: "ControleDeGrupo",
     components: {
         Button
+        
     },
     filters: {
         data(data) {
@@ -66,7 +70,8 @@ export default {
         return {
 
             grupos: [],
-            info: null
+            info: null,
+            exemplo: ''
 
         };
     },

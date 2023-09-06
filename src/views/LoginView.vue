@@ -1,17 +1,27 @@
 <template>
     <div class="box-login">
     
-        <div >
+        <div>
             <img class="logo" src="../../public/img/logo-preta.png">
-            <br> 
+            <br>
             <br>
             <h2 style="text-align: center;">Login</h2>
-          <br>
-            
+            <br>
+    
         </div>
     
         <input type="text" placeHolder="roboflex@roboflex.com.br" class="form-control">
-        <input type="password"    placeHolder="123456" class="form-control">
+        <input type="password" placeHolder="123456" class="form-control">
+        <br>
+      
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="roboflex" value="1" >
+            <label class="form-check-label" for="roboflex"> Roboflex </label>
+            <br>
+            <input class="form-check-input" type="radio" id="zontec" value="0" >
+            <label class="form-check-label" for="zontec"> Zontec </label>
+    
+        </div>
         <br>
         <Button value="Entrar" :callback="login"></Button>
     </div>
@@ -48,7 +58,7 @@ export default {
     border: 1px solid #ddd;
     margin-top: 150px;
     padding: 30px;
-    
+    border-radius: 20px;
 }
 
 .logo {
@@ -57,5 +67,5 @@ export default {
     color: var(--first-color);
     padding: 100;
     font-size: 22px;
-} 
+}
 </style>

@@ -156,17 +156,13 @@ export default {
 </script>
 
 <style>
-
-
+.navbar-toggler{
+    color: white !important;
+}
 
 
 .nav-link {
     color: #ffffff !important
-}
-
-.nav-link :last-child {
-    float: right;
-    margin-right: 100px;
 }
 
 nav {

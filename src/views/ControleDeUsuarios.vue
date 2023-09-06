@@ -23,6 +23,7 @@
                             <th>ID</th>
                             <th>Nome </th>
                             <th>Email </th>
+                            <th>Password</th>
                             <th>Grupo ID </th>
                             <th></th>
                         </tr>
@@ -38,6 +39,8 @@
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.email }}</td>   
+                            <td>{{ item.password }}</td>   
+
                             <td>{{ item.grupo_id }}</td> 
                              
                          

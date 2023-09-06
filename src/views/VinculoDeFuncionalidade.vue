@@ -10,15 +10,14 @@
         </div>
     
         <div class="row">
-            <div class="col-sm-10">
+            <div class="col-sm-6">
                 <div class="form-group">
     
                     <h6> Selecione um grupo: </h6>
-                    <br>
     
                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                                        <option value="" disabled> Selecione </option>  
-                                                     <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
+                                                                                                <option value="" disabled> Selecione </option>  
+                                                                                             <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
                 </div>
             </div>
             <br>
@@ -26,59 +25,79 @@
             <br>
             <hr>
             <br>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <div class="form-group">
     
                     <h6> Funcionalidades para adicionar: </h6>
+    
+                    <input type="text" class="form-control" v-model="searchTerm" @input="filterFuncionalidades" placeholder=" Pesquisar Funcionalidade " />
                     <br>
-                    <tr>
-                        <!-- <select class="combo" v-model="selectedFuncToAdd" @change="toggleGrupoToAdd(func.id)">
-                    <option value="" disabled> Lista de Funcionalidades </option>
-                    <option v-for="func in funcionalidadesParaAdicionar" :key="func.id">
-                        {{ func.nome }}</option>
-                    </select> -->
+                    <ul>
+                        <li v-for="func in filteredFuncionalidades" :key="func.id">
+                            <label>
+                                          <input
+                                            type="checkbox"
+                                            :value="func.id"
+                                            v-model="selectedFuncToAdd"
+                                            @change="toggleGrupoToAdd(func.id)"
+                                          />
+                                          ID: {{ func.id }} Nome: {{ func.nome }}
+                                        </label>
+                        </li>
+                    </ul>
     
-                        <ul>
-                            <li v-for="func in funcionalidadesParaAdicionar" :key="func.id">
-                                <label>
-                                <input type="checkbox" :value="func.id" v-model="selectedFuncToAdd" @change="toggleGrupoToAdd(func.id)"/>
-                                                                        ID: {{ func.id }} Nome: {{ func.nome }}          
-                                                                        </label>
-                            </li>
-                        </ul>
+                    {{ selectedFuncToAdd }} {{ grupoSelecionado }}
     
-                        {{ selectedFuncToAdd }}
-                        {{ grupoSelecionado }}
+                    <!-- <h6> Funcionalidades para adicionar: </h6>
+                                        <br>
+                                        <tr>
+                                            <ul>
+                                                <li v-for="func in funcionalidadesParaAdicionar" :key="func.id">
+                                                    <label>
+                                                     <input type="checkbox" :value="func.id" v-model="selectedFuncToAdd" @change="toggleGrupoToAdd(func.id)"/>
+                                                                                                                ID: {{ func.id }} Nome: {{ func.nome }}          
+                                                                                                                </label>
+                                                </li>
+                                            </ul>
+                                        </tr> -->
     
-                    </tr>
-                    <div class="col-3">
-                    <Button :callback="adicionarFuncGrupo" value="Adicionar"></Button> 
-                    </div>
                 </div>
             </div>
             <hr>
     
-            <div class="col-sm-12">
+            <div>
+    
                 <div class="form-group">
                     <h6 v-if="grupoSelecionado"> Funcionalidade no grupo: </h6>
-                    <div>
-    
+                    <br>
+                    <div class="col-sm-8">
+
+                        <button type="button" v-if="grupoSelecionado" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <div class="col-sm-12">
                         <table class="table table-bordered">
     
                             <tr class="titulo-tabela" v-if="grupoSelecionado">
+                                <td scope="col"></td>
+                                <td scope="col">ID</td>
                                 <td scope="col">Nome</td>
                                 <td scope="col"></td>
                             </tr>
     
+                            {{ selectedFuncToRemove }}
+    
                             <tbody style="align-items: center ">
                                 <tr v-for="item in funcGrupos" :key="item.id" :value="item.id">
+                                    <td><input type="checkbox" :value="item.id" v-model="selectedFuncToRemove" @change="toggleGrupoToRemove(item.id)" /></td>
+                                    <td>{{ item.id }}</td>
                                     <td>{{ item.nome }}</td>
                                     <td style="width: 60px"><button @click="removerFuncionalidadeGrupo" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                 </tr>
                             </tbody>
                         </table>
-    
+                        <br>
                     </div>
+    
                 </div>
             </div>
         </div>
@@ -87,18 +106,16 @@
 
 <script>
 import grupoService from '@/services/grupo-service';
-import Button from '@/components/button/ButtonComponent.vue'
+// import Button from '@/components/button/ButtonComponent.vue'
 import Grupo from '@/models/Grupo'
 import funcGrupoService from '@/services/func_grupo-service'
 import Funcionalidade from '@/models/Funcionalidade';
 import funcService from '@/services/funcionalidade-service'
 
-
-
 export default {
     name: "VinculoDeFuncionalidade",
     components: {
-        Button
+        // Button
     },
 
     data() {
@@ -109,7 +126,8 @@ export default {
             selectedGrupoToRemove: [],
             selectedFuncToRemove: [],
             selectedFuncToAdd: [],
-            funcionalidades: []
+            funcionalidades: [],
+            searchTerm: ""
         }
     },
 
@@ -123,12 +141,10 @@ export default {
                 return;
             }
 
-
-
             funcGrupoService
                 .cadastrar(selectedFuncToAdd, grupoSelecionado)
                 .then(() => {
-                    this.obterFuncionalidade(grupoSelecionado);
+                    this.obterFuncionalidadesGrupo(grupoSelecionado);
                     this.selectedFuncToAdd = [];
                 })
                 .catch(error => {
@@ -139,18 +155,15 @@ export default {
             console.log(grupoSelecionado)
         },
         toggleGrupoToAdd(grupoId) {
-  const index = this.selectedFuncToAdd.indexOf(grupoId);
-  if (index !== -1) {
-    this.selectedFuncToAdd.splice(index, 1); // Remove the item
-  } else {
-    this.selectedFuncToAdd.push(grupoId); // Add the item
-  }
-},
+            const index = this.selectedFuncToAdd.indexOf(grupoId);
+            if (index !== -1) {
+                this.selectedFuncToAdd.splice(index, 1); // Remove the item
+            } else {
+                this.selectedFuncToAdd.push(grupoId); // Add the item
+            }
+        },
 
-
-
-
-        toggleUserToRemove(funId) {
+        toggleGrupoToRemove(funId) {
             if (this.selectedFuncToRemove.includes(funId)) {
                 this.selectedFuncToRemove = this.selectedFuncToRemove.filter(id => id !== funId);
             } else {
@@ -178,14 +191,11 @@ export default {
                 return;
             }
 
-            console.log(selectedFuncToRemove)
-            console.log(grupoSelecionado)
-
-
-            funcGrupoService.deletar(selectedFuncToRemove, grupoSelecionado)
+            funcGrupoService.deletarTeste(selectedFuncToRemove, grupoSelecionado)
                 .then(() => {
                     this.obterFuncionalidadesGrupo(grupoSelecionado);
                     this.selectedGrupoToRemove = [];
+                    this.selectedFuncToRemove = [];
                 })
                 .catch(error => {
                     console.log(error);
@@ -218,6 +228,10 @@ export default {
             if (this.grupoSelecionado) {
                 this.obterFuncionalidadesGrupo(this.grupoSelecionado);
             }
+        },
+
+        filterFuncionalidades() {
+            // Chamado quando o usuário digita para atualizar a lista filtrada
         }
 
     },
@@ -225,7 +239,14 @@ export default {
     computed: {
         funcionalidadesParaAdicionar() {
             return this.funcionalidades.filter(grupo => !this.funcGrupos.some(funcGrupos => funcGrupos.id === grupo.id));
+        },
+        filteredFuncionalidades() {
+            // Filtra as funcionalidades com base no termo de pesquisa
+            return this.funcionalidadesParaAdicionar.filter((func) =>
+                func.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
+            );
         }
+
     },
 
     mounted() {

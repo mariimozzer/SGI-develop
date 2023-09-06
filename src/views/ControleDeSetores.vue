@@ -14,7 +14,7 @@
     
         <div class="container">
             <div>
-                <table style="width: 100%;"   class="table table-hover ">
+                <table id="tabela" style="width: 100%;"   class="table table-hover ">
                    
                     <thead>
                         <tr>
@@ -68,7 +68,7 @@ export default {
 
             setores: [],
             info: null
-
+          
         };
     },
 

@@ -16,7 +16,7 @@
             </div>
     
         </div>
-    
+
         <div class="row">
             <div class="col-sm-16">
                 <table class="table table-hover ">
@@ -52,7 +52,6 @@
         <br>
         <br>
     </div>
-   
 </template>
 
   
@@ -80,7 +79,7 @@ export default {
 
     methods: {
 
-        vincularFuncionalidade(){
+        vincularFuncionalidade() {
             this.$router.push({ name: "VincularFuncionalidade" })
 
         },

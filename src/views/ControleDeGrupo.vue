@@ -11,12 +11,8 @@
                 <Button :callback="adicionarGrupo" value=" Adicionar Grupo"></Button>
             </div>
     
-    
-            <div class="col-sm-2">
-                <Button :callback="vincularGrupo" value=" Vincular Grupo"></Button>
-    
-            </div>
-            </div>
+
+        </div>
     
             <div class="row">
                 <div class="col-sm-12">

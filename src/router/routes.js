@@ -12,8 +12,11 @@ import LoginView from "@/views/LoginView"
 import ControleDeUsuarios from "@/views/ControleDeUsuarios"
 import UsuarioView from "@/views/UsuarioView"
 import VinculoDeFuncionalidade from "@/views/VinculoDeFuncionalidade"
+import VinculoGrupo from "@/views/VinculoGrupo"
+import VinculoFuncionalidade from "@/views/VinculoFuncionalidade"
 
 const routes = [
+
 {
     path: '/home',
     name: 'home',
@@ -107,19 +110,39 @@ const routes = [
   },
 
   {
-    path: '/vinculo-de-grupo',
-    name: 'VincularGrupo',
+    path: '/teste',
+    name: 'testeGrupo',
     component: VinculoDeGrupo,
     title: 'Vincular Grupo'
     
   },
+
   {
-    path: '/vinculo-de-funcionalidade',
-    name: 'VincularFuncionalidade',
+    path: '/vinculo-de-grupo',
+    name: 'VincularGrupo',
+    component: VinculoGrupo,
+    title: 'Vincular Grupo'
+    
+  },
+
+
+  {
+    path: '/testeste',
+    name: 'testeteste',
     component: VinculoDeFuncionalidade,
     title: 'Vincular Funcionalidade'
     
   },
+
+  {
+    path: '/vinculo-de-funcionalidade',
+    name: 'VincularFuncionalidade',
+    component: VinculoFuncionalidade,
+    title: 'Vincular Funcionalidade'
+    
+  },
+
+
 
   {
     path: '/funcionalidade',

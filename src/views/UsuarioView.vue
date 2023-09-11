@@ -30,7 +30,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="grupo_id">Grupo</label>
-                    <select class="form-select combo" v-model="grupoSelecionado">
+                    <select class="form-select combo" v-model="usuario.grupo_id">
                                     <option value="" disabled>Selecione o grupo</option>
                                     <option v-for="item in grupos" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
     

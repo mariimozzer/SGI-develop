@@ -128,7 +128,7 @@ export default {
 
             pessoaService.cadastrar(this.pessoa)
                 .then(() => {
-                    alert("Pessoa cadastrado com sucesso!");
+                    // alert("Pessoa cadastrado com sucesso!");
                     this.pessoa = new Pessoa();
 
 

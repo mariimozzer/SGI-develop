@@ -3,6 +3,7 @@
     
         <div>
             <img class="logo" src="../../public/img/logo-preta.png">
+        
             <br>
             <br>
             <h2 style="text-align: center;">Login</h2>
@@ -15,10 +16,10 @@
         <br>
       
         <div class="form-check">
-            <input class="form-check-input" type="radio" id="roboflex" value="1" >
+            <input class="form-check-input" type="radio" id="roboflex" value="1" v-model="local">
             <label class="form-check-label" for="roboflex"> Roboflex </label>
             <br>
-            <input class="form-check-input" type="radio" id="zontec" value="0" >
+            <input class="form-check-input" type="radio" id="zontec" value="0" v-model="local">
             <label class="form-check-label" for="zontec"> Zontec </label>
     
         </div>
@@ -39,7 +40,7 @@ export default {
 
     data() {
         return {
-
+            local: ''
         }
     },
 

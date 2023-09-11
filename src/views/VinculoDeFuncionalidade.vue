@@ -75,7 +75,7 @@
                         <button type="button" v-if="grupoSelecionado" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa fa-plus"></i></button>
                     </div>
                     <div class="col-sm-12">
-                        <table class="table table-bordered">
+                        <table class="table ">
     
                             <tr class="titulo-tabela" v-if="grupoSelecionado">
                                 <td scope="col"></td>

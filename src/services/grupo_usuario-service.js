@@ -49,11 +49,11 @@ function deletarTeste(usuarioId, grupoId) {
   return new Promise((resolve, reject) => {
     return api.delete(apiUrl, { data: payload })
       .then(response => {
-        // console.log('API Response:', response.data); 
+        console.log('API Response:', response.data); 
         resolve(response);
       })
       .catch(error => {
-        // console.error('API Error:', error); 
+        console.error('API Error:', error); 
         reject(error);
       });
   });

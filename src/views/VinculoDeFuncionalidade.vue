@@ -16,8 +16,8 @@
                     <h6> Selecione um grupo: </h6>
     
                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                                                                                <option value="" disabled> Selecione </option>  
-                                                                                             <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
+                                                                                                    <option value="" disabled> Selecione </option>  
+                                                                                                 <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
                 </div>
             </div>
             <br>
@@ -35,31 +35,31 @@
                     <ul>
                         <li v-for="func in filteredFuncionalidades" :key="func.id">
                             <label>
-                                          <input
-                                            type="checkbox"
-                                            :value="func.id"
-                                            v-model="selectedFuncToAdd"
-                                            @change="toggleGrupoToAdd(func.id)"
-                                          />
-                                          ID: {{ func.id }} Nome: {{ func.nome }}
-                                        </label>
+                                              <input
+                                                type="checkbox"
+                                                :value="func.id"
+                                                v-model="selectedFuncToAdd"
+                                                @change="toggleGrupoToAdd(func.id)"
+                                              />
+                                               {{ func.nome }}
+                                            </label>
                         </li>
                     </ul>
     
                     {{ selectedFuncToAdd }} {{ grupoSelecionado }}
     
                     <!-- <h6> Funcionalidades para adicionar: </h6>
-                                        <br>
-                                        <tr>
-                                            <ul>
-                                                <li v-for="func in funcionalidadesParaAdicionar" :key="func.id">
-                                                    <label>
-                                                     <input type="checkbox" :value="func.id" v-model="selectedFuncToAdd" @change="toggleGrupoToAdd(func.id)"/>
-                                                                                                                ID: {{ func.id }} Nome: {{ func.nome }}          
-                                                                                                                </label>
-                                                </li>
-                                            </ul>
-                                        </tr> -->
+                                            <br>
+                                            <tr>
+                                                <ul>
+                                                    <li v-for="func in funcionalidadesParaAdicionar" :key="func.id">
+                                                        <label>
+                                                         <input type="checkbox" :value="func.id" v-model="selectedFuncToAdd" @change="toggleGrupoToAdd(func.id)"/>
+                                                                                                                    ID: {{ func.id }} Nome: {{ func.nome }}          
+                                                                                                                    </label>
+                                                    </li>
+                                                </ul>
+                                            </tr> -->
     
                 </div>
             </div>
@@ -71,7 +71,7 @@
                     <h6 v-if="grupoSelecionado"> Funcionalidade no grupo: </h6>
                     <br>
                     <div class="col-sm-8">
-
+    
                         <button type="button" v-if="grupoSelecionado" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa fa-plus"></i></button>
                     </div>
                     <div class="col-sm-12">

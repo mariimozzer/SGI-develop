@@ -16,41 +16,29 @@
             <div class="col-sm-16">
                 <table class="table table-hover ">
                     <thead>
-
-
-
                         <tr>
                             <th>ID</th>
                             <th>Nome </th>
                             <th>Email </th>
-                            <th>Password</th>
                             <th>Grupo ID </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
 
-                      
-
-    
                         <tr v-for="item in usuarios" :key="item.id">
                                                        
-    
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.email }}</td>   
-                            <td>{{ item.password }}</td>   
-
                             <td>{{ item.grupo_id }}</td> 
                              
-                         
                             <td class="icon-tabela">
                                 <i @click="editarUsuario(item)" class="fa fa-edit icones-tabela"></i> |
                                 <i @click="excluirUsuario(item)" class="fa fa-trash icones-tabela"></i>
                              
                             </td>
-                        </tr>  
-                       
+                        </tr>                         
                     </tbody>
                 </table>
             </div>
@@ -65,7 +53,6 @@ import usuarioService from '@/services/usuario-service'
 import Usuários from '@/models/Usuario'
 import Grupo from '@/models/Grupo'
 import grupoService from '@/services/grupo-service'
-
 
 export default {
     name: "ControleDeUsuarios",
@@ -96,8 +83,6 @@ export default {
                     console.log(error)
                 })
         },
-
-
 
         getAll() {
             usuarioService.obterTodos()
@@ -134,7 +119,6 @@ export default {
                     .catch(error => {
                         console.log(error);
                     });
-
             }
 
         },
@@ -142,7 +126,6 @@ export default {
 
     mounted() {
         this.getAll()
-
 
     }
 

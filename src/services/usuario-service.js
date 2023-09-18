@@ -18,10 +18,19 @@ function obterTodos(){
     });
 }
 
+function atualizar(usuario){
+    return new Promise((resolve, reject) => {
+        return api.put(`/usuario/${usuario.id}`, usuario)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+}
+
+
 
 function obterPorId(id){
     return new Promise((resolve, reject) => {
-        return api.get(`/grupo/${id}/usuarios`)
+        return api.get(`/usuario/${id}`)
         .then(response => resolve(response))
         .catch(error => reject(error));
     });
@@ -49,7 +58,8 @@ export default {
     obterTodos,
     obterPorId,
     cadastrar,
-    deletar
+    deletar,
+    atualizar
 }
 
 

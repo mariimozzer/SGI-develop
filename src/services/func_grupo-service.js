@@ -2,7 +2,7 @@ import api from './api';
 
 function cadastrar(funcId, grupoId) {
     const payload = {
-        idFunc: funcId,
+      idFunc: funcId,
       idGrupo: grupoId
     };
   
@@ -12,6 +12,22 @@ function cadastrar(funcId, grupoId) {
         .catch(error => reject(error));
     });
   }
+
+
+  //Grava mais de uma funcionalidade por vez
+function cadastrarMore(funcId, grupoId) {
+    const payload = {
+      funcionalidades: funcId,
+      idGrupo: grupoId
+    };
+  
+    return new Promise((resolve, reject) => {
+      return api.post(`/funcionalidades/grupo`, payload)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  }
+
 
 //Lista Grupos de uma funcionalidade
 function obterFuncionalidade(id){
@@ -75,6 +91,7 @@ export default {
     obterGrupos,
     deletar,
     deletarTeste,
-    cadastrar
+    cadastrar,
+    cadastrarMore
   
 }

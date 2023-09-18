@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-2">
-        <h3 class="titulo"> Vincular Grupos </h3>
+        <h3 class="titulo"> Vincular Usuário a Grupos </h3>
         <hr>
     
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
@@ -17,21 +17,22 @@
                 <div class="mb-2">
                     <label>Usuários no grupo: </label>
     
-                    <ul>
-                        <li v-for="user in grupoUsuario" :key="user.id">
+                    
+                        <div v-for="user in grupoUsuario" :key="user.id">
     
                             <label>
                                 <input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @click="toggleUserToRemove(user.id)"/>  {{ user.name }} 
                                 </label>
-                        </li>
-                    </ul>
+                            </div>
+                  
 
                 </div>
     
     
             </div>
-    
-    
+            
+            
+            
             <!-- COLUNA 2 -->
             <div class="align-content-end flex-flow col-md-3">
                 <div class="mb-2" v-if="grupoSelecionado">
@@ -42,21 +43,23 @@
                     <div>
                         <input type="text" class="form-control" v-model="searchTerm" @input="searchUser" placeholder=" Pesquisar Usuario  " />
                         <br>
-                        <ul>
-                            <li v-for="user in searchedUser" :key="user.id">
+                        
+                            <div v-for="user in searchedUser" :key="user.id">
                                 <label>
                                                                                 <input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @click="toggleUserToAdd(user.id)"/>
                                                                                  {{ user.name }}          
                                                                                 </label>
-                            </li>
-                        </ul>
+                                                                            </div>
+                       
                     </div>
     
                 </div>
             </div>
     
-    
+           
+
         </div>
+       
     </div>
 </template>
   
@@ -123,8 +126,6 @@ export default {
                 });
         },
 
-
-
         adicionarUsuariosGrupo() {
             let selectedUsersToAdd = this.selectedUsersToAdd.map(user => user);
             selectedUsersToAdd = parseFloat(selectedUsersToAdd)
@@ -143,7 +144,6 @@ export default {
                     console.log(error);
                 });
         },
-
 
         toggleUserToAdd(userId) {
             if (this.selectedUsersToAdd.includes(userId)) {

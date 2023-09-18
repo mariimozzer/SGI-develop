@@ -15,8 +15,9 @@ import VinculoDeFuncionalidade from "@/views/VinculoDeFuncionalidade"
 import VinculoGrupo from "@/views/VinculoGrupo"
 import VinculoFuncionalidade from "@/views/VinculoFuncionalidade"
 
-const routes = [
 
+const routes = [
+  
 {
     path: '/home',
     name: 'home',
@@ -26,7 +27,6 @@ const routes = [
   {
     path: '/',
     name: 'login',
-   
     component: LoginView,
     meta: {
       hideMenu: true
@@ -36,7 +36,8 @@ const routes = [
     path: '/pessoa',
     name: 'ControleDePessoas',
     component: ControleDePessoas,
-    title: 'Pessoa'   
+    title: 'Pessoa'  ,
+    meta: {requiresAuth: true}
   },
   {
     path: '/controle-de-pessoas/novo',
@@ -142,8 +143,6 @@ const routes = [
     
   },
 
-
-
   {
     path: '/funcionalidade',
     name: 'ControleDeFuncionalidade',
@@ -192,7 +191,10 @@ const routes = [
     component: UsuarioView,
     title: 'Excluir Usuario'  
   },
+
 ];
+
+
 
 export default routes
 

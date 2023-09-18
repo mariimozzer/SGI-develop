@@ -43,13 +43,13 @@ function deletarTeste(usuarioId, grupoId) {
   };
   
   const apiUrl = `/usuario/grupo`; 
-  console.log('API URL:', apiUrl);
-  console.log('Payload:', payload);
+  // console.log('API URL:', apiUrl);
+  // console.log('Payload:', payload);
 
   return new Promise((resolve, reject) => {
     return api.delete(apiUrl, { data: payload })
       .then(response => {
-        console.log('API Response:', response.data); 
+        // console.log('API Response:', response.data); 
         resolve(response);
       })
       .catch(error => {

@@ -149,9 +149,7 @@ export default {
             pessoaService.atualizar(this.pessoa)
 
                 .then(() => {
-                    alert("Pessoa atualizada com sucesso!");
                     this.$router.push({ name: "ControleDePessoas" });
-                    console.log(this.pessoa)
 
                 })
                 .catch(error => {

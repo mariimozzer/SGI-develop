@@ -11,10 +11,8 @@
                 <Button :callback="adicionarFuncionalidade" value=" Adicionar "></Button>
     
             </div>
-            <div class="col-sm-3">
-                <Button :callback="vincularFuncionalidade" value="Funcionalidade Grupo "></Button>
-            </div>
-    
+           
+
         </div>
 
         <div class="row">

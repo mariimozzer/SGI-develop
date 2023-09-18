@@ -65,7 +65,6 @@ export default {
 
             grupoService.cadastrar(this.grupo)
                 .then(() => {
-                    alert("Grupo cadastrado com sucesso!");
                     this.grupo = new Grupo();
 
 
@@ -83,7 +82,6 @@ export default {
 
             grupoService.atualizar(this.grupo)
                 .then(() => {
-                    alert("Grupo atualizado com sucesso!");
                     this.$router.push({ name: "ControleDeGrupo" });
 
                 })

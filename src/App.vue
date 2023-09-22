@@ -35,6 +35,27 @@ export default {
 </script>
 
 <style>
+.b-button{
+   
+      width: 100%;
+      background-color: var(--second-color) !important;
+      color: rgb(255, 255, 255) !important;
+      padding: 10px !important;
+      margin: 6px 0 !important;
+      border: none !important;
+      border-radius: 4px !important;
+      cursor: pointer;
+      
+  
+  
+}
+
+.b-button:hover {
+    background-color: #FBBF77 !important;
+}
+
+
+
 .table{
   text-align: center;
 }

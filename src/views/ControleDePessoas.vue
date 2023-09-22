@@ -8,10 +8,13 @@
         </div>
         <div class="row sub-container">
             <div class="col-sm-2">
-                <Button :callback="adicionarPessoa" value=" Adicionar "></Button>
+                <b-button @click="adicionarPessoa" class="b-button">
+                    <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+                    Adicionar
+                </b-button>
             </div>
         </div>
-    
+        <br>
         <div class="row">
             <div class="col-sm-16">
                 <table class="table  table-hover ">
@@ -29,7 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in pessoas" :key="item.id">
+                        <tr v-for="item in paginatedData" :key="item.id">
     
                             <td>{{ item.id }}</td>
                             <td>{{ item.nomeCompleto }}</td>
@@ -46,6 +49,23 @@
                         </tr>
                     </tbody>
                 </table>
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item" :class="{disabled: currentPage === 0}">
+                            <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                        </li>
+                        <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
+                            <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
+                        </li>
+                        <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
+                            <a class="page-link" href="#" aria-label="Next" @click="nextPage">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -53,7 +73,6 @@
 
   
 <script>
-import Button from '../components/button/ButtonComponent.vue'
 import pessoaService from '@/services/pessoa-service'
 import Pessoa from '@/models/Pessoa'
 import conversorDeData from '../utils/conversor-data'
@@ -61,7 +80,7 @@ import conversorDeData from '../utils/conversor-data'
 export default {
     name: "ControleDePessoas",
     components: {
-        Button
+
     },
     filters: {
         data(data) {
@@ -72,10 +91,24 @@ export default {
         return {
 
             pessoas: [],
-            info: null
+            info: null,
+            currentPage: 0,
+            itemsPerPage: 10
 
         };
     },
+
+    computed: {
+        paginatedData() {
+            const startIndex = this.currentPage * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            return this.pessoas.slice(startIndex, endIndex);
+        },
+        numberOfPages() {
+            return Math.ceil(this.pessoas.length / this.itemsPerPage);
+        },
+    },
+
 
     methods: {
 
@@ -100,24 +133,37 @@ export default {
         },
 
         excluirPessoa(pessoa) {
-            if (confirm(`Deseja excluir" ${pessoa.id} - ${pessoa.nomeCompleto}"`)) {
+            // if (confirm(`Deseja excluir" ${pessoa.id} - ${pessoa.nomeCompleto}"`)) {
 
-                pessoaService.deletar(pessoa.id)
-                    .then(() => {
-                        let indice = this.pessoas.findIndex(p => p.id == pessoa.id);
-                        this.pessoas.splice(indice, 1);
+            pessoaService.deletar(pessoa.id)
+                .then(() => {
+                    let indice = this.pessoas.findIndex(p => p.id == pessoa.id);
+                    this.pessoas.splice(indice, 1);
 
-                        setTimeout(() => {
-                            alert("Pessoa excluida com sucesso!");
-                        }, 500);
+                    // setTimeout(() => {
+                    //     alert("Pessoa excluida com sucesso!");
+                    // }, 500);
 
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
+                })
+                .catch(error => {
+                    console.log(error);
+                });
 
+            // }
+
+        },
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;
+        },
+        prevPage() {
+            if (this.currentPage > 0) {
+                this.currentPage--;
             }
-
+        },
+        nextPage() {
+            if (this.currentPage < this.numberOfPages - 1) {
+                this.currentPage++;
+            }
         },
     },
 

@@ -21,22 +21,22 @@
                     <input id="email" type="text" v-model="usuario.email" class="form-control">
                 </div>
             </div>
+            <!-- <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" type="text" v-model="usuario.password" class="form-control">
+                    </div>
+                </div> -->
             <div class="col-sm-12">
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" type="text" v-model="usuario.password" class="form-control">
-                </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label for="grupo_id">Grupo</label>
-                    <select class="form-select combo" v-model="usuario.grupo_id">
-                                    <option value="" disabled>Selecione o grupo</option>
-                                    <option v-for="item in grupos" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
-    
-    
-    
-                </div>
+                <!-- <div class="form-group">
+                        <label for="grupo_id">Grupo</label>
+                        <select class="form-select combo" v-model="usuario.grupo_id">
+                                        <option value="" disabled>Selecione o grupo</option>
+                                        <option v-for="item in grupos" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+        
+        
+        
+                    </div>  -->
                 <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
                 <button @click="salvarUsuario" class="btn btn-primary float-right mr-2">Salvar</button>
     

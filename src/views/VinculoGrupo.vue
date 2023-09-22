@@ -24,13 +24,8 @@
                                 <input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @click="toggleUserToRemove(user.id)"/>  {{ user.name }} 
                                 </label>
                             </div>
-                  
-
                 </div>
-    
-    
             </div>
-            
             
             
             <!-- COLUNA 2 -->

@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-2">
-        <h3 class="titulo"> Vincular Funcionalidade  </h3>
+        <h3 class="titulo"> Vincular Funcionalidade </h3>
         <hr>
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
             <!-- COLUNA 1 -->
@@ -10,8 +10,8 @@
                     <h6> Selecione um grupo: </h6>
     
                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                                                                                        <option value="" disabled> Selecione </option>  
-                                                                                                     <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
+                                                                                                            <option value="" disabled> Selecione </option>  
+                                                                                                         <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
     
     
                 </div>
@@ -21,13 +21,13 @@
                     <div class="mb-2">
                         <h6 v-if="grupoSelecionado"> Funcionalidade no grupo: </h6>
                         <br>
-
+    
     
                         <div class="col-sm-12">
                             <input type="text" class="form-control" v-model="searchGrupo" @input="filterFuncionalidadesGrupo" placeholder="Pesquisar Funcionalidade" />
                             <br>
-                            <table class="table ">
-
+                            <table class="table">
+    
                                 <tr class="titulo-tabela" v-if="grupoSelecionado">
                                     <td scope="col"></td>
                                     <!-- <td scope="col">ID</td> -->
@@ -36,7 +36,7 @@
                                 </tr>
     
                                 <tbody style="align-items: center ">
-                                    <tr v-for="item in funcGrupos" :key="item.id" :value="item.id">
+                                    <tr v-for="item in filteredFuncionalidadesGrupo" :key="item.id" :value="item.id">
                                         <td><input type="checkbox" :value="item.id" v-model="selectedFuncToRemove" @click="toggleGrupoToRemove(item.id)" /></td>
                                         <!-- <td>{{ item.id }}</td> -->
                                         <td>{{ item.nome }}</td>
@@ -48,38 +48,38 @@
                         </div>
     
                     </div>
-                </div> 
+                </div>
             </div>
     
-
+    
             <!-- COLUNA 2 -->
             <div class="align-content-end flex-flow col-md-5">
     
     
                 <div class="form-group">
-
+    
                     <div class="col-sm-8">
-                        <button type="button" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                        <button type="button" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa fa-plus"></i> Adicionar </button>
                         <br>
-
-                    <br>
-                    <h6> Funcionalidade para adicionar: </h6>
-
-                    <input type="text" class="form-control" v-model="searchTerm" @input="filterFuncionalidades" placeholder=" Pesquisar Funcionalidade " />
-                    <br>
-                    <ul>
-                        <div v-for="func in filteredFuncionalidadesAdd" :key="func.id">
-                            <label>
-                                      <input
-                                        type="checkbox"
-                                        :value="func.id"
-                                        v-model="selectedFuncToAdd"
-                                        @click="toggleGrupoToAdd(func.id)"
-                                      />
-                                        {{ func.nome }}
-                                    </label>
-                                </div>
-                    </ul>
+    
+                        <br>
+                        <h6> Funcionalidade para adicionar: </h6>
+    
+                        <input type="text" class="form-control" v-model="searchTerm" @input="filterFuncionalidades" placeholder=" Pesquisar Funcionalidade " />
+                        <br>
+                        <ul>
+                            <div v-for="func in filteredFuncionalidadesAdd" :key="func.id">
+                                <label>
+                                          <input
+                                            type="checkbox"
+                                            :value="func.id"
+                                            v-model="selectedFuncToAdd"
+                                            @click="toggleGrupoToAdd(func.id)"
+                                          />
+                                            {{ func.nome }}
+                                        </label>
+                            </div>
+                        </ul>
                     </div>
                 </div>
     
@@ -115,8 +115,8 @@ export default {
             selectedFuncToAdd: [],
             funcionalidades: [],
             searchTerm: "",
-            searchGrupo: ""
-
+            searchGrupo: "",
+            funcionalidadesNoGrupo: []
         }
     },
 
@@ -126,44 +126,41 @@ export default {
             let selectedFuncToAdd = this.selectedFuncToAdd.map(user => user);
 
 
-            if(selectedFuncToAdd == 1)
-            {
+            if (selectedFuncToAdd == 1) {
                 selectedFuncToAdd = parseFloat(selectedFuncToAdd)
-            const grupoSelecionado = this.grupoSelecionado;
-            if (!grupoSelecionado || selectedFuncToAdd.length === 0) {
-                return;
-            }
-
-            funcGrupoService
-                .cadastrar(selectedFuncToAdd, grupoSelecionado)
-                .then(() => {
-                    this.obterFuncionalidadesGrupo(grupoSelecionado);
-                    this.selectedFuncToAdd = [];
-                })
-                .catch(error => {
-                    console.log(error);
-                });  
-            }
-
-            else{
                 const grupoSelecionado = this.grupoSelecionado;
-            if (!grupoSelecionado || selectedFuncToAdd.length === 0) {
-                return;
+                if (!grupoSelecionado || selectedFuncToAdd.length === 0) {
+                    return;
+                }
+
+                funcGrupoService
+                    .cadastrar(selectedFuncToAdd, grupoSelecionado)
+                    .then(() => {
+                        this.obterFuncionalidadesGrupo(grupoSelecionado);
+                        this.selectedFuncToAdd = [];
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else {
+                const grupoSelecionado = this.grupoSelecionado;
+                if (!grupoSelecionado || selectedFuncToAdd.length === 0) {
+                    return;
+                }
+
+                funcGrupoService
+                    .cadastrarMore(selectedFuncToAdd, grupoSelecionado)
+                    .then(() => {
+                        this.obterFuncionalidadesGrupo(grupoSelecionado);
+                        this.selectedFuncToAdd = [];
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
 
-            funcGrupoService
-                .cadastrarMore(selectedFuncToAdd, grupoSelecionado)
-                .then(() => {
-                    this.obterFuncionalidadesGrupo(grupoSelecionado);
-                    this.selectedFuncToAdd = [];
-                })
-                .catch(error => {
-                    console.log(error);
-                });  
-            }
-            
 
-                    
+
         },
 
         toggleGrupoToAdd(grupoId) {
@@ -218,7 +215,8 @@ export default {
         obterFuncionalidadesGrupo(id) {
             funcGrupoService.obterFuncionalidade(id)
                 .then(response => {
-                    return this.funcGrupos = response.data;
+                    this.funcGrupos = response.data;
+                    this.funcionalidadesNoGrupo = this.funcGrupos.slice();
                 })
                 .catch(error => {
                     console.log(error)
@@ -243,14 +241,18 @@ export default {
         },
 
         filterFuncionalidades() {
-            // Chamado quando o usuário digita para atualizar a lista filtrada
+            this.funcionalidadesParaAdicionar = this.funcionalidades.filter(grupo => !this.funcGrupos.some(funcGrupos => funcGrupos.id === grupo.id));
+            this.filteredFuncionalidadesAdd = this.funcionalidadesParaAdicionar.filter((func) =>
+                func.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
+            );
         },
 
-        filterFuncionalidadesGrupo(){
+        filterFuncionalidadesGrupo() {
+            this.funcionalidadesNoGrupo = this.funcGrupos.filter(func => {
+                return func.nome.toLowerCase().includes(this.searchGrupo.toLowerCase());
+            });
+        },
 
-        }
-
-    
 
     },
 
@@ -262,15 +264,16 @@ export default {
             return this.funcionalidadesParaAdicionar.filter((func) =>
                 func.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
             );
-
         },
         funcionalidadesGrupo() {
-            return this.funcionalidades.filter(grupo => !this.funcGrupos.some(funcGrupos => funcGrupos.id === grupo.id));
+            return this.funcionalidadesNoGrupo;
         },
         filteredFuncionalidadesGrupo() {
             return this.funcionalidadesGrupo.filter((func) =>
                 func.nome.toLowerCase().includes(this.searchGrupo.toLowerCase())
             );
+
+
 
         },
 

@@ -8,32 +8,35 @@
         </div>
         <div class="row sub-container">
             <div class="col-sm-2">
-                <Button :callback="adicionarSetor" value=" Adicionar "></Button>
+                <b-button @click="adicionarSetor" class="b-button">
+                    <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+                    Adicionar
+                </b-button>
             </div>
         </div>
-    
+        <br>
         <div class="container">
             <div>
-                <table id="tabela" style="width: 100%;"   class="table table-hover ">
-                   
+                <table id="tabela" style="width: 100%;" class="table table-hover ">
+    
                     <thead>
                         <tr>
-                            <th scope="col" >ID</th>
-                            <th scope="col" >Nome </th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome </th>
                             <th></th>
                         </tr>
-
-
+    
+    
                     </thead>
-                      
-                
+    
+    
                     <tbody>
     
-                        <tr v-for="item in setores" :key="item.id">
+                        <tr v-for="item in paginatedData" :key="item.id">
     
                             <td>{{ item.id }}</td>
                             <td>{{ item.nome }}</td>
-                          
+    
                             <td class="icon-tabela" style="text-align: center;">
                                 <i @click="editarSetor(item)" class="fa fa-edit icones-tabela"></i> |
                                 <i @click="excluirSetor(item)" class="fa fa-trash icones-tabela"></i>
@@ -41,6 +44,23 @@
                         </tr>
                     </tbody>
                 </table>
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item" :class="{disabled: currentPage === 0}">
+                            <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
+                            <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
+                        </li>
+                        <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
+                            <a class="page-link" href="#" aria-label="Next" @click="nextPage">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -48,7 +68,6 @@
 
   
 <script>
-import Button from '../components/button/ButtonComponent.vue'
 import setorService from '@/services/setor-service'
 import Setores from '@/models/Setor'
 import conversorDeData from '../utils/conversor-data'
@@ -56,7 +75,7 @@ import conversorDeData from '../utils/conversor-data'
 export default {
     name: "ControleDeSetores",
     components: {
-        Button
+
     },
     filters: {
         data(data) {
@@ -67,9 +86,22 @@ export default {
         return {
 
             setores: [],
-            info: null
-          
+            info: null,
+            currentPage: 0,
+            itemsPerPage: 10
+
         };
+    },
+
+    computed: {
+        paginatedData() {
+            const startIndex = this.currentPage * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            return this.setores.slice(startIndex, endIndex);
+        },
+        numberOfPages() {
+            return Math.ceil(this.setores.length / this.itemsPerPage);
+        },
     },
 
     methods: {
@@ -114,6 +146,21 @@ export default {
             }
 
         },
+
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;
+        },
+        prevPage() {
+            if (this.currentPage > 0) {
+                this.currentPage--;
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.numberOfPages - 1) {
+                this.currentPage++;
+            }
+        },
+
     },
 
     mounted() {

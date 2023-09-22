@@ -14,16 +14,31 @@ import UsuarioView from "@/views/UsuarioView"
 import VinculoDeFuncionalidade from "@/views/VinculoDeFuncionalidade"
 import VinculoGrupo from "@/views/VinculoGrupo"
 import VinculoFuncionalidade from "@/views/VinculoFuncionalidade"
+import ResetarSenhaView from "@/views/ResetSenhaView"
+import EsqueceuSenhaView from "@/views/EsqueceuSenhaView"
 
 
 const routes = [
+
+  {
+    path: '/esqueceuSenha', 
+    name: 'EsqueceuSenha',
+    component: EsqueceuSenhaView,
+    
+  },
+
+  {
+    path: '/resetarSenha/', 
+    name: 'ResetarSenha',
+    component: ResetarSenhaView,
+    props: true 
+  },
   
-{
+  {
     path: '/home',
     name: 'home',
     component: HomeView
   },
-
   {
     path: '/',
     name: 'login',
@@ -109,7 +124,6 @@ const routes = [
     title: 'Excluir Grupo'
     
   },
-
   {
     path: '/teste',
     name: 'testeGrupo',
@@ -117,7 +131,6 @@ const routes = [
     title: 'Vincular Grupo'
     
   },
-
   {
     path: '/vinculo-de-grupo',
     name: 'VincularGrupo',
@@ -125,8 +138,6 @@ const routes = [
     title: 'Vincular Grupo'
     
   },
-
-
   {
     path: '/testeste',
     name: 'testeteste',
@@ -134,7 +145,6 @@ const routes = [
     title: 'Vincular Funcionalidade'
     
   },
-
   {
     path: '/vinculo-de-funcionalidade',
     name: 'VincularFuncionalidade',
@@ -142,7 +152,6 @@ const routes = [
     title: 'Vincular Funcionalidade'
     
   },
-
   {
     path: '/funcionalidade',
     name: 'ControleDeFuncionalidade',

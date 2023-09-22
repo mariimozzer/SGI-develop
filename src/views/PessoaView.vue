@@ -17,8 +17,16 @@
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="sexo">Sexo</label>
-                    <input id="sexo" type="text" v-model="pessoa.sexo" class="form-control">
+                    <label>Sexo</label>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="feminino" value="f" v-model="pessoa.sexo">
+                        <label class="form-check-label" for="feminino"> Feminino </label>
+                        <br>
+                        <input class="form-check-input" type="radio" id="masculino" value="m" v-model="pessoa.sexo">
+                        <label class="form-check-label" for="masculino"> Masculino </label>
+    
+                    </div>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -30,7 +38,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="CPF">CPF</label>
-                    <input id="CPF" type="number" v-model="pessoa.CPF" class="form-control">
+                    <input id="CPF" type="text" v-model="pessoa.CPF" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
@@ -49,25 +57,28 @@
                 <div class="form-group">
                     <label for="id_setor">Setor</label>
                     <select class="combo form-select" v-model="pessoa.id_setor">
-                                <option value="" disabled> Selecione o Setor </option>
-                                <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
-
-                </div>
+                                            <option value="" disabled> Selecione o Setor </option>
+                                            <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
     
+                </div>
             </div>
     
-    
-        </div>
-    
-        <div class="row">
-    
-        </div>
-        <div class="row">
-           
             <div class="col-sm-12">
-              
-                <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
-                <button @click="salvarPessoa" class="btn btn-primary float-right mr-2">Salvar</button>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="checkUsuario" value="usuarioGerar" v-model="gerarUsuarioCheck" />
+    <label class="form-check-label" for="checkUsuario">Gerar Usuario ? </label>
+  </div>
+</div>
+
+    
+    
+            <div class="row">
+    
+                <div class="col-sm-12">
+    
+                    <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
+                    <button @click="salvarPessoa" class="btn btn-primary float-right mr-2">Salvar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -78,6 +89,10 @@ import Pessoa from '@/models/Pessoa'
 import pessoaService from '@/services/pessoa-service'
 import Setor from '@/models/Setor'
 import setorService from '@/services/setor-service'
+import Usuario from '@/models/Usuario'
+import usuarioService from '@/services/usuario-service'
+import CryptoJS from 'crypto-js';
+
 
 
 export default {
@@ -85,25 +100,35 @@ export default {
     data() {
         return {
             pessoa: new Pessoa(),
+            usuario: new Usuario(),
+            gerarUsuarioCheck: '',
             modoCadastro: true,
             continuarAdicionando: false,
             setores: [],
-            setorSelecionado: null
+            setorSelecionado: null,
+            hash: '',
+            url: 'http://localhost:8081/vinculo-de-grupo'
         }
     },
     mounted() {
         this.getAllSetor()
 
         let id = this.$route.params.id;
-        if (!id)
-
-            return;
-
-        this.modoCadastro = false;
-        this.obterPessoaPorId(id);
-        //alert(this.$route.params.id)
-    },
+  this.modoCadastro = !id; // Se não houver um ID, estamos no modo de cadastro
+  this.gerarUsuarioCheck = this.modoCadastro; // Marcar por padrão se estivermos no modo de cadastro
+  if (!this.modoCadastro) {
+    this.obterPessoaPorId(id);
+  }
+},
+    
     methods: {
+
+        gerarHash() {
+            const randomString = Math.random().toString(36).substring(2);
+            const sha256Hash = CryptoJS.SHA256(randomString);
+            this.hash = sha256Hash.toString(CryptoJS.enc.Hex);
+            console.log('Generated Unique Hash:', this.hash);
+        },
 
         getAllSetor() {
             setorService.obterTodos()
@@ -124,20 +149,53 @@ export default {
                     console.log(error)
                 })
         },
-        cadastrarPessoa() {
+        makeToast() {
+            this.$bvToast.toast(`Usuário cadastrado com sucesso! \n Para dar permissões
+            `, {
+                href: this.url,
+                title: 'Adicionar Usuário',
+                autoHideDelay: 5000,
+            })
+        },
 
-            pessoaService.cadastrar(this.pessoa)
-                .then(() => {
-                    // alert("Pessoa cadastrado com sucesso!");
-                    this.pessoa = new Pessoa();
+        async cadastrarPessoa() {
+            this.usuario.email = this.pessoa.email
+            this.usuario.name = this.pessoa.nomeCompleto
+
+            if (this.gerarUsuarioCheck) {
+                pessoaService.cadastrar(this.pessoa)
+                    .then(() => {
+                        this.pessoa = new Pessoa();
+                    })
 
 
-                    this.$router.push({ name: "ControleDePessoas" })
+                usuarioService.cadastrar(this.usuario)
+                    .then(() => {
+                        this.usuario = new Usuario()
+                        this.makeToast()
+                    })
 
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+                    .catch(error => {
+                        console.log(error);
+                    });
+
+
+
+
+
+
+            } else {
+
+                pessoaService.cadastrar(this.pessoa)
+                    .then(() => {
+                        this.pessoa = new Pessoa();
+                        this.$router.push({ name: "ControleDePessoas" })
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
         },
 
         salvarPessoa() {

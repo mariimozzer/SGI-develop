@@ -7,16 +7,25 @@
             </div>
         </div>
         <div class="row sub-container">
-            <div class="col-sm-2">
-                <Button :callback="adicionarFuncionalidade" value=" Adicionar "></Button>
-    
+        
+            <div  class="col-sm-2">
+                <b-button @click="adicionarFuncionalidade" class="b-button">
+                    <b-icon icon="plus-circle"  aria-hidden="true"></b-icon> 
+                    Adicionar
+                </b-button>
             </div>
-           
-
         </div>
+        <br>
 
         <div class="row">
+            <div class="col-sm-4">
+            <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar funcionalidade por nome">
+            </div>
+        
+            <br>
+            <br>
             <div class="col-sm-16">
+
                 <table class="table table-hover ">
                     <thead>
                         <tr>
@@ -31,7 +40,7 @@
                     </thead>
                     <tbody>
     
-                        <tr v-for="item in funcionalidades" :key="item.id">
+                        <tr v-for="item in paginatedData" :key="item.id">
     
                             <td>{{ item.id }}</td>
                             <td>{{ item.nome }}</td>
@@ -45,6 +54,23 @@
                         </tr>
                     </tbody>
                 </table>
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item" :class="{disabled: currentPage === 0}">
+                            <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
+                            <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
+                        </li>
+                        <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
+                            <a class="page-link" href="#" aria-label="Next" @click="nextPage">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
         <br>
@@ -54,14 +80,12 @@
 
   
 <script>
-import Button from '../components/button/ButtonComponent.vue'
 import funcionalidadeService from '@/services/funcionalidade-service'
 import Funcionalidade from '@/models/Funcionalidade'
 
 export default {
     name: "ControleDeFuncionalidades",
     components: {
-        Button
     },
     filters: {
         data() {}
@@ -70,9 +94,27 @@ export default {
         return {
 
             funcionalidades: [],
-            info: null
+            info: null,
+            currentPage: 0,
+            itemsPerPage: 10,
+            filtro: '',
+         
 
         };
+    },
+    computed: {
+        paginatedData() {
+            const startIndex = this.currentPage * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            let funcionalidadesFiltradas = this.funcionalidades.filter(item => {
+                return item.nome.toLowerCase().includes(this.filtro.toLowerCase());
+            });
+            return funcionalidadesFiltradas.slice(startIndex, endIndex);
+        },
+        numberOfPages() {
+            return Math.ceil(this.funcionalidades.length / this.itemsPerPage);
+        },
+
     },
 
     methods: {
@@ -123,6 +165,22 @@ export default {
             }
 
         },
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;
+        },
+        prevPage() {
+            if (this.currentPage > 0) {
+                this.currentPage--;
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.numberOfPages - 1) {
+                this.currentPage++;
+            }
+        },
+        changePage() {
+            this.currentPage = this.selectedPage;
+        },
     },
 
     mounted() {
@@ -133,4 +191,11 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.input-group {
+    max-width: 300px; /* Ajuste conforme necessário */
+}
+
+</style>
 

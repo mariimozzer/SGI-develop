@@ -15,7 +15,12 @@
             </div>
         </div>
         <br>
-        <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+            <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar setor por nome">
+            </div>
+            <br>
+            <br>
             <div>
                 <table id="tabela" style="width: 100%;" class="table table-hover ">
     
@@ -88,7 +93,8 @@ export default {
             setores: [],
             info: null,
             currentPage: 0,
-            itemsPerPage: 10
+            itemsPerPage: 10,
+            filtro: ''
 
         };
     },
@@ -97,7 +103,11 @@ export default {
         paginatedData() {
             const startIndex = this.currentPage * this.itemsPerPage;
             const endIndex = startIndex + this.itemsPerPage;
-            return this.setores.slice(startIndex, endIndex);
+            let setoresFiltrados = this.setores.filter(item => {
+                return item.nome.toLowerCase().includes(this.filtro.toLowerCase());
+            });
+            return setoresFiltrados.slice(startIndex, endIndex);
+        
         },
         numberOfPages() {
             return Math.ceil(this.setores.length / this.itemsPerPage);

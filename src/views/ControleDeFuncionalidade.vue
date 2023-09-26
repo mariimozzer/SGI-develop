@@ -87,9 +87,7 @@ export default {
     name: "ControleDeFuncionalidades",
     components: {
     },
-    filters: {
-        data() {}
-    },
+    
     data() {
         return {
 

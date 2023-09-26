@@ -6,7 +6,7 @@
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
             <!-- COLUNA 1 -->
             <div class="align-content-center flex-wrap col-3">
-                <Button :callback="removerUsuariosGrupo" v-if="grupoSelecionado"   value=" Remover"></Button>
+                <Button :callback="removerUsuariosGrupo" v-if="grupoSelecionado" value="Remover"></Button>
 
                 <label>Selecione um grupo: </label>
                 <select class="combo form-select" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">

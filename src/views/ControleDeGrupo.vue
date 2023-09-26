@@ -17,6 +17,11 @@
         </div>
         <br>
         <div class="row">
+           <div class="col-sm-4">
+            <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar grupo por nome">
+            </div>
+            <br>
+            <br>
             <div class="col-sm-12">
                 <table class="table table-hover">
                     <thead>
@@ -81,13 +86,19 @@ export default {
             grupos: [],
             currentPage: 0,
             itemsPerPage: 5,
+            filtro: ''
         };
     },
     computed: {
         paginatedData() {
             const startIndex = this.currentPage * this.itemsPerPage;
             const endIndex = startIndex + this.itemsPerPage;
-            return this.grupos.slice(startIndex, endIndex);
+            let grupoFiltrado = this.grupos.filter(item => {
+                return item.nome.toLowerCase().includes(this.filtro.toLowerCase());
+            });
+            return grupoFiltrado.slice(startIndex, endIndex);
+
+
         },
         numberOfPages() {
             return Math.ceil(this.grupos.length / this.itemsPerPage);

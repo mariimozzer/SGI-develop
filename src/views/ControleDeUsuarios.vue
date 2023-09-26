@@ -16,6 +16,11 @@
         </div>
         <br>
         <div class="row">
+            <div class="col-sm-4">
+            <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar usuário por nome">
+            </div>
+            <br>
+            <br>
             <div class="col-sm-16">
                 <table class="table table-hover ">
                     <thead>
@@ -89,6 +94,7 @@ export default {
             info: null,
             currentPage: 0,
             itemsPerPage: 10,
+            filtro: ''
 
         };
     },
@@ -97,8 +103,11 @@ export default {
         paginatedData() {
             const startIndex = this.currentPage * this.itemsPerPage;
             const endIndex = startIndex + this.itemsPerPage;
-            return this.usuarios.slice(startIndex, endIndex);
-        },
+            let usuariosFiltrados = this.usuarios.filter(item => {
+                return item.name.toLowerCase().includes(this.filtro.toLowerCase());
+            });
+            return usuariosFiltrados.slice(startIndex, endIndex);     
+           },
         numberOfPages() {
             return Math.ceil(this.usuarios.length / this.itemsPerPage);
         },

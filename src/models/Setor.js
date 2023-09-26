@@ -1,4 +1,4 @@
-export default class Pessoa {
+export default class Setor {
     
     constructor(obj){
         obj = obj || {};

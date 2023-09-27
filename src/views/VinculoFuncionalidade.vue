@@ -6,12 +6,12 @@
             <!-- COLUNA 1 -->
             <div class="align-content-center flex-wrap col-md-5">
     
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <h6> Selecione um grupo: </h6>
     
                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                                                                                                    <option value="" disabled> Selecione </option>  
-                                                                                                                 <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
+                                                                                                                            <option value="" disabled> Selecione </option>  
+                                                                                                                         <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
     
     
                 </div>
@@ -47,16 +47,16 @@
                                 <ul v-if="grupoSelecionado" class="pagination">
                                     <li class="page-item" :class="{disabled: currentPage === 0}">
                                         <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
                                     </li>
                                     <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
                                         <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
                                     </li>
                                     <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
                                         <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
                                     </li>
                                 </ul>
                             </nav>
@@ -74,7 +74,7 @@
     
                 <div class="form-group">
     
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <button type="button" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i>&nbsp; Adicionar </button>
                         <br>
     
@@ -86,33 +86,33 @@
                         <ul>
                             <div v-for="func in paginatedDataAdd" :key="func.id">
                                 <label>
-                                                  <input
-                                                    type="checkbox"
-                                                    :value="func.id"
-                                                    v-model="selectedFuncToAdd"
-                                                    @click="toggleGrupoToAdd(func.id)"
-                                                  />
-                                                    {{ func.nome }}
-                                                </label>
+                                                          <input
+                                                            type="checkbox"
+                                                            :value="func.id"
+                                                            v-model="selectedFuncToAdd"
+                                                            @click="toggleGrupoToAdd(func.id)"
+                                                          />
+                                                            {{ func.nome }}
+                                                        </label>
                             </div>
                         </ul>
                         <nav>
-                                <ul  class="pagination">
-                                    <li class="page-item" :class="{disabled: currentPage === 0}">
-                                        <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                    </li>
-                                    <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
-                                        <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
-                                    </li>
-                                    <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
-                                        <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <ul class="pagination">
+                                <li class="page-item" :class="{disabled: currentPage === 0}">
+                                    <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                </li>
+                                <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
+                                    <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
+                                </li>
+                                <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
+                                    <a class="page-link" href="#" aria-label="Next" @click="nextPage">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -188,17 +188,14 @@ export default {
                         console.log(error);
                     });
             }
-
-
-
         },
 
         toggleGrupoToAdd(grupoId) {
             const index = this.selectedFuncToAdd.indexOf(grupoId);
             if (index !== -1) {
-                this.selectedFuncToAdd.splice(index, 1); // Remove the item
+                this.selectedFuncToAdd.splice(index, 1);
             } else {
-                this.selectedFuncToAdd.push(grupoId); // Add the item
+                this.selectedFuncToAdd.push(grupoId); 
             }
         },
 

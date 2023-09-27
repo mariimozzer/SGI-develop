@@ -22,7 +22,7 @@
             <br>
             <br>
             <div class="col-sm-16">
-                <table class="table  table-hover ">
+                <table style="width: 100%;" class="table table-hover ">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -47,7 +47,7 @@
                             <td>{{ item.email}}</td>
                             <td>{{ item.celular }}</td>
                             <td>{{ item.id_setor }}</td>
-                            <td class="icon-tabela">
+                            <td class="icon-tabela" style="text-align: center;">
                                 <i @click="editarPessoa(item)" class="fa fa-edit icones-tabela"></i> |
                                 <i @click="excluirPessoa(item)" class="fa fa-trash icones-tabela"></i>
                             </td>

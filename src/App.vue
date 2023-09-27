@@ -6,14 +6,18 @@
     
         </header>
     
-        <div class="back">
-           <br>
-            <router-view/>
+        <div class="container mt-2">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <router-view/>
+                </div>
+            </div>
+        </div>
            
             <FooterComponent></FooterComponent>
         </div>
       
-    </div>
+  
 </template>
 
 <script>
@@ -86,12 +90,12 @@ export default {
     text-align: center;
     color: var(--first-color);
 }
-
+/* 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
 body {
     font-family: 'montserrat', sans-serif;

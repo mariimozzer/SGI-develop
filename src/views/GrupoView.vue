@@ -66,6 +66,8 @@ export default {
             grupoService.cadastrar(this.grupo)
                 .then(() => {
                     this.grupo = new Grupo();
+                    this.$router.push({ name: "ControleDeGrupo" })
+
 
 
                 })

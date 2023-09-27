@@ -1,14 +1,18 @@
 <template>
-  <div> </div>
+  <div id="app">
+
+  </div>
+   
 </template>
 
 <script>
 
-  export default {
-    name: 'HomeComponent',
-
-    components: {
-      
-    },
-  }
+export default {
+ 
+ 
+}
 </script>
+
+<style>
+</style>
+

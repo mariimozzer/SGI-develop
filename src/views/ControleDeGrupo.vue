@@ -124,21 +124,21 @@ export default {
             this.$router.push({ name: "EditarGrupo", params: { id: grupo.id } })
         },
         excluirGrupo(grupo) {
-            if (confirm(`Deseja excluir" ${grupo.id} - ${grupo.nome}"`)) {
+            // if (confirm(`Deseja excluir" ${grupo.id} - ${grupo.nome}"`)) {
                 grupoService.deletar(grupo.id)
                     .then(() => {
                         let indice = this.grupos.findIndex(p => p.id == grupo.id);
                         this.grupos.splice(indice, 1);
 
-                        setTimeout(() => {
-                            alert("Grupo excluido com sucesso!");
-                        }, 500);
+                    //     setTimeout(() => {
+                    //         alert("Grupo excluido com sucesso!");
+                    //     }, 500);
 
                     })
                     .catch(error => {
                         console.log(error);
                     });
-            }
+            
         },
         setPage(pageNumber) {
             this.currentPage = pageNumber;

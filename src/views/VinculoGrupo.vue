@@ -4,66 +4,138 @@
         <hr>
     
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
+    
             <!-- COLUNA 1 -->
             <div class="align-content-center flex-wrap col-3">
-                <Button :callback="removerUsuariosGrupo" v-if="grupoSelecionado" value="Remover"></Button>
-
                 <label>Selecione um grupo: </label>
                 <select class="combo form-select" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                        <option value="" disabled>Selecione o grupo</option>
-                         <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+                         <option value="" disabled>Selecione o grupo</option>
+                        <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
     
                 <br>
+    
                 <div class="mb-2">
-                    <label>Usuários no grupo: </label>
     
-                    
-                        <div v-for="user in grupoUsuario" :key="user.id">
+                    <div class="col-sm-12">
+                        <!--Filtro -->
+                        <input v-if="grupoSelecionado" type="text" class="form-control" v-model="searchTermGrupo" @input="searchUserGrupo" placeholder="Pesquisar Usuário no Grupo" />
+                        <br>
+                        <table class="table">
+                            <!-- <tr class="titulo-tabela" v-for="user in filteredGroupUsers" :key="user.id" > -->
+                                <tr  v-for="user in filteredGroupUsers" :key="user.id" ></tr>
+                                <tr >
+
+                                <td scope="col"></td>
+                                <td scope="col" class="titulo-tabela">Usuários </td> <td style="width: 60px"><button @click="removerUsuariosGrupo" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+
+                                <td scope="col"></td>
+                            </tr>
     
-                            <label>
-                                <input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @click="toggleUserToRemove(user.id)"/>  {{ user.name }} 
-                                </label>
-                            </div>
+                            <tbody style="align-items: center;">
+                                <tr v-for="user in filteredGroupUsers" :key="user.id">
+                                    <td><input type="checkbox" :value="user.id" v-model="selectUsersToRemove" @click="toggleUserToRemove(user.id)" /> </td>
+                                    <td>{{ user.name }}</td>
+                                    <td></td>
+                                    <!-- <td style="width: 60px"><button @click="removerUsuariosGrupo" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+    
+                <!-- Paginação -->
+                <nav>
+                    <ul v-if="grupoSelecionado" class="pagination">
+                        <li class="page-item" :class="{disabled: currentPage === 0}">
+                            <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                        </li>
+                        <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
+                            <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
+                        </li>
+                        <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
+                            <a class="page-link" href="#" aria-label="Next" @click="nextPage">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            
             
             <!-- COLUNA 2 -->
             <div class="align-content-end flex-flow col-md-3">
-                <div class="mb-2" v-if="grupoSelecionado">
-                    <Button :callback="adicionarUsuariosGrupo" v-if="grupoSelecionado"  value=" Adicionar"></Button>
-
+                <!-- <div class="mb-2" v-if="grupoSelecionado">
+                    <Button :callback="adicionarUsuariosGrupo" v-if="grupoSelecionado" value=" Adicionar"></Button>
+    
                     <label>Usuários disponíveis: </label>
     
-                    <div>
-                        <input type="text" class="form-control" v-model="searchTerm" @input="searchUser" placeholder=" Pesquisar Usuario  " />
+                    <div> -->
+                        <!--Filtro -->
+                        <!-- <input type="text" class="form-control" v-model="searchTerm" @input="searchUser" placeholder=" Pesquisar Usuario  " />
                         <br>
-                        
-                            <div v-for="user in searchedUser" :key="user.id">
-                                <label>
-                                                                                <input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @click="toggleUserToAdd(user.id)"/>
-                                                                                 {{ user.name }}          
-                                                                                </label>
-                                                                            </div>
-                       
+    
+                        <div v-for="user in paginatedAvailableUsers" :key="user.id" :value="user.id">
+                            <label>
+                                 <input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @click="toggleUserToAdd(user.id)"/>
+                                 {{ user.name }}          
+                                </label>
+                        </div>
                     </div>
+     -->
     
-                </div>
+    
+                    <!-- Filtro -->
+                    <br>
+                    <br>
+                  
+                     <input type="text" class="form-control" v-model="searchTerm" @input="searchUser" placeholder=" Pesquisar Usuario  " />
+                     <br>
+                    <table class="table">
+                        <tr class="titulo-tabela">
+                            <td scope="col"></td>
+                            <td scope="col">Disponíveis</td>  <td style="width: 60px"><button @click="adicionarUsuariosGrupo" type="button" class="btn btn-success"><i class="fa fa-plus"></i></button></td> 
+                            <td scope="col"></td>
+                        </tr>
+    
+                        <tbody style="align-items: center ">
+                            <tr v-for="user in paginatedAvailableUsers" :key="user.id" :value="user.id">
+                            <td><input type="checkbox" :value="user.id" v-model="selectedUsersToAdd" @click="toggleUserToAdd(user.id)" /></td>
+                            <td>{{ user.name }}</td>
+                            <td></td>
+                             <!-- <td style="width: 60px"><button @click="adicionarUsuariosGrupo" type="button" class="btn btn-success"><i class="fa fa-plus"></i></button></td>  -->
+                            </tr>
+                        </tbody>
+    
+                    </table> 
+                
+                <!--Paginação -->
+                <nav>
+                    <ul v-if="grupoSelecionado" class="pagination">
+                        <li class="page-item" :class="{disabled: currentPageAvailable === 0}">
+                            <a class="page-link" href="#" aria-label="Previous" @click="prevPageAvailable">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                        </li>
+                        <li v-for="n in numberOfPagesAvailable" :key="n" class="page-item" :class="{active: n === currentPageAvailable}">
+                            <a class="page-link" href="#" @click="setPageAvailable(n)">{{ n + 1 }}</a>
+                        </li>
+                        <li class="page-item" :class="{disabled: currentPageAvailable === numberOfPagesAvailable - 1}">
+                            <a class="page-link" href="#" aria-label="Next" @click="nextPageAvailable">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-    
-           
-
         </div>
-       
     </div>
 </template>
   
 <script>
-import Button from '@/components/button/ButtonComponent.vue'
+// import Button from '@/components/button/ButtonComponent.vue'
 import Grupo from '@/models/Grupo'
 import grupoService from '@/services/grupo-service'
-import Pessoa from '@/models/Pessoa'
-import pessoaService from '@/services/pessoa-service'
 import Usuario from '@/models/Usuario'
 import usuarioService from '@/services/usuario-service'
 import grupoUsuarioService from '@/services/grupo_usuario-service'
@@ -72,7 +144,7 @@ import grupoUsuarioService from '@/services/grupo_usuario-service'
 export default {
     name: "VinculoDeGrupo",
     components: {
-        Button
+        // Button
 
     },
 
@@ -88,7 +160,12 @@ export default {
             grupoUsuario: [],
             selectedUsersToAdd: [],
             selectUsersToRemove: [],
-            searchTerm: ""
+            searchTerm: "",
+            searchTermGrupo: "",
+            currentPage: 0,
+            itemsPerPage: 5,
+            currentPageAvailable: 0,
+            itemsPerPageAvailable: 5
 
         }
     },
@@ -97,6 +174,39 @@ export default {
 
         searchUser() {
             // Chamado quando o usuário digita para atualizar a lista filtrada
+        },
+
+        searchUserGrupo() {
+            // Chamado quando o usuário digita para atualizar a lista filtrada
+        },
+
+        nextPageAvailable() {
+            if (this.currentPageAvailable < this.numberOfPagesAvailable - 1) {
+                this.currentPageAvailable++;
+            }
+        },
+
+
+        setPage(pageNumber) {
+            this.currentPage = pageNumber;
+        },
+        prevPage() {
+            if (this.currentPage > 0) {
+                this.currentPage--;
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.numberOfPages - 1) {
+                this.currentPage++;
+            }
+        },
+        setPageAvailable(pageNumber) {
+            this.currentPageAvailable = pageNumber;
+        },
+        prevPageAvailable() {
+            if (this.currentPageAvailable > 0) {
+                this.currentPageAvailable--;
+            }
         },
 
         adicionarUsuarios() {
@@ -176,16 +286,6 @@ export default {
                 })
         },
 
-        getAllPessoas() {
-            pessoaService.obterTodos()
-                .then((response) => {
-                    this.pessoas = response.data.data.map((p) => new Pessoa(p));
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-
 
         obterUsuarioPorGrupo(id) {
             grupoUsuarioService.obterPorId(id)
@@ -216,6 +316,24 @@ export default {
     },
 
     computed: {
+        filteredGroupUsers() {
+            if (!this.grupoUsuario || this.searchTermGrupo === "") {
+                return this.paginatedGroupUsers;
+            }
+            return this.paginatedGroupUsers.filter(user => {
+                return user.name.toLowerCase().includes(this.searchTermGrupo.toLowerCase());
+            });
+        },
+
+
+
+        grupoUsuarioFiltrado() {
+            return this.grupoUsuario.filter(user => {
+                return user.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+            });
+        },
+
+
 
         filteredUsers() {
             const selectedGroupId = parseInt(this.grupoSelecionado);
@@ -232,16 +350,51 @@ export default {
                 user.name.toLowerCase().includes(this.searchTerm.toLowerCase())
 
             );
-        }
+        },
+
+
+        paginatedGroupUsers() {
+            const startIndex = this.currentPage * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            let usuariosFiltrados = this.grupoUsuario.filter(user => {
+                return user.name.toLowerCase().includes(this.searchTermGrupo.toLowerCase());
+            });
+            return usuariosFiltrados.slice(startIndex, endIndex);
+        },
+        paginatedAvailableUsers() {
+            const startIndex = this.currentPageAvailable * this.itemsPerPageAvailable;
+            const endIndex = startIndex + this.itemsPerPageAvailable;
+            let usuariosFiltrados = this.usuarios.filter(user => {
+                return !this.grupoUsuario.some(grupoUser => grupoUser.id === user.id) &&
+                    user.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+            });
+            return usuariosFiltrados.slice(startIndex, endIndex);
+        },
+        numberOfPages() {
+            return Math.ceil(this.grupoUsuario.length / this.itemsPerPage);
+        },
+        numberOfPagesAvailable() {
+            return Math.ceil(this.usuarios
+                .filter(user => !this.grupoUsuario.some(grupoUser => grupoUser.id === user.id))
+                .filter(user => user.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
+                .length / this.itemsPerPageAvailable);
+        },
     },
 
     mounted() {
         this.getAllGrupos();
-        this.getAllPessoas();
         this.getAllUsuarios();
 
     }
 }
 </script>
 
-  
+<style scoped>
+.titulo-tabela {
+    font-weight: bold;
+}
+
+.table {
+    width: 100%
+}
+</style>

@@ -3,42 +3,39 @@
         <h3 class="titulo"> Vincular Funcionalidade </h3>
         <hr>
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
+
             <!-- COLUNA 1 -->
             <div class="align-content-center flex-wrap col-md-5">
-    
                 <div class="col-sm-8">
-                    <h6> Selecione um grupo: </h6>
-    
+                    <label> Selecione um grupo: </label>
                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                                                                                                            <option value="" disabled> Selecione </option>  
-                                                                                                                         <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
-    
-    
+                    <option value="" disabled> Selecione </option>  
+                    <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
                 </div>
     
-                <div class="col-sm-8">
+                <!-- <div class="col-sm-8"> -->
                     <br>
                     <div class="mb-2">
-                        <h6 v-if="grupoSelecionado"> Funcionalidade no grupo: </h6>
+                        <!-- <h6 v-if="grupoSelecionado"> Funcionalidade no grupo: </h6> -->
     
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" v-model="searchGrupo" @input="filterFuncionalidadesGrupo" placeholder="Pesquisar Funcionalidade" />
+                            <input v-if="grupoSelecionado" type="text" class="form-control" v-model="searchGrupo" @input="filterFuncionalidadesGrupo" placeholder="Pesquisar Funcionalidade" />
                             <br>
                             <table class="table">
     
                                 <tr class="titulo-tabela" v-if="grupoSelecionado">
                                     <td scope="col"></td>
                                     <!-- <td scope="col">ID</td> -->
-                                    <td scope="col">Funcionalidade</td>
+                                    <td scope="col">Funcionalidades</td> <td style="width: 60px"><b-button variant="danger"  @click="removerFuncionalidadeGrupo" ><i class="fa fa-trash"></i></b-button></td>
                                     <td scope="col"></td>
                                 </tr>
     
                                 <tbody style="align-items: center ">
                                     <tr v-for="item in paginatedDataGrupo" :key="item.id" :value="item.id">
-                                        <td><input type="checkbox" :value="item.id" v-model="selectedFuncToRemove" @click="toggleGrupoToRemove(item.id)" /></td>
+                                        <td><input type="checkbox" :value="item.id" v-model="selectedFuncToRemove" v-on:click="toggleGrupoToRemove(item.id)" /></td>
                                         <!-- <td>{{ item.id }}</td> -->
                                         <td>{{ item.nome }}</td>
-                                        <td style="width: 60px"><button @click="removerFuncionalidadeGrupo" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
     
@@ -47,16 +44,16 @@
                                 <ul v-if="grupoSelecionado" class="pagination">
                                     <li class="page-item" :class="{disabled: currentPage === 0}">
                                         <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
                                     </li>
                                     <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
                                         <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
                                     </li>
                                     <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
                                         <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
                                     </li>
                                 </ul>
                             </nav>
@@ -64,7 +61,7 @@
                         </div>
     
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
     
     
@@ -73,43 +70,60 @@
     
     
                 <div class="form-group">
-    
-                    <div class="col-sm-8">
-                        <button type="button" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i>&nbsp; Adicionar </button>
+                    <div class="col-sm-12">
+                        
+                        <!-- <button type="button" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i>&nbsp; Adicionar </button> -->
                         <br>
-    
                         <br>
-                        <h6> Funcionalidade para adicionar: </h6>
-    
+                        <!-- <h6> Funcionalidade para adicionar: </h6> -->
                         <input type="text" class="form-control" v-model="searchTerm" @input="filterFuncionalidades" placeholder=" Pesquisar Funcionalidade " />
                         <br>
-                        <ul>
-                            <div v-for="func in paginatedDataAdd" :key="func.id">
-                                <label>
-                                                          <input
-                                                            type="checkbox"
-                                                            :value="func.id"
-                                                            v-model="selectedFuncToAdd"
-                                                            @click="toggleGrupoToAdd(func.id)"
-                                                          />
-                                                            {{ func.nome }}
-                                                        </label>
-                            </div>
-                        </ul>
+                        <table class="table">
+                            <tr class="titulo-tabela">
+                                <td scope="col"></td>
+                                <td scope="col">Disponíveis</td> <td style="width: 60px;"><button type="button" @click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i></button></td>
+                                <td scope="col"></td>
+                            </tr>
+    
+                            <tbody style="align-items: center;">
+                                <tr v-for="func in paginatedDataAdd" :key="func.id" >
+                                <td><input type="checkbox" :value="func.id" v-model="selectedFuncToAdd" @click="toggleGrupoToAdd(func.id)" /></td>
+                                <td>{{ func.nome }}</td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+    
+    
+    
+                        <!-- <br>
+                            <ul>
+                                <div v-for="func in paginatedDataAdd" :key="func.id">
+                                    <label>
+                                                              <input
+                                                                type="checkbox"
+                                                                :value="func.id"
+                                                                v-model="selectedFuncToAdd"
+                                                                @click="toggleGrupoToAdd(func.id)"
+                                                              />
+                                                                {{ func.nome }}
+                                                            </label>
+                                </div>
+                            </ul> -->
                         <nav>
                             <ul class="pagination">
-                                <li class="page-item" :class="{disabled: currentPage === 0}">
-                                    <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
+                                <li class="page-item" :class="{disabled: currentPageAvailable === 0}">
+                                    <a class="page-link" href="#" aria-label="Previous" @click="prevPageAvailable">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
                                 </li>
-                                <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
-                                    <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
+                                <li v-for="n in numberOfPagesAvailable" :key="n" class="page-item" :class="{active: n === currentPageAvailable}">
+                                    <a class="page-link" href="#" @click="setPageAvailable(n)">{{ n + 1 }}</a>
                                 </li>
-                                <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
-                                    <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
+                                <li class="page-item" :class="{disabled: currentPageAvailable === numberOfPagesAvailable - 1}">
+                                    <a class="page-link" href="#" aria-label="Next" @click="nextPageAvailable">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
                                 </li>
                             </ul>
                         </nav>
@@ -147,6 +161,8 @@ export default {
             funcionalidadesNoGrupo: [],
             currentPage: 0,
             itemsPerPage: 5,
+            currentPageAvailable: 0,
+            itemsPerPageAvailable: 5
         }
     },
 
@@ -195,7 +211,7 @@ export default {
             if (index !== -1) {
                 this.selectedFuncToAdd.splice(index, 1);
             } else {
-                this.selectedFuncToAdd.push(grupoId); 
+                this.selectedFuncToAdd.push(grupoId);
             }
         },
 
@@ -282,6 +298,12 @@ export default {
         setPage(pageNumber) {
             this.currentPage = pageNumber;
         },
+
+        setPageAvailable(pageNumber){
+            this.currentPageAvailable = pageNumber;
+        },
+
+
         prevPage() {
             if (this.currentPage > 0) {
                 this.currentPage--;
@@ -291,7 +313,18 @@ export default {
             if (this.currentPage < this.numberOfPages - 1) {
                 this.currentPage++;
             }
-        }
+        },
+
+        nextPageAvailable() {
+            if (this.currentPageAvailable < this.numberOfPagesAvailable - 1) {
+                this.currentPageAvailable++;
+            }
+        },
+        prevPageAvailable() {
+            if (this.currentPageAvailable > 0) {
+                this.currentPageAvailable--;
+            }
+        },
 
     },
 
@@ -327,12 +360,16 @@ export default {
             return this.funcionalidadesGrupo.filter((func) =>
                 func.nome.toLowerCase().includes(this.searchGrupo.toLowerCase())
             );
-
-
-
         },
 
+        numberOfPagesAvailable() {
+            return Math.ceil(this.funcionalidades
 
+
+                .filter(func => !this.funcionalidadesGrupo.some(funcGrupos => funcGrupos.id === func.id))
+                .filter(func => func.nome.toLowerCase().includes(this.searchTerm.toLowerCase()))
+                .length / this.itemsPerPageAvailable);
+        },
 
     },
 

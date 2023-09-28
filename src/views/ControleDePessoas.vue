@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-md-12">
                 <h3 class="titulo"> Gerenciamento de Pessoas </h3>
                 <hr>
             </div>
         </div>
         <div class="row sub-container">
-            <div class="col-sm-2">
+            <div class="col-md-2">
                 <b-button @click="adicionarPessoa" class="b-button">
                     <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
                     Adicionar
@@ -16,13 +16,13 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-md-4">
             <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar pessoa por nome">
             </div>
             <br>
             <br>
-            <div class="col-sm-16">
-                <table style="width: 100%;" class="table table-hover ">
+            <div class="col-md-12">
+                <table class="table table-hover ">
                     <thead>
                         <tr>
                             <th>ID</th>

@@ -2,32 +2,30 @@
     <div class="container mt-2">
         <h3 class="titulo"> Vincular Usuário a Grupos </h3>
         <hr>
-    
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
     
             <!-- COLUNA 1 -->
-            <div class="align-content-center flex-wrap col-3">
-                <label>Selecione um grupo: </label>
-                <select class="combo form-select" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                         <option value="" disabled>Selecione o grupo</option>
-                        <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
-    
+            <div class="align-content-center flex-wrap col-md-5">
+                <div class="col-sm-8">
+                     <label>Selecione um grupo: </label>
+                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
+                     <option value="" disabled> Selecione </option>
+                      <option v-for="item in gruposDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+                </div>
+              
                 <br>
     
                 <div class="mb-2">
     
                     <div class="col-sm-12">
                         <!--Filtro -->
-                        <input v-if="grupoSelecionado" type="text" class="form-control" v-model="searchTermGrupo" @input="searchUserGrupo" placeholder="Pesquisar Usuário no Grupo" />
+                        <input v-if="grupoSelecionado" type="text" class="form-control" v-model="searchTermGrupo" @input="searchUserGrupo" placeholder="Pesquisar Usuário" />
                         <br>
                         <table class="table">
-                            <!-- <tr class="titulo-tabela" v-for="user in filteredGroupUsers" :key="user.id" > -->
-                                <tr  v-for="user in filteredGroupUsers" :key="user.id" ></tr>
-                                <tr >
-
+                                <tr class="titulo-tabela" v-if="grupoSelecionado">
+                                <!-- <tr  v-for="user in filteredGroupUsers" :key="user.id" > -->
                                 <td scope="col"></td>
-                                <td scope="col" class="titulo-tabela">Usuários </td> <td style="width: 60px"><button @click="removerUsuariosGrupo" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-
+                                <td scope="col" class="titulo-tabela" v-if="grupoSelecionado">Usuários </td> <td style="width: 60px"><button @click="removerUsuariosGrupo" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                 <td scope="col"></td>
                             </tr>
     
@@ -64,7 +62,16 @@
             </div>
             
             <!-- COLUNA 2 -->
-            <div class="align-content-end flex-flow col-md-3">
+            <div class="align-content-end flex-flow col-md-5">
+                <div class="form-group">
+                    <div class="col-sm-12">
+
+
+               
+
+
+
+
                 <!-- <div class="mb-2" v-if="grupoSelecionado">
                     <Button :callback="adicionarUsuariosGrupo" v-if="grupoSelecionado" value=" Adicionar"></Button>
     
@@ -94,7 +101,7 @@
                     <table class="table">
                         <tr class="titulo-tabela">
                             <td scope="col"></td>
-                            <td scope="col">Disponíveis</td>  <td style="width: 60px"><button @click="adicionarUsuariosGrupo" type="button" class="btn btn-success"><i class="fa fa-plus"></i></button></td> 
+                            <td scope="col">Disponíveis</td>  <td style="width: 60px"><button @click="adicionarUsuariosGrupo" type="button" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i></button></td> 
                             <td scope="col"></td>
                         </tr>
     
@@ -111,7 +118,7 @@
                 
                 <!--Paginação -->
                 <nav>
-                    <ul v-if="grupoSelecionado" class="pagination">
+                    <ul class="pagination">
                         <li class="page-item" :class="{disabled: currentPageAvailable === 0}">
                             <a class="page-link" href="#" aria-label="Previous" @click="prevPageAvailable">
                                                         <span aria-hidden="true">&laquo;</span>
@@ -128,6 +135,8 @@
                     </ul>
                 </nav>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 </template>

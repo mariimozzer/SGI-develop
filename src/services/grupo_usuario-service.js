@@ -43,13 +43,11 @@ function deletarTeste(usuarioId, grupoId) {
   };
   
   const apiUrl = `/usuario/grupo`; 
-  // console.log('API URL:', apiUrl);
-  // console.log('Payload:', payload);
+  
 
   return new Promise((resolve, reject) => {
     return api.delete(apiUrl, { data: payload })
       .then(response => {
-        // console.log('API Response:', response.data); 
         resolve(response);
       })
       .catch(error => {
@@ -61,10 +59,49 @@ function deletarTeste(usuarioId, grupoId) {
 
 
 
+function cadastrarMore(usuarioId, grupoId) {
+  const payload = {
+    idUsers: usuarioId,
+    idGrupo: grupoId
+  };
+
+  return new Promise((resolve, reject) => {
+    return api.post(`/usuarios/grupo`, payload)
+      .then(response => resolve(response))
+      .catch(error => reject(error));
+  });
+}
+
+function deletarMore(usuarioId, grupoId) {
+  const payload = {
+    idUsers: usuarioId,
+    idGrupo: grupoId
+  };
+  
+  const apiUrl = `/usuarios/grupo`; 
+  
+
+  return new Promise((resolve, reject) => {
+    return api.delete(apiUrl, { data: payload })
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.error('API Error:', error); 
+        reject(error);
+      });
+  });
+}
+
+
+
+
 export default {
 
     obterPorId,
     cadastrar,
     deletar,
-    deletarTeste
+    deletarTeste,
+    cadastrarMore,
+    deletarMore
 }

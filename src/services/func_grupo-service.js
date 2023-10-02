@@ -14,21 +14,6 @@ function cadastrar(funcId, grupoId) {
   }
 
 
-  //Grava mais de uma funcionalidade por vez
-function cadastrarMore(funcId, grupoId) {
-    const payload = {
-      funcionalidades: funcId,
-      idGrupo: grupoId
-    };
-  
-    return new Promise((resolve, reject) => {
-      return api.post(`/funcionalidades/grupo`, payload)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
-    });
-  }
-
-
 //Lista Grupos de uma funcionalidade
 function obterFuncionalidade(id){
     return new Promise((resolve, reject) => {
@@ -75,7 +60,6 @@ function deletar(funcId, grupoId){
     return new Promise((resolve, reject) => {
       return api.delete(apiUrl, { data: payload })
         .then(response => {
-          // console.log('API Response:', response.data); 
           resolve(response);
         })
         .catch(error => {
@@ -85,6 +69,45 @@ function deletar(funcId, grupoId){
     });
   }
 
+  function deletarMore(funcId, grupoId) {
+    const payload = {
+      idFuncs: funcId,
+      idGrupo: grupoId
+    };
+    
+    const apiUrl = `/funcs/grupo`; 
+   
+  
+    return new Promise((resolve, reject) => {
+      return api.delete(apiUrl, { data: payload })
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          console.error('API Error:', error); 
+          reject(error);
+        });
+    });
+  }
+
+//Grava mais de uma funcionalidade por vez
+function cadastrarMore(funcId, grupoId) {
+  const payload = {
+    funcionalidades: funcId,
+    idGrupo: grupoId
+  };
+
+  return new Promise((resolve, reject) => {
+    return api.post(`/funcionalidades/grupo`, payload)
+      .then(response => resolve(response))
+      .catch(error => reject(error));
+  });
+}
+
+
+
+
+
 export default {
 
     obterFuncionalidade,
@@ -92,6 +115,7 @@ export default {
     deletar,
     deletarTeste,
     cadastrar,
-    cadastrarMore
+    cadastrarMore,
+    deletarMore
   
 }

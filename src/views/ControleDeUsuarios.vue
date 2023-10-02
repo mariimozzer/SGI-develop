@@ -10,14 +10,20 @@
             <div class="col-sm-2">
                 <b-button @click="adicionarUsuario" class="b-button">
                     <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-                    Adicionar
+                    
                 </b-button>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-sm-4">
-            <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar usuário por nome">
+                <b-input-group class="mb-2">
+                    <b-input-group-prepend is-text>
+                        <b-icon icon="search"></b-icon>
+                    </b-input-group-prepend>
+                    <b-form-input type="text" placeholder="Pesquisar usuário por nome" v-model="filtro"></b-form-input>
+                </b-input-group>
+
             </div>
             <br>
             <br>

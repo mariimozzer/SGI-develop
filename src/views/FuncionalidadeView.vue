@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Funcionalidade </h3>
+                <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Telas </h3>
                 <hr/>
                 <br>
             </div>

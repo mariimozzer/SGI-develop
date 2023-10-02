@@ -25,20 +25,19 @@
                         <br>
                         <input class="form-check-input" type="radio" id="masculino" value="m" v-model="pessoa.sexo">
                         <label class="form-check-label" for="masculino"> Masculino </label>
-    
                     </div>
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="dtNasc">Data de Nascimento</label>
-                    <input id="dtNasc" type="date" v-model="pessoa.dtNasc" class="form-control">
+                    <input id="dtNasc"  type="date" v-model="pessoa.dtNasc" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="CPF">CPF</label>
-                    <input id="CPF" type="text" v-model="pessoa.CPF" class="form-control">
+                    <input id="CPF" type="text"   v-model="pessoa.CPF" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
@@ -50,38 +49,34 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="celular">Celular</label>
-                    <input id="celular" type="text" v-model="pessoa.celular" class="form-control">
+                    <input  id="celular"  type="text" v-model="pessoa.celular" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="id_setor">Setor</label>
                     <select class="combo form-select" v-model="pessoa.id_setor">
-                                            <option value="" disabled> Selecione o Setor </option>
-                                            <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
-    
+                            <option value="" disabled> Selecione o Setor </option>
+                            <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option>
+                    </select>
                 </div>
             </div>
     
             <div class="col-sm-12">
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="checkUsuario" value="usuarioGerar" v-model="gerarUsuarioCheck" />
-    <label class="form-check-label" for="checkUsuario">Gerar Usuario ? </label>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="checkUsuario" value="usuarioGerar" v-model="gerarUsuarioCheck" />
+            <label class="form-check-label" for="checkUsuario">Gerar Usuario ? </label>
   </div>
-</div>
-
-    
-    
+    </div>
             <div class="row">
     
                 <div class="col-sm-12">
-    
                     <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
                     <button @click="salvarPessoa" class="btn btn-primary float-right mr-2">Salvar</button>
                 </div>
             </div>
         </div>
-    </div>
+       </div>
 </template>
 
 <script>
@@ -92,11 +87,14 @@ import setorService from '@/services/setor-service'
 import Usuario from '@/models/Usuario'
 import usuarioService from '@/services/usuario-service'
 import CryptoJS from 'crypto-js';
-
+import { mapMutations } from 'vuex'
 
 
 export default {
     name: "PessoaComponent",
+    props: {
+        nome: String
+    },
     data() {
         return {
             pessoa: new Pessoa(),
@@ -107,21 +105,30 @@ export default {
             setores: [],
             setorSelecionado: null,
             hash: '',
-            url: 'http://localhost:8081/vinculo-de-grupo'
+            url: 'http://localhost:8081/vinculo-de-grupo',
+            cpfInput: '',
+            telefoneInput: ''
         }
     },
+
+
     mounted() {
         this.getAllSetor()
 
         let id = this.$route.params.id;
-  this.modoCadastro = !id; // Se não houver um ID, estamos no modo de cadastro
-  this.gerarUsuarioCheck = this.modoCadastro; // Marcar por padrão se estivermos no modo de cadastro
-  if (!this.modoCadastro) {
-    this.obterPessoaPorId(id);
-  }
-},
+         this.modoCadastro = !id; 
+        this.gerarUsuarioCheck = this.modoCadastro; 
+         if (!this.modoCadastro) {
+        this.obterPessoaPorId(id);
+        }
+    },
     
     methods: {
+        clearFlashMessage(){
+            setTimeout(() => {
+            this.setFlashMessage(null);
+        }, 3000);
+        },
 
         gerarHash() {
             const randomString = Math.random().toString(36).substring(2);
@@ -149,40 +156,38 @@ export default {
                     console.log(error)
                 })
         },
-        makeToast() {
-            this.$bvToast.toast(`Usuário cadastrado com sucesso! \n Para dar permissões
-            `, {
-                href: this.url,
-                title: 'Adicionar Usuário',
-                autoHideDelay: 5000,
-            })
-        },
-
-        async cadastrarPessoa() {
+       
+         cadastrarPessoa() {
             this.usuario.email = this.pessoa.email
             this.usuario.name = this.pessoa.nomeCompleto
+          
 
             if (this.gerarUsuarioCheck) {
-                pessoaService.cadastrar(this.pessoa)
+                 pessoaService.cadastrar(this.pessoa)
                     .then(() => {
                         this.pessoa = new Pessoa();
                     })
 
 
-                usuarioService.cadastrar(this.usuario)
+                 usuarioService.cadastrar(this.usuario)
                     .then(() => {
                         this.usuario = new Usuario()
-                        this.makeToast()
+                        const nomePessoa = this.pessoa.nomeCompleto
+
+                        // this.$store.commit('setPessoaNome', this.pessoa.nomeCompleto);
+
+                        this.$store.commit('setFlashMessage','Usuário criado com sucesso! \n E-mail com informações de login foi enviado!');
+                        this.$router.push({ name: "ControleDePessoas", params: {nomePessoa} })
+
+
+                        setTimeout(() => {
+                            this.$store.commit('clearFlashMessage');
+                        },5000)
                     })
 
                     .catch(error => {
                         console.log(error);
                     });
-
-
-
-
-
 
             } else {
 
@@ -190,13 +195,14 @@ export default {
                     .then(() => {
                         this.pessoa = new Pessoa();
                         this.$router.push({ name: "ControleDePessoas" })
-
                     })
                     .catch(error => {
                         console.log(error);
                     });
             }
         },
+
+        ...mapMutations(['setFlashMessage']),
 
         salvarPessoa() {
 

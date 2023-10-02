@@ -10,15 +10,25 @@
             <div class="col-sm-2">
                 <b-button @click="adicionarGrupo" class="b-button">
                     <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-                    Adicionar
+                    
                 </b-button>
     
             </div>
         </div>
         <br>
         <div class="row">
-           <div class="col-sm-4">
-            <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar grupo por nome">
+    
+            <div class="col-md-4">
+                <!-- Filtro -->
+        
+                <b-input-group class="mb-2">
+                   
+                   <b-input-group-prepend is-text>
+                       <b-icon icon="search"></b-icon>
+                   </b-input-group-prepend>
+                   <b-form-input type="text" placeholder="Pesquisar grupo por nome" v-model="filtro"></b-form-input>
+
+               </b-input-group>
             </div>
             <br>
             <br>
@@ -47,16 +57,16 @@
                     <ul class="pagination">
                         <li class="page-item" :class="{disabled: currentPage === 0}">
                             <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
                         </li>
                         <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
                             <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
                         </li>
                         <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
                             <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                              <span aria-hidden="true">&raquo;</span>
-                            </a>
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
                         </li>
                     </ul>
                 </nav>
@@ -125,20 +135,20 @@ export default {
         },
         excluirGrupo(grupo) {
             // if (confirm(`Deseja excluir" ${grupo.id} - ${grupo.nome}"`)) {
-                grupoService.deletar(grupo.id)
-                    .then(() => {
-                        let indice = this.grupos.findIndex(p => p.id == grupo.id);
-                        this.grupos.splice(indice, 1);
+            grupoService.deletar(grupo.id)
+                .then(() => {
+                    let indice = this.grupos.findIndex(p => p.id == grupo.id);
+                    this.grupos.splice(indice, 1);
 
                     //     setTimeout(() => {
                     //         alert("Grupo excluido com sucesso!");
                     //     }, 500);
 
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
         },
         setPage(pageNumber) {
             this.currentPage = pageNumber;

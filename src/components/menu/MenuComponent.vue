@@ -80,12 +80,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/funcionalidade" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Funcionalidade
+                      Telas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/funcionalidade">Controle de Funcionalidade</a>
-                        <a class="dropdown-item" href="/funcionalidade/novo">Adicionar Funcionalidade</a>
-                        <a class="dropdown-item" href="/vinculo-de-funcionalidade">Vinculo de Funcionalidade</a>
+                        <a class="dropdown-item" href="/funcionalidade">Controle de Tela</a>
+                        <a class="dropdown-item" href="/funcionalidade/novo">Adicionar Tela</a>
+                        <a class="dropdown-item" href="/vinculo-de-funcionalidade">Vinculo de Telas</a>
     
                     </div>
                 </li>

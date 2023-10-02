@@ -1,134 +1,140 @@
 <template>
     <div class="container mt-2">
-        <h3 class="titulo"> Vincular Funcionalidade </h3>
+        <h3 class="titulo"> Vincular Tela a Grupo </h3>
         <hr>
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
-
+    
             <!-- COLUNA 1 -->
             <div class="align-content-center flex-wrap col-md-5">
                 <div class="col-sm-8">
                     <label> Selecione um grupo: </label>
                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                    <option value="" disabled> Selecione </option>  
-                    <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
+                                <option value="" disabled> Selecione </option>  
+                                <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
                 </div>
     
-                <!-- <div class="col-sm-8"> -->
-                    <br>
-                    <div class="mb-2">
-                        <!-- <h6 v-if="grupoSelecionado"> Funcionalidade no grupo: </h6> -->
+                <br>
+                <div class="mb-2">
+                    <div class="col-sm-8">
     
-                        <div class="col-sm-12">
-                            <input v-if="grupoSelecionado" type="text" class="form-control" v-model="searchGrupo" @input="filterFuncionalidadesGrupo" placeholder="Pesquisar Funcionalidade" />
-                            <br>
-                            <table class="table">
     
-                                <tr class="titulo-tabela" v-if="grupoSelecionado">
-                                    <td scope="col"></td>
-                                    <!-- <td scope="col">ID</td> -->
-                                    <td scope="col">Funcionalidades</td> <td style="width: 60px"><b-button variant="danger"  @click="removerFuncionalidadeGrupo" ><i class="fa fa-trash"></i></b-button></td>
-                                    <td scope="col"></td>
-                                </tr>
-    
-                                <tbody style="align-items: center ">
-                                    <tr v-for="item in paginatedDataGrupo" :key="item.id" :value="item.id">
-                                        <td><input type="checkbox" :value="item.id" v-model="selectedFuncToRemove" v-on:click="toggleGrupoToRemove(item.id)" /></td>
-                                        <!-- <td>{{ item.id }}</td> -->
-                                        <td>{{ item.nome }}</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-    
-                            </table>
-                            <nav>
-                                <ul v-if="grupoSelecionado" class="pagination">
-                                    <li class="page-item" :class="{disabled: currentPage === 0}">
-                                        <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
-                                    </li>
-                                    <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
-                                        <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
-                                    </li>
-                                    <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
-                                        <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <br>
-                        </div>
-    
+                        <b-input-group class="mb-2">
+                            <b-input-group-prepend is-text>
+                                <b-icon icon="search"></b-icon>
+                            </b-input-group-prepend>
+                            <b-form-input type="text" class="form-control" v-model="searchGrupo" @input="filterFuncionalidadesGrupo" placeholder="Pesquisar Tela"></b-form-input>
+                        </b-input-group>
                     </div>
-                <!-- </div> -->
+                    <div class="col-sm-12">
+                        <br>
+                        <table class="table">
+    
+                            <tr class="titulo-tabela" v-if="grupoSelecionado">
+                                <td scope="col"></td>
+                                <td scope="col">Telas Associadas</td>
+                                <td style="width: 60px">
+                                    <b-button variant="danger" @click="removerFuncionalidadeGrupo"><i class="fa fa-trash"></i></b-button>
+                                </td>
+                                <td scope="col"></td>
+                            </tr>
+    
+                            <tbody style="align-items: center ">
+                                <tr v-for="item in paginatedDataGrupo" :key="item.id" :value="item.id">
+                                    <td><input type="checkbox" :value="item.id" v-model="selectedFuncToRemove" v-on:click="toggleGrupoToRemove(item.id)" /></td>
+                                    <td>{{ item.nome }}</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+    
+                        </table>
+    
+                        <!-- Paginação -->
+                        <nav class="nav">
+                            <ul v-if="grupoSelecionado" class="pagination">
+                                <li class="page-item" :class="{disabled: currentPage === 0}">
+                                    <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
+                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                </li>
+                                <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
+                                    <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
+                                </li>
+                                <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
+                                    <a class="page-link" href="#" aria-label="Next" @click="nextPage">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <br>
+                    </div>
+    
+                </div>
             </div>
     
     
             <!-- COLUNA 2 -->
             <div class="align-content-end flex-flow col-md-5">
     
-    
                 <div class="form-group">
+    
+                    <br>
+                    <br>
+    
+                    <div class="col-sm-8">
+    
+                        <b-input-group class="mb-2">
+                            <b-input-group-prepend is-text>
+                                <b-icon icon="search"></b-icon>
+                            </b-input-group-prepend>
+                            <b-form-input type="text" class="form-control" v-model="searchTerm" @input="filterFuncionalidades" placeholder=" Pesquisar Tela "></b-form-input>
+                        </b-input-group>
+                    </div>
                     <div class="col-sm-12">
-                        
-                        <!-- <button type="button" v-on:click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i>&nbsp; Adicionar </button> -->
-                        <br>
-                        <br>
-                        <!-- <h6> Funcionalidade para adicionar: </h6> -->
-                        <input type="text" class="form-control" v-model="searchTerm" @input="filterFuncionalidades" placeholder=" Pesquisar Funcionalidade " />
-                        <br>
+                        <!-- <button type="button" @click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i>&nbsp; Adicionar Tela a Grupo</button> -->
                         <table class="table">
+                            <br>
                             <tr class="titulo-tabela">
                                 <td scope="col"></td>
-                                <td scope="col">Disponíveis</td> <td style="width: 60px;"><button type="button" @click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-circle-plus"></i></button></td>
+                                <td scope="col">Telas Disponíveis</td>
+                                <td style="width: 60px;"><button type="button" @click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i></button></td>
                                 <td scope="col"></td>
                             </tr>
     
                             <tbody style="align-items: center;">
-                                <tr v-for="func in paginatedDataAdd" :key="func.id" >
-                                <td><input type="checkbox" :value="func.id" v-model="selectedFuncToAdd" @click="toggleGrupoToAdd(func.id)" /></td>
-                                <td>{{ func.nome }}</td>
-                                <td></td>
-                            </tr>
+                                <tr v-for="func in paginatedDataAdd" :key="func.id">
+                                    <td><input type="checkbox" :value="func.id" v-model="selectedFuncToAdd" @click="toggleGrupoToAdd(func.id)" /></td>
+                                    <td>{{ func.nome }}</td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
     
-    
-    
-                        <!-- <br>
-                            <ul>
-                                <div v-for="func in paginatedDataAdd" :key="func.id">
-                                    <label>
-                                                              <input
-                                                                type="checkbox"
-                                                                :value="func.id"
-                                                                v-model="selectedFuncToAdd"
-                                                                @click="toggleGrupoToAdd(func.id)"
-                                                              />
-                                                                {{ func.nome }}
-                                                            </label>
-                                </div>
-                            </ul> -->
-                        <nav>
+                        <!-- Paginação -->
+                        <nav class="nav">
                             <ul class="pagination">
                                 <li class="page-item" :class="{disabled: currentPageAvailable === 0}">
                                     <a class="page-link" href="#" aria-label="Previous" @click="prevPageAvailable">
-                                                    <span aria-hidden="true">&laquo;</span>
-                                                </a>
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
                                 </li>
                                 <li v-for="n in numberOfPagesAvailable" :key="n" class="page-item" :class="{active: n === currentPageAvailable}">
                                     <a class="page-link" href="#" @click="setPageAvailable(n)">{{ n + 1 }}</a>
                                 </li>
                                 <li class="page-item" :class="{disabled: currentPageAvailable === numberOfPagesAvailable - 1}">
                                     <a class="page-link" href="#" aria-label="Next" @click="nextPageAvailable">
-                                                    <span aria-hidden="true">&raquo;</span>
-                                                </a>
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                 </div>
+            </div>
+    
+    
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-primary">Clique Aqui</button>
             </div>
         </div>
     </div>
@@ -160,13 +166,84 @@ export default {
             searchGrupo: "",
             funcionalidadesNoGrupo: [],
             currentPage: 0,
-            itemsPerPage: 5,
+            itemsPerPage: 10,
             currentPageAvailable: 0,
-            itemsPerPageAvailable: 5
+            itemsPerPageAvailable: 10
         }
     },
 
     methods: {
+
+
+        toggleGrupoToAdd(grupoId) {
+            const index = this.selectedFuncToAdd.indexOf(grupoId);
+            if (index !== -1) {
+                this.selectedFuncToAdd.splice(index, 1);
+            } else {
+                this.selectedFuncToAdd.push(grupoId);
+            }
+        },
+
+        toggleGrupoToRemove(funId) {
+            if (this.selectedFuncToRemove.includes(funId)) {
+                this.selectedFuncToRemove = this.selectedFuncToRemove.filter(id => id !== funId);
+            } else {
+                this.selectedFuncToRemove.push(funId);
+            }
+        },
+
+        getAllfuncionalidades() {
+            funcService.obterTodos()
+                .then(response => {
+                    this.funcionalidades = response.data.data.map((p) => new Funcionalidade(p));
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
+
+        removerFuncionalidadeGrupo() {
+            let selectedFuncToRemove = this.selectedFuncToRemove.map(grupo => grupo);
+
+            if (selectedFuncToRemove == 1) {
+
+                selectedFuncToRemove = parseFloat(selectedFuncToRemove)
+                const grupoSelecionado = this.grupoSelecionado;
+                if (!grupoSelecionado || selectedFuncToRemove.length === 0) {
+                    return;
+                }
+
+                funcGrupoService.deletarTeste(selectedFuncToRemove, grupoSelecionado)
+                    .then(() => {
+                        this.obterFuncionalidadesGrupo(grupoSelecionado);
+                        this.selectedGrupoToRemove = [];
+                        this.selectedFuncToRemove = [];
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else {
+
+                const grupoSelecionado = this.grupoSelecionado;
+                if (!grupoSelecionado || selectedFuncToRemove.length === 0) {
+                    return;
+                }
+
+                funcGrupoService.deletarMore(selectedFuncToRemove, grupoSelecionado)
+                    .then(() => {
+                        this.obterFuncionalidadesGrupo(grupoSelecionado);
+                        this.selectedGrupoToRemove = [];
+                        this.selectedFuncToRemove = [];
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+
+        },
+
 
         adicionarFuncGrupo() {
             let selectedFuncToAdd = this.selectedFuncToAdd.map(user => user);
@@ -206,53 +283,6 @@ export default {
             }
         },
 
-        toggleGrupoToAdd(grupoId) {
-            const index = this.selectedFuncToAdd.indexOf(grupoId);
-            if (index !== -1) {
-                this.selectedFuncToAdd.splice(index, 1);
-            } else {
-                this.selectedFuncToAdd.push(grupoId);
-            }
-        },
-
-        toggleGrupoToRemove(funId) {
-            if (this.selectedFuncToRemove.includes(funId)) {
-                this.selectedFuncToRemove = this.selectedFuncToRemove.filter(id => id !== funId);
-            } else {
-                this.selectedFuncToRemove.push(funId);
-            }
-        },
-
-        getAllfuncionalidades() {
-            funcService.obterTodos()
-                .then(response => {
-                    this.funcionalidades = response.data.data.map((p) => new Funcionalidade(p));
-
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-
-
-        removerFuncionalidadeGrupo() {
-            let selectedFuncToRemove = this.selectedFuncToRemove.map(grupo => grupo);
-            selectedFuncToRemove = parseFloat(selectedFuncToRemove)
-            const grupoSelecionado = this.grupoSelecionado;
-            if (!grupoSelecionado || selectedFuncToRemove.length === 0) {
-                return;
-            }
-
-            funcGrupoService.deletarTeste(selectedFuncToRemove, grupoSelecionado)
-                .then(() => {
-                    this.obterFuncionalidadesGrupo(grupoSelecionado);
-                    this.selectedGrupoToRemove = [];
-                    this.selectedFuncToRemove = [];
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        },
 
 
         obterFuncionalidadesGrupo(id) {
@@ -299,7 +329,7 @@ export default {
             this.currentPage = pageNumber;
         },
 
-        setPageAvailable(pageNumber){
+        setPageAvailable(pageNumber) {
             this.currentPageAvailable = pageNumber;
         },
 
@@ -332,12 +362,20 @@ export default {
         paginatedDataGrupo() {
             const startIndex = this.currentPage * this.itemsPerPage;
             const endIndex = startIndex + this.itemsPerPage;
-            return this.filteredFuncionalidadesGrupo.slice(startIndex, endIndex);
+            let funcionalidadesFiltradas = this.funcGrupos.filter(func => {
+                return func.nome.toLowerCase().includes(this.searchGrupo.toLowerCase());
+            });
+            return funcionalidadesFiltradas.slice(startIndex, endIndex)
+
+
+
+
+            // return this.filteredFuncionalidadesGrupo.slice(startIndex, endIndex);
         },
 
         paginatedDataAdd() {
-            const startIndex = this.currentPage * this.itemsPerPage;
-            const endIndex = startIndex + this.itemsPerPage;
+            const startIndex = this.currentPageAvailable * this.itemsPerPageAvailable;
+            const endIndex = startIndex + this.itemsPerPageAvailable;
             return this.filteredFuncionalidadesAdd.slice(startIndex, endIndex);
         },
 
@@ -345,8 +383,21 @@ export default {
             return Math.ceil(this.grupos.length / this.itemsPerPage);
         },
 
-        funcionalidadesParaAdicionar() {
-            return this.funcionalidades.filter(grupo => !this.funcGrupos.some(funcGrupos => funcGrupos.id === grupo.id));
+        /* eslint-disable */
+        funcionalidadesParaAdicionar: {
+            // eslint-disable-next-line 
+            get() {
+                return this.funcionalidades.filter(grupo => !this.funcGrupos.some(funcGrupos => funcGrupos.id === grupo.id));
+                // eslint-disable-next-line 
+            },
+            // eslint-disable-next-line 
+            /* eslint-disable */
+
+
+            set() {
+
+
+            }
         },
         filteredFuncionalidadesAdd() {
             return this.funcionalidadesParaAdicionar.filter((func) =>
@@ -365,7 +416,6 @@ export default {
         numberOfPagesAvailable() {
             return Math.ceil(this.funcionalidades
 
-
                 .filter(func => !this.funcionalidadesGrupo.some(funcGrupos => funcGrupos.id === func.id))
                 .filter(func => func.nome.toLowerCase().includes(this.searchTerm.toLowerCase()))
                 .length / this.itemsPerPageAvailable);
@@ -381,11 +431,22 @@ export default {
 </script>
 
 <style scoped>
+.nav {
+    position: relative;
+}
+
 .titulo-tabela {
     font-weight: bold;
 }
 
 .table {
     width: 100%
+}
+
+.centered-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 </style>

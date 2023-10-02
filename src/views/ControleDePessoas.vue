@@ -1,5 +1,10 @@
 <template>
     <div class="container">
+        <!-- Flash Message -->
+        <FlashMessage></FlashMessage>
+        <br>
+
+
         <div class="row">
             <div class="col-md-12">
                 <h3 class="titulo"> Gerenciamento de Pessoas </h3>
@@ -10,14 +15,18 @@
             <div class="col-md-2">
                 <b-button @click="adicionarPessoa" class="b-button">
                     <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-                    Adicionar
                 </b-button>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-4">
-            <input v-model="filtro" type="text" class="form-control" placeholder="Pesquisar pessoa por nome">
+                <b-input-group class="mb-2">
+                    <b-input-group-prepend is-text>
+                        <b-icon icon="search"></b-icon>
+                    </b-input-group-prepend>
+                    <b-form-input type="text" placeholder="Pesquisar pessoa por nome" v-model="filtro"></b-form-input>
+                </b-input-group>
             </div>
             <br>
             <br>
@@ -81,11 +90,12 @@
 import pessoaService from '@/services/pessoa-service'
 import Pessoa from '@/models/Pessoa'
 import conversorDeData from '../utils/conversor-data'
+import FlashMessage from '../components/flashMessage/FlashComponent.vue'
 
 export default {
     name: "ControleDePessoas",
     components: {
-
+        FlashMessage
     },
     filters: {
         data(data) {
@@ -126,7 +136,6 @@ export default {
             pessoaService.obterTodos()
                 .then((response) => {
                     this.pessoas = response.data.data.map((p) => new Pessoa(p));
-                    //console.log(this.pessoas)
                 })
                 .catch(error => {
                     console.log(error)

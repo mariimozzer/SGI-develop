@@ -7,7 +7,14 @@
             <b-input-group-prepend is-text>
                 <b-icon icon="lock-fill"></b-icon>
             </b-input-group-prepend>
-            <b-form-input type="password" placeholder="Senha" v-model="novaSenha"></b-form-input>
+            <b-form-input type="password" placeholder="Senha Atual" v-model="senha.current_password"></b-form-input>
+        </b-input-group>
+    
+        <b-input-group class="mb-2">
+            <b-input-group-prepend is-text>
+                <b-icon icon="lock-fill"></b-icon>
+            </b-input-group-prepend>
+            <b-form-input type="password" placeholder="Nova Senha" v-model="senha.new_password"></b-form-input>
         </b-input-group>
     
         <b-input-group class="mb-2">
@@ -15,53 +22,55 @@
                 <b-icon icon="lock-fill"></b-icon>
             </b-input-group-prepend>
     
-            <b-form-input type="password" placeholder="Repita a Senha" v-model="repitaNovaSenha"></b-form-input>
+            <b-form-input type="password" placeholder="Repita a Senha" v-model="senha.new_password_confirmation"></b-form-input>
         </b-input-group>
     
-        <label style="color: red; text-decoration: double;" v-if="error">{{ error }}</label>
+        <!-- <label style="color: red; text-decoration: double;" v-if="error">{{ error }}</label> -->
+
+        <b-input-group class="mb-2">
+        <b-button @click="resetPassword" class="b-button">
+            <b-icon icon="check-circle-fill" aria-hidden="true"></b-icon>
+            &nbsp;  
+        </b-button>
+        </b-input-group>
     
-        <div class="col-sm-12">
-            <b-button class="b-button">
-                <b-icon @click="resetPassword" icon="check-circle"></b-icon>
-                &nbsp; Redefinir Senha
-            </b-button>
-        </div>
+
     </div>
 </template>
   
 <script>
-
+import ResetarSenha from '@/models/ResetarSenha'
+import resetarSenhaService from '@/services/resetar_senha-service'
 
 export default {
 
     name: 'ResetarSenhaView',
-    components: {
-    },
+    components: {},
     props: ['hash'],
     data() {
         return {
-            novaSenha: null,
-            repitaNovaSenha: null,
-            error: ''
+            senha: new ResetarSenha()
         }
     },
 
     methods: {
         resetPassword() {
 
-            if (this.novaSenha || this.repitaNovaSenha == null) {
-                this.error = "Por favor, preencha todos os campos !"
-            }
+            resetarSenhaService.cadastrar(this.senha)
+                .then(() => {
+                    this.senha = new ResetarSenha();
 
-            if (this.novaSenha !== this.repitaNovaSenha) {
+                })
+                .catch(error => {
+                    console.log(error);
+                });
 
-                this.error = "As senhas não conferem!"
-            } else {
-                console.log('Resetando senha com hash:', this.hash);
-
-            }
         },
 
+        verSenha() {
+
+
+        }
     }
 }
 </script>
@@ -75,7 +84,6 @@ export default {
     padding: 30px;
     border-radius: 20px;
 }
-
 </style>
   
  

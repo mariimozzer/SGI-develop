@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
 
   </div>
    
@@ -8,7 +8,7 @@
 <script>
 
 export default {
- 
+ name: 'HomeComponent'
  
 }
 </script>

@@ -309,7 +309,7 @@ export default {
         getAllUsuarios() {
             usuarioService.obterTodos()
                 .then(response => {
-                    this.usuarios = response.data.map((p) => new Usuario(p));
+                    this.usuarios = response.data.data.map((p) => new Usuario(p));
 
                 })
                 .catch(error => {
@@ -364,7 +364,6 @@ export default {
                 return user.name.toLowerCase().includes(this.searchTermGrupo.toLowerCase());
             });
         },
-
 
 
         grupoUsuarioFiltrado() {

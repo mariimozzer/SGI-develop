@@ -90,7 +90,7 @@
 import pessoaService from '@/services/pessoa-service'
 import Pessoa from '@/models/Pessoa'
 import conversorDeData from '../utils/conversor-data'
-import FlashMessage from '../components/flashMessage/FlashComponent.vue'
+import FlashMessage from '../components/flashMessage/FlashOKComponent.vue'
 
 export default {
     name: "ControleDePessoas",

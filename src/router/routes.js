@@ -14,11 +14,18 @@ import UsuarioView from "@/views/UsuarioView"
 import VinculoDeFuncionalidade from "@/views/VinculoDeFuncionalidade"
 import VinculoGrupo from "@/views/VinculoGrupo"
 import VinculoFuncionalidade from "@/views/VinculoFuncionalidade"
-import ResetarSenhaView from "@/views/ResetSenhaView"
+import AlterarSenhaView from "@/views/AlterarSenhaView"
 import EsqueceuSenhaView from "@/views/EsqueceuSenhaView"
+import ValidarSenhaView from "@/views/ValidarSenhaView"
 
 
 const routes = [
+  {
+    path: '/validarSenha', 
+    name: 'ValidarSenha',
+    component: ValidarSenhaView,
+    
+  },
 
   {
     path: '/esqueceuSenha', 
@@ -28,15 +35,15 @@ const routes = [
   },
 
   {
-    path: '/resetarSenha/', 
-    name: 'ResetarSenha',
-    component: ResetarSenhaView,
+    path: '/alterarSenha/', 
+    name: 'AlterarSenha',
+    component: AlterarSenhaView,
     props: true 
   },
   
   {
     path: '/home',
-    name: 'home',
+    name: 'HomeView',
     component: HomeView
   },
   {

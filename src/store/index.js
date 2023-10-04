@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     flashMessage: null,
-    nomePessoa: null
+    flashMessageError: null
+
   },
   getters: {
   },
@@ -14,14 +15,17 @@ export default new Vuex.Store({
     setFlashMessage(state, message) {
       state.flashMessage = message;
     },
-    setPessoaNome(state,nome){
-      state.nomePessoa = nome;
-    },
-
 
     clearFlashMessage(state) {
       state.flashMessage = null;
-      state.nomePessoa = null;
+     
+    },
+
+    setFlashMessageError(state,message){
+      state.flashMessageError = message
+    },
+    clearFlashMessageError(state){
+      state.flashMessageError = null;
     },
   },
   actions: {

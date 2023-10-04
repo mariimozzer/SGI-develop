@@ -134,7 +134,7 @@ export default {
         getAll() {
             usuarioService.obterTodos()
                 .then((response) => {
-                    this.usuarios = response.data.map((p) => new Usuários(p));
+                    this.usuarios = response.data.data.map((p) => new Usuários(p));
                 })
                 .catch(error => {
                     console.log(error)

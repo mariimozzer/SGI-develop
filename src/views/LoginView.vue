@@ -8,21 +8,20 @@
                 <img class="logo" src="../../public/img/logo-preta.png">
                 <br>
                 <br>
-                <!-- <h2 style="text-align: center;">Login</h2> -->
                 <br>
     
             </div>
             <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
-                    <b-icon icon="person-fill"></b-icon>
+                    <b-icon icon="envelope-fill"></b-icon>
                 </b-input-group-prepend>
-                <b-form-input type="text" v-model="email" placeholder="roboflex@roboflex.com.br" class="form-control"></b-form-input>
+                <b-form-input type="text" v-model="email" placeholder="roboflex@roboflex.com.br"  class="form-control"></b-form-input>
             </b-input-group>
             <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
                     <b-icon icon="lock-fill"></b-icon>
                 </b-input-group-prepend>
-                <b-form-input type="password" v-model="password" placeholder="123456" class="form-control"></b-form-input>
+                <b-form-input type="password" v-model="password" placeholder="12345678"    class="form-control"></b-form-input>
             </b-input-group>
             <br>
     
@@ -38,11 +37,13 @@
     
             </div>
             <br>
-            <div class="col-sm-12">
+            
+            <Button value="Entrar"></Button>
+            <br>
+            <div class="col-sm-12" style="text-align: center;">
                 <a href="/esqueceuSenha" style="color: black;">Esqueceu sua senha ?</a>
     
             </div>
-            <Button value="Entrar"></Button>
         </div>
     </form>
 </template>
@@ -65,6 +66,8 @@ export default {
             email: '',
             password: '',
             token: '',
+            id : '',
+            menuUrl : ''
         }
     },
 
@@ -87,7 +90,24 @@ export default {
                 password: this.password,
             }).then(
                 res => {
-                    console.log(res)
+                    // console.log(res)
+                    this.id = res.data.user.id
+                    localStorage.setItem('token',res.data.token)
+                    this.$router.push({ name: "HomeView" })
+
+                    this.menuUrl = `http://192.168.0.6:8000/api/menu/usuario/${this.id}`
+                    console.log(this.menuUrl)
+
+
+                    axios.get(this.menuUrl).then(menuResponse => {
+                        const menuOptions = menuResponse.data
+                        console.log(menuOptions)
+                    })
+
+                    
+                    .catch(error => {
+                        console.error('Erro', error)
+                    })
                 }
             ).catch(
                 err => {

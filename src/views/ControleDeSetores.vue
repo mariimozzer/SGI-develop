@@ -125,7 +125,7 @@ export default {
         getAll() {
             setorService.obterTodos()
                 .then((response) => {
-                    this.setores = response.data.map((p) => new Setores(p));
+                    this.setores = response.data.data.map((p) => new Setores(p));
                     //console.log(this.setores)
                 })
                 .catch(error => {

@@ -37,7 +37,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="CPF">CPF</label>
-                    <input id="CPF" type="text"   v-model="pessoa.CPF" class="form-control">
+                    <input id="CPF" type="text"   v-model="pessoa.CPF" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
@@ -140,7 +140,7 @@ export default {
         getAllSetor() {
             setorService.obterTodos()
                 .then((response) => {
-                    this.setores = response.data.map((p) => new Setor(p));
+                    this.setores = response.data.data.map((p) => new Setor(p));
                 })
                 .catch(error => {
                     console.log(error)

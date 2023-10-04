@@ -1,6 +1,6 @@
 <template>
     <div class="box-login">
-        <h3 class="titulo"> Redefinir Senha </h3>
+        <h3 class="titulo"> Alterar Senha </h3>
         <hr>
     
         <b-input-group class="mb-2">
@@ -39,26 +39,26 @@
 </template>
   
 <script>
-import ResetarSenha from '@/models/ResetarSenha'
-import resetarSenhaService from '@/services/resetar_senha-service'
+import AlterarSenha from '@/models/AlterarSenha'
+import alterarSenhaService from '@/services/alterar_senha-service'
 
 export default {
 
-    name: 'ResetarSenhaView',
+    name: 'AlterarSenhaComponent',
     components: {},
     props: ['hash'],
     data() {
         return {
-            senha: new ResetarSenha()
+            senha: new AlterarSenha()
         }
     },
 
     methods: {
         resetPassword() {
 
-            resetarSenhaService.cadastrar(this.senha)
+            alterarSenhaService.cadastrar(this.senha)
                 .then(() => {
-                    this.senha = new ResetarSenha();
+                    this.senha = new AlterarSenha();
 
                 })
                 .catch(error => {

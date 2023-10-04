@@ -9,15 +9,13 @@
                 <div class="col-sm-8">
                     <label> Selecione um grupo: </label>
                     <select class="form-select combo" v-model="grupoSelecionado" @change="handleGrupoSelecionadoChange">
-                                <option value="" disabled> Selecione </option>  
-                                <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
+                                    <option value="" disabled> Selecione </option>  
+                                    <option v-for="item in grupos" :key="item.id" :value="item.id"> {{ item.nome }} </option></select>
                 </div>
     
                 <br>
                 <div class="mb-2">
                     <div class="col-sm-8">
-    
-    
                         <b-input-group class="mb-2">
                             <b-input-group-prepend is-text>
                                 <b-icon icon="search"></b-icon>
@@ -45,7 +43,6 @@
                                     <td></td>
                                 </tr>
                             </tbody>
-    
                         </table>
     
                         <!-- Paginação -->
@@ -53,22 +50,21 @@
                             <ul v-if="grupoSelecionado" class="pagination">
                                 <li class="page-item" :class="{disabled: currentPage === 0}">
                                     <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                                                <span aria-hidden="true">&laquo;</span>
-                                                            </a>
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                                </a>
                                 </li>
                                 <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
                                     <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
                                 </li>
                                 <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
                                     <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                                                                <span aria-hidden="true">&raquo;</span>
-                                                            </a>
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                </a>
                                 </li>
                             </ul>
                         </nav>
                         <br>
                     </div>
-    
                 </div>
             </div>
     
@@ -80,9 +76,7 @@
     
                     <br>
                     <br>
-    
                     <div class="col-sm-8">
-    
                         <b-input-group class="mb-2">
                             <b-input-group-prepend is-text>
                                 <b-icon icon="search"></b-icon>
@@ -115,26 +109,21 @@
                             <ul class="pagination">
                                 <li class="page-item" :class="{disabled: currentPageAvailable === 0}">
                                     <a class="page-link" href="#" aria-label="Previous" @click="prevPageAvailable">
-                                                                <span aria-hidden="true">&laquo;</span>
-                                                            </a>
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                </a>
                                 </li>
                                 <li v-for="n in numberOfPagesAvailable" :key="n" class="page-item" :class="{active: n === currentPageAvailable}">
                                     <a class="page-link" href="#" @click="setPageAvailable(n)">{{ n + 1 }}</a>
                                 </li>
                                 <li class="page-item" :class="{disabled: currentPageAvailable === numberOfPagesAvailable - 1}">
                                     <a class="page-link" href="#" aria-label="Next" @click="nextPageAvailable">
-                                                                <span aria-hidden="true">&raquo;</span>
-                                                            </a>
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                </a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                 </div>
-            </div>
-    
-    
-            <div class="d-flex justify-content-center mt-4">
-                <button class="btn btn-primary">Clique Aqui</button>
             </div>
         </div>
     </div>

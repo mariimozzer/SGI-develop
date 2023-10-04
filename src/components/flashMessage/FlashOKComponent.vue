@@ -1,5 +1,6 @@
 <template>
-    <div v-if="flashMessage" class="flash-message">
+    <div v-if="flashMessage" class="flash-message" style="text-align: center;">
+      
         <p>{{ flashMessage }}</p>
     </div>
 </template>
@@ -37,5 +38,6 @@ watch: {
     background-color: #d5f0b7;
     padding: 10px;
     border: 1px solid #96e07f;
+    border-radius: 5px;
 }
 </style>

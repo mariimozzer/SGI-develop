@@ -1,7 +1,7 @@
 <template>
     <div v-if="flashMessage" class="flash-message" style="text-align: center;">
       
-        <p>{{ flashMessage }}</p>
+        <p style="color: rgb(0, 0, 0);">{{ flashMessage }}</p>
     </div>
 </template>
   
@@ -9,9 +9,7 @@
 export default {
   computed: {
   flashMessage() {
-    const nomePessoa = this.$store.state.nomePessoa
-    return nomePessoa ?  `Usuário de ${nomePessoa} criado com sucesso! \n E-mail com informações de login foi enviado!` : this.$store.state.flashMessage;
-    // return this.$store.state.flashMessage;
+    return this.$store.state.flashMessage;
   },
 },
 methods: {

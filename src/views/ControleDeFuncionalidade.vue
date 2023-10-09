@@ -4,14 +4,16 @@
             <div class="col-sm-12">
                 <h3 class="titulo"> Gerenciamento de Telas </h3>
                 <hr>
+                {{ nome }}
             </div>
         </div>
         <div class="row sub-container">
     
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <b-button @click="adicionarFuncionalidade" class="b-button">
-                    <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
-    
+                    <b-icon icon="grid" aria-hidden="true"></b-icon>
+                    <b-icon icon="plus"  aria-hidden="true"></b-icon>
+
                 </b-button>
             </div>
         </div>
@@ -100,6 +102,7 @@ export default {
             currentPage: 0,
             itemsPerPage: 10,
             filtro: '',
+            nome: null,
 
 
         };
@@ -148,23 +151,20 @@ export default {
         },
 
         excluirFuncionalidade(funcionalidade) {
-            if (confirm(`Deseja excluir" ${funcionalidade.id} - ${funcionalidade.nome}"`)) {
 
                 funcionalidadeService.deletar(funcionalidade.id)
                     .then(() => {
                         let indice = this.funcionalidades.findIndex(p => p.id == funcionalidade.id);
                         this.funcionalidades.splice(indice, 1);
 
-                        setTimeout(() => {
-                            alert("Funcionalidade excluida com sucesso!");
-                        }, 500);
+                        
 
                     })
                     .catch(error => {
                         console.log(error);
                     });
 
-            }
+            
 
         },
         setPage(pageNumber) {
@@ -187,6 +187,7 @@ export default {
 
     mounted() {
         this.getAllFuncionalidades()
+        this.nome = localStorage.getItem('userName')
 
 
     }

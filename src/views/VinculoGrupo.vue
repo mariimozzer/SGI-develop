@@ -33,7 +33,7 @@
                         <tr class="titulo-tabela" v-if="grupoSelecionado">
                             <!-- <tr  v-for="user in filteredGroupUsers" :key="user.id" > -->
                             <td scope="col"></td>
-                            <td scope="col" class="titulo-tabela" v-if="grupoSelecionado">Usuários </td>
+                            <td scope="col" class="titulo-tabela" v-if="grupoSelecionado">Usuários no grupo</td>
                             <td style="width: 60px"><button @click="removerUsuariosGrupo" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                             <td scope="col"></td>
                         </tr>
@@ -92,7 +92,8 @@
                     <table class="table">
                         <tr class="titulo-tabela">
                             <td scope="col"></td>
-                            <td scope="col"><button @click="adicionarUsuariosGrupo" type="button" class="btn btn-success"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i></button>  &nbsp; &nbsp;  Disponíveis</td>
+                            <td scope="col" v-if="!grupoSelecionado">Disponíveis</td>
+                            <td scope="col"><button @click="adicionarUsuariosGrupo" v-if="grupoSelecionado" type="button" class="btn btn-success"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i>&nbsp; Vincular usuário a grupo</button></td>
                             <!-- <td style="width: 60px"><button @click="adicionarUsuariosGrupo" type="button" class="btn btn-success"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i></button></td> -->
                             <td scope="col"></td>
                         </tr>

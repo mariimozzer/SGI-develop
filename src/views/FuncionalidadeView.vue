@@ -1,7 +1,9 @@
 <template>
     <div class="container">
+        <FlashMessage v-if="flashMessage"></FlashMessage>
         <div class="row">
             <div class="col-sm-12">
+    
                 <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Telas </h3>
                 <hr/>
                 <br>
@@ -46,8 +48,8 @@
                     <label>Sistema</label>
                     <br>
                     <select class="form-select" v-model="funcionalidade.sistema_id">
-                                                    <option value="" disabled>Selecione o sistema</option>
-                                                    <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+                                                            <option value="" disabled>Selecione o sistema</option>
+                                                            <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
                     <!-- <input id="sistema" type="text" v-model="funcionalidade.sistema_id" class="form-control"> -->
     
     
@@ -56,7 +58,13 @@
             <div class="form-group">
                 <div class="col-sm-12">
                     <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
-                    <button @click="salvarFuncionalidade" class="btn btn-primary float-right mr-2">Salvar</button>
+                    <!-- <button @click="salvarFuncionalidade" class="btn btn-primary float-right mr-2">Salvar</button> -->
+                    <b-button @click="salvarFuncionalidade" aria-hidden="true" class="btn btn-primary float-right mr-2">
+                        <i v-if="loading" class="fas fa-spinner fa-spin"></i> 
+                        <span v-if="!loading">Salvar</span>
+                        <span v-if="loading">&nbsp; Salvando...</span>
+    
+                    </b-button>
                 </div>
             </div>
         </div>
@@ -68,18 +76,29 @@ import sistemaService from '@/services/sistema-service';
 import Sistema from '@/models/Sistema';
 import Funcionalidade from '@/models/Funcionalidade'
 import funcionalidadeService from '@/services/funcionalidade-service';
+import { mapMutations } from 'vuex';
+import FlashMessage from '@/components/flashMessage/FlashOKComponent.vue'
 
 
 export default {
     name: "FuncionalidadeComponent",
+    components: {
+        FlashMessage
+    },
     data() {
         return {
             funcionalidade: new Funcionalidade(),
             modoCadastro: true,
-            sistemasDisponiveis: []
+            sistemasDisponiveis: [],
+            loading: false,
         }
     },
 
+    computed: {
+        flashMessage(){
+            return this.$store.state.flashMessage
+        }
+    },
 
     mounted() {
 
@@ -120,19 +139,22 @@ export default {
                 })
         },
         cadastrarFuncionalidade() {
+            this.loading = true
 
             funcionalidadeService.cadastrar(this.funcionalidade)
                 .then(() => {
-                    // console.log(this.funcionalidade)
-                    alert("funcionalidade cadastrado com sucesso!");
+
                     this.funcionalidade = new Funcionalidade();
+                    this.loading = false
 
+                    this.$store.commit('setFlashMessage', 'Tela cadastrada com sucesso!');
+                        setTimeout(() => {
+                            this.$store.commit('clearFlashMessage');
+                        }, 5000)
 
-                    if (!this.continuarAdicionando) {
-                        this.$router.push({ name: "ControleDeFuncionalidade" })
-                    }
                 })
                 .catch(error => {
+                    this.loading = false
                     console.log(error);
                 });
         },
@@ -140,24 +162,39 @@ export default {
         salvarFuncionalidade() {
 
             (this.modoCadastro) ? this.cadastrarFuncionalidade(): this.atualizarFuncionalidade();
+
+
         },
         atualizarFuncionalidade() {
+            this.loading = true
 
             funcionalidadeService.atualizar(this.funcionalidade)
                 .then(() => {
-                    alert("Funcionalidade atualizada com sucesso!");
-                    this.$router.push({ name: "ControleDeFuncionalidade" });
+                        this.loading = false
+                        this.$store.commit('setFlashMessage', 'Tela atualizada com sucesso!');
+                        setTimeout(() => {
+                            this.$store.commit('clearFlashMessage');
+                        }, 5000)
 
-                })
+                        this.$router.push({ name: "ControleDeFuncionalidade" });
+                    }
+
+                )
+
                 .catch(error => {
+                    this.loading = false
                     console.log(error);
                 });
+
+
         },
 
         cancelar() {
             this.funcionalidade = new Funcionalidade();
             this.$router.push({ name: "ControleDeFuncionalidade" })
-        }
+        },
+
+        ...mapMutations(['setFlashMessage'])
     }
 }
 </script>

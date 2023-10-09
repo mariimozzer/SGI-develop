@@ -1,48 +1,49 @@
 <template>
-    <form @submit.prevent="login">
-    
-    
+    <form @submit.prevent="login" class="container">
+        <FlashMessageError></FlashMessageError>
         <div class="box-login">
-    
             <div>
                 <img class="logo" src="../../public/img/logo-preta.png">
                 <br>
                 <br>
-                <br>
-    
             </div>
+    
             <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
                     <b-icon icon="envelope-fill"></b-icon>
                 </b-input-group-prepend>
-                <b-form-input type="text" v-model="email" placeholder="roboflex@roboflex.com.br"  class="form-control"></b-form-input>
+                <b-form-input type="text" v-model="email" :state="validationState" @blur="emailTouched = true" placeholder="roboflex@roboflex.com.br" class="form-control" ref="emailInput"></b-form-input>
             </b-input-group>
             <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
                     <b-icon icon="lock-fill"></b-icon>
                 </b-input-group-prepend>
-                <b-form-input type="password" v-model="password" placeholder="12345678"    class="form-control"></b-form-input>
+                <b-form-input type="password" v-model="password" :state="validationState" @blur="passwordTouched = true" placeholder="12345678" class="form-control" ref="passwordInput"></b-form-input>
             </b-input-group>
             <br>
     
             <div class="form-check">
-    
-    
-    
                 <input class="form-check-input" type="radio" id="roboflex" value="roboflex" v-model="local">
                 <label class="form-check-label" for="roboflex"> Roboflex </label>
                 <br>
                 <input class="form-check-input" type="radio" id="zontec" value="zontec" v-model="local">
                 <label class="form-check-label" for="zontec"> Zontec </label>
-    
             </div>
             <br>
-            
-            <Button value="Entrar"></Button>
-            <br>
-            <div class="col-sm-12" style="text-align: center;">
-                <a href="/esqueceuSenha" style="color: black;">Esqueceu sua senha ?</a>
     
+            <div v-if="!validationState && (
+                                        (emailTouched && !email) ||
+                                        (passwordTouched && !password)
+                                    )" class="text-danger">Por favor, preencha todos os campos.</div>
+    
+            <div class="col-sm-12">
+                <Button class="botaoLogin" value="Entrar"><i v-if="loading" class="fas fa-spinner fa-spin"></i> &nbsp;
+                                                <span v-if="!loading">Entrar</span>
+                                                <span v-if="loading">Processando...</span></Button>
+            </div>
+    
+            <div class="col-sm-12" style="text-align: center; white; font-size: 15px;">
+                <a href="/esqueceuSenha" style="color: rgb(255, 255, 255);">Esqueceu sua senha ?</a>
             </div>
         </div>
     </form>
@@ -50,13 +51,16 @@
 
 <script>
 import Button from '../components/button/ButtonComponent.vue';
+import FlashMessageError from '@/components/flashMessage/FlashErrorComponent.vue'
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 
 export default {
     name: "LoginComponent",
 
     components: {
-        Button
+        Button,
+        FlashMessageError
     },
 
     data() {
@@ -66,8 +70,13 @@ export default {
             email: '',
             password: '',
             token: '',
-            id : '',
-            menuUrl : ''
+            id: '',
+            menuUrl: '',
+            loading: false,
+            user: null,
+            emailTouched: false,
+            passwordTouched: false,
+            validationState: null
         }
     },
 
@@ -84,7 +93,36 @@ export default {
     },
 
     methods: {
+
         login() {
+
+            this.loading = true
+
+
+            if (!this.email) {
+                this.validationState = false;
+                this.emailTouched = true;
+                this.$nextTick(() => {
+                    this.$refs.emailInput.focus();
+                });
+
+                this.loading = false;
+                return;
+            }
+
+            if (!this.password) {
+                this.validationState = false;
+                this.passwordTouched = true;
+                this.$nextTick(() => {
+                    this.$refs.passwordInput.focus();
+                });
+
+                this.loading = false;
+                return;
+            }
+
+            this.validationState = true;
+
             axios.post('http://192.168.0.6:8000/api/login', {
                 email: this.email,
                 password: this.password,
@@ -92,34 +130,49 @@ export default {
                 res => {
                     // console.log(res)
                     this.id = res.data.user.id
-                    localStorage.setItem('token',res.data.token)
+                    this.user = res.data.user.name
+                    localStorage.setItem('userName', this.user)
+
+
+                    localStorage.setItem('token', res.data.token)
                     this.$router.push({ name: "HomeView" })
 
                     this.menuUrl = `http://192.168.0.6:8000/api/menu/usuario/${this.id}`
                     console.log(this.menuUrl)
-
+                    console.log(res)
 
                     axios.get(this.menuUrl).then(menuResponse => {
                         const menuOptions = menuResponse.data
                         console.log(menuOptions)
                     })
 
-                    
-                    .catch(error => {
-                        console.error('Erro', error)
-                    })
+                    this.loading = false
+
                 }
             ).catch(
                 err => {
+                    this.$store.commit('setFlashMessageError', 'O E-mail ou a senha estão incorretos!')
+                    setTimeout(() => {
+                        this.$store.commit('clearFlashMessageError');
+                    }, 10000)
+                    this.email = ''
+                    this.password = ''
                     console.log(err)
                 }
             )
-        }
+        },
+
+        ...mapMutations(['setFlashMessageError'])
     }
 }
 </script>
 
 <style scoped>
+.botaoLogin {
+    border: 1px solid;
+    border-radius: 20px;
+}
+
 .box-login {
     width: 350px;
     margin: auto;
@@ -135,5 +188,13 @@ export default {
     color: var(--first-color);
     padding: 100;
     font-size: 22px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 </style>

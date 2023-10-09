@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <FlashMessage></FlashMessage>
         <div class="row">
             <div class="col-sm-12">
                 <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Pessoa </h3>
@@ -31,13 +32,13 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="dtNasc">Data de Nascimento</label>
-                    <input id="dtNasc"  type="date" v-model="pessoa.dtNasc" class="form-control">
+                    <input id="dtNasc" type="date" v-model="pessoa.dtNasc" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="CPF">CPF</label>
-                    <input id="CPF" type="text"   v-model="pessoa.CPF" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" class="form-control">
+                    <input id="CPF" type="text" v-model="pessoa.CPF" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
@@ -49,34 +50,40 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="celular">Celular</label>
-                    <input  id="celular"  type="text" v-model="pessoa.celular" class="form-control">
+                    <input id="celular" type="text" v-model="pessoa.celular" class="form-control">
                 </div>
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="id_setor">Setor</label>
                     <select class="combo form-select" v-model="pessoa.id_setor">
-                            <option value="" disabled> Selecione o Setor </option>
-                            <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option>
-                    </select>
+                                        <option value="" disabled> Selecione o Setor </option>
+                                        <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option>
+                                </select>
                 </div>
             </div>
     
             <div class="col-sm-12">
-            <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="checkUsuario" value="usuarioGerar" v-model="gerarUsuarioCheck" />
-            <label class="form-check-label" for="checkUsuario">Gerar Usuario ? </label>
-  </div>
-    </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkUsuario" value="usuarioGerar" v-model="gerarUsuarioCheck" />
+                    <label class="form-check-label" for="checkUsuario">Gerar Usuario ? </label>
+                </div>
+            </div>
             <div class="row">
     
                 <div class="col-sm-12">
                     <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
-                    <button @click="salvarPessoa" class="btn btn-primary float-right mr-2">Salvar</button>
+                    <b-button @click="salvarPessoa" aria-hidden="true" class="btn btn-primary float-right mr-2">
+                        <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+                        <span v-if="!loading">Salvar</span>
+                        <span v-if="loading"> &nbsp; Salvando...</span>
+    
+                    </b-button>
+                    <!-- <button @click="salvarPessoa" class="btn btn-primary float-right mr-2" ><i v-if="!loading" class="fas fa-spiner fa-spin"></i>Salvar</button> -->
                 </div>
             </div>
         </div>
-       </div>
+    </div>
 </template>
 
 <script>
@@ -86,12 +93,17 @@ import Setor from '@/models/Setor'
 import setorService from '@/services/setor-service'
 import Usuario from '@/models/Usuario'
 import usuarioService from '@/services/usuario-service'
-import CryptoJS from 'crypto-js';
+import FlashMessage from '@/components/flashMessage/FlashOKComponent.vue'
+// import CryptoJS from 'crypto-js';
 import { mapMutations } from 'vuex'
+import axios from 'axios'
 
 
 export default {
     name: "PessoaComponent",
+    components: {
+        FlashMessage
+    },
     props: {
         nome: String
     },
@@ -107,7 +119,9 @@ export default {
             hash: '',
             url: 'http://localhost:8081/vinculo-de-grupo',
             cpfInput: '',
-            telefoneInput: ''
+            telefoneInput: '',
+            emailCriar: '',
+            loading: false
         }
     },
 
@@ -116,26 +130,26 @@ export default {
         this.getAllSetor()
 
         let id = this.$route.params.id;
-         this.modoCadastro = !id; 
-        this.gerarUsuarioCheck = this.modoCadastro; 
-         if (!this.modoCadastro) {
-        this.obterPessoaPorId(id);
+        this.modoCadastro = !id;
+        this.gerarUsuarioCheck = this.modoCadastro;
+        if (!this.modoCadastro) {
+            this.obterPessoaPorId(id);
         }
     },
-    
+
     methods: {
-        clearFlashMessage(){
+        clearFlashMessage() {
             setTimeout(() => {
-            this.setFlashMessage(null);
-        }, 3000);
+                this.setFlashMessage(null);
+            }, 3000);
         },
 
-        gerarHash() {
-            const randomString = Math.random().toString(36).substring(2);
-            const sha256Hash = CryptoJS.SHA256(randomString);
-            this.hash = sha256Hash.toString(CryptoJS.enc.Hex);
-            console.log('Generated Unique Hash:', this.hash);
-        },
+        // gerarHash() {
+        //     const randomString = Math.random().toString(36).substring(2);
+        //     const sha256Hash = CryptoJS.SHA256(randomString);
+        //     this.hash = sha256Hash.toString(CryptoJS.enc.Hex);
+        //     console.log('Generated Unique Hash:', this.hash);
+        // },
 
         getAllSetor() {
             setorService.obterTodos()
@@ -156,36 +170,41 @@ export default {
                     console.log(error)
                 })
         },
-       
-         cadastrarPessoa() {
+
+        cadastrarPessoa() {
+            this.loading = true
             this.usuario.email = this.pessoa.email
             this.usuario.name = this.pessoa.nomeCompleto
-          
+            this.emailCriar = this.usuario.email
+
+
 
             if (this.gerarUsuarioCheck) {
-                 pessoaService.cadastrar(this.pessoa)
+                pessoaService.cadastrar(this.pessoa)
                     .then(() => {
                         this.pessoa = new Pessoa();
                     })
 
 
-                 usuarioService.cadastrar(this.usuario)
+                usuarioService.cadastrar(this.usuario)
                     .then(() => {
                         this.usuario = new Usuario()
-                        const nomePessoa = this.pessoa.nomeCompleto
-
-                        // this.$store.commit('setPessoaNome', this.pessoa.nomeCompleto);
-
-                        this.$store.commit('setFlashMessage','Usuário criado com sucesso! \n E-mail com informações de login foi enviado!');
-                        this.$router.push({ name: "ControleDePessoas", params: {nomePessoa} })
-
-
-                        setTimeout(() => {
-                            this.$store.commit('clearFlashMessage');
-                        },5000)
+                        axios.post('http://192.168.0.6:8000/api/enviar-codigo', {
+                            email: this.emailCriar
+                        }).then(res => {
+                            this.$store.commit('setFlashMessage', 'Usuário criado com sucesso! \n E-mail com informações de login foi enviado!');
+                            this.$router.push({ name: "ControleDePessoas" })
+                            setTimeout(() => {
+                                this.$store.commit('clearFlashMessage');
+                            }, 5000)
+                            this.loading = false;
+                            console.log(res)
+                        })
                     })
 
+
                     .catch(error => {
+                        this.loading = false
                         console.log(error);
                     });
 
@@ -193,10 +212,12 @@ export default {
 
                 pessoaService.cadastrar(this.pessoa)
                     .then(() => {
+                        this.loading = true
                         this.pessoa = new Pessoa();
                         this.$router.push({ name: "ControleDePessoas" })
                     })
                     .catch(error => {
+                        this.loading = false
                         console.log(error);
                     });
             }

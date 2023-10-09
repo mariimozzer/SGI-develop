@@ -7,9 +7,11 @@
             </div>
         </div>
         <div class="row sub-container">
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <b-button @click="adicionarSetor" class="b-button">
-                    <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+                    <b-icon icon="shop" aria-hidden="true"></b-icon>
+                    <b-icon icon="plus"  aria-hidden="true"></b-icon>
+
                     
                 </b-button>
             </div>

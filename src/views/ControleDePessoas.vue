@@ -12,9 +12,11 @@
             </div>
         </div>
         <div class="row sub-container">
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <b-button @click="adicionarPessoa" class="b-button">
-                    <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+                    <b-icon icon="person-badge"  aria-hidden="true"></b-icon>
+                    <b-icon icon="plus"  aria-hidden="true"></b-icon>
+
                 </b-button>
             </div>
         </div>

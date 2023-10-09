@@ -1,141 +1,85 @@
 <template>
-    <!-- <aside class="menu__container">
-                                        <ul class="menu__lista">
-                                            <li class="menu__itens">
-                                    
-                                                <router-link to="/dashboard">Inicio</router-link>
-                                            </li>
-                                            <li class="menu__itens">
-                                                <router-link to="/pessoa">Pessoas</router-link>
-                                    
-                                            </li>
-                                            <li class="menu__itens">
-                                                <router-link to="/setores">Setores</router-link>
-                                            </li>
-                                            <li class="menu__itens">
-                                                <router-link to="/grupo">Grupos</router-link>
-                                            </li>
-                                            <li class="menu__itens">
-                                                <router-link to="/funcionalidade">Funcionalidades</router-link>
-                                            </li>
-                                            <li class="menu__itens">
-                                                <router-link to="/">Sair</router-link>
-                                            </li>
-                                    
-                                        </ul>
-                                    </aside> -->
-    
-    
-    <!-- <nav>
-                                    <img src="../../.././public/img/../logo32.png"/>
-                                    <div class="menu-item"><a href="/">Inicio</a></div>
-                                    <Dropdown title="Setor" :items="setores" /> 
-                                    <Dropdown title="Pessoa" :items="pessoas" /> 
-                                    <Dropdown title="Grupo" :items="grupos" /> 
-                                    <Dropdown title="Usuario" :items="usuarios" /> 
-                                    <Dropdown title="Funcionalidade" :items="funcionalidades" /> 
-                                  </nav> -->
-    
-    
-    
-    
-    <!-- <nav>
-                    <div>
-                        <b-dropdown id="dropdown-1" text="Setor" class="m-md-2">
-                            <b-dropdown-item href="/setores">Controle de Setor </b-dropdown-item>
-                            <b-dropdown-item href="/controle-de-setores/novo">Adicionar Setor </b-dropdown-item>
-                        </b-dropdown>
-                        <b-dropdown id="dropdown-2" style="background-color: black;" text="Pessoa" class="m-md-2">
-                            <b-dropdown-item href="/pessoa">Controle de Pessoa </b-dropdown-item>
-                            <b-dropdown-item href="/controle-de-pessoas/novo">Adicionar Pessoa </b-dropdown-item>
-                        </b-dropdown>
-                        <b-dropdown id="dropdown-3" text="Grupo" class="m-md-2">
-                            <b-dropdown-item href="/grupo">Controle de Grupos </b-dropdown-item>
-                            <b-dropdown-item href="/controle-de-grupo/novo">Adicionar Grupo </b-dropdown-item>
-                            <b-dropdown-item href="/vinculo-de-grupo">Vinculo de Grupo </b-dropdown-item>
-                        </b-dropdown>
-                        <b-dropdown id="dropdown-4" text="Funcionalidade" class="m-md-2">
-                            <b-dropdown-item href="/funcionalidade">Controle de Funcionalidade </b-dropdown-item>
-                            <b-dropdown-item href="/funcionalidade/novo">Adicionar Funcinalidade </b-dropdown-item>
-                            <b-dropdown-item href="/vinculo-de-funcionalidade">Vinculo de Funcionalidade </b-dropdown-item>
-                        </b-dropdown>
-                        <b-dropdown id="dropdown-5" text="Usuario" class="m-md-2">
-                            <b-dropdown-item href="/usuario">Controle de Usuario </b-dropdown-item>
-                            <b-dropdown-item href="/usuario/novo">Adicionar Usuario </b-dropdown-item>
-                        </b-dropdown>
-                    </div>
-                 -->
-    
-    <!-- ---------------- -->
-    
-    
+
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="/dashboard">
-                    <img src="../../../public/img/logo-site.png">
-                </a>
+                                <img src="../../../public/img/logo-site.png">
+                            </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
+                                <span class="navbar-toggler-icon"></span>
+                              </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/funcionalidade" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Telas
-                        </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/funcionalidade">Controle de Tela</a>
-                        <a class="dropdown-item" href="/funcionalidade/novo">Adicionar Tela</a>
-                        <a class="dropdown-item" href="/vinculo-de-funcionalidade">Vinculo de Telas</a>
+                    <a class="nav-link dropdown-toggle" href="/senha" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Senha
+                                    </a>
     
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <router-link class="dropdown-item" to="/validarSenha">Validar Senha</router-link>
+                        <router-link class="dropdown-item" to="/esqueceuSenha">Esqueceu Senha</router-link>
+                        <router-link class="dropdown-item" to="/alterarSenha">Alterar Senha</router-link>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/funcionalidade" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Telas
+                                    </a>
+    
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <router-link class="dropdown-item" to="/funcionalidade">Controle de Tela</router-link>
+                        <router-link class="dropdown-item" to="/funcionalidade/novo">Adicionar Tela</router-link>
+                        <router-link class="dropdown-item" to="/vinculo-de-funcionalidade">Vinculo de Tela</router-link>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/grupo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Grupo
-                        </a>
+                                      Grupo
+                                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/grupo">Controle de Grupo</a>
-                        <a class="dropdown-item" href="/controle-de-grupo/novo">Adicionar Grupo</a>
-                        <a class="dropdown-item" href="/vinculo-de-grupo">Vinculo de Grupo</a>
+                        <router-link class="dropdown-item" to="/grupo">Controle de Grupo</router-link>
+                        <router-link class="dropdown-item" to="/controle-de-grupo/novo">Adicionar Grupo</router-link>
+                        <router-link class="dropdown-item" to="/vinculo-de-grupo">Vinculo de Grupo</router-link>
+    
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/pessoa" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Pessoa
-                        </a>
+                                      Pessoa
+                                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/pessoa">Controle de Pessoas</a>
-                        <a class="dropdown-item" href="/controle-de-pessoas/novo">Adicionar Pessoas</a>
+                        <router-link class="dropdown-item" to="/pessoa">Controle de Pessoas</router-link>
+                        <router-link class="dropdown-item" to="/controle-de-pessoas/novo">Adicionar Pessoas</router-link>
+    
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/setores" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Setor
-                        </a>
+                                      Setor
+                                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/setores">Controle de Setor</a>
-                        <a class="dropdown-item" href="/controle-de-setores/novo">Adicionar Setor</a>
+                        <router-link class="dropdown-item" to="/setores">Controle de Setor</router-link>
+                        <router-link class="dropdown-item" to="/controle-de-setores/novo">Adicionar Pessoas</router-link>
+    
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/usuario" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Usuário
-                        </a>
+                                      Usuário
+                                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/usuario">Controle de Usuário</a>
-                        <a class="dropdown-item" href="/usuario/novo">Adicionar Usuário</a>
-    
+                        <router-link class="dropdown-item" to="/usuario">Controle de Usuário</router-link>
+                        <router-link class="dropdown-item" to="/usuario/novo">Adicionar Usuário</router-link>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" @click="logout">Sair</a>
-                </li>
     
+    
+                <div class="navbar-nav ml-auto">
+                    <b-nav-item-dropdown right>
+                        <template v-slot:button-content><i class="fas fa-user"></i>  {{ userName }}</template>
+                        <b-dropdown-item @click="logout">Sair</b-dropdown-item>
+                   </b-nav-item-dropdown>
+                </div>
             </ul>
-    
-    
-    
-    
         </div>
     </nav>
 </template>
@@ -150,7 +94,8 @@ export default {
     components: {},
     data() {
         return {
-            deslogar: null
+            deslogar: null,
+            userName: null
         }
     },
 
@@ -161,23 +106,43 @@ export default {
 
             axios
                 .post('http://192.168.0.6:8000/api/logout', {}, {
-                    headers:  {
+                    headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
                 .then(() => {
                     this.$router.push('/');
                     localStorage.removeItem('token')
+                    localStorage.removeItem('userName')
                 })
                 .catch(error => {
                     console.error('Logout failed:', error);
                 });
         }
+    },
+
+    created() {
+        this.userName = localStorage.getItem('userName')
     }
 }
 </script>
 
 <style>
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 10px;
+    /* Espaçamento entre os itens */
+}
+
+.navbar-nav .nav-item i {
+    margin-right: 5px;
+    /* Espaçamento entre o ícone e o nome do usuário */
+}
+
 .navbar-toggler {
     color: white !important;
 }

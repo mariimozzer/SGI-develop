@@ -7,9 +7,9 @@
             </div>
         </div>
         <div class="row sub-container">
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <b-button @click="adicionarUsuario" class="b-button">
-                    <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+                    <b-icon icon="person-plus-fill" aria-hidden="true"></b-icon>
                     
                 </b-button>
             </div>
@@ -135,6 +135,8 @@ export default {
             usuarioService.obterTodos()
                 .then((response) => {
                     this.usuarios = response.data.data.map((p) => new Usuários(p));
+
+                    
                 })
                 .catch(error => {
                     console.log(error)

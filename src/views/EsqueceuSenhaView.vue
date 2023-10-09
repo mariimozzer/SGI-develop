@@ -1,18 +1,20 @@
 <template>
     <div class="container">
         <FlashMessage></FlashMessage>
+        <FlashMessageError></FlashMessageError>
     
     
         <div class="box-login">
-            <h3 class="titulo"> Esqueceu a Senha </h3>
+            <h4 class="titulo"> Esqueceu sua Senha ?</h4>
             <hr>
             <br>
             <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
                     <b-icon icon="envelope-fill"></b-icon>
                 </b-input-group-prepend>
-                <b-form-input type="text" v-model="email" :state="emailValidationState" placeholder="Digite seu Email"></b-form-input>
+                <b-form-input type="text" ref="emailInput"  v-model="email" :state="emailValidationState" placeholder="Digite seu Email"></b-form-input>
             </b-input-group>
+            <div v-if="!emailValidationState && emailTouched && !email" class="text-danger">Por favor, preencha o campo de email.</div>
             <b-button @click="resetarSenha" class="b-button">
                 <b-icon v-if="!loading" icon="check-circle-fill" aria-hidden="true"></b-icon>
                 <i v-if="loading" class="fas fa-spinner fa-spin"></i> &nbsp;
@@ -21,11 +23,9 @@
             </b-button>
             <div v-if="loading" style="text-align: center;">
                 <br>
-                <i v-if="loading" class="fas fa-spinner fa-spin"> </i>
+                <!-- <i v-if="loading" class="fas fa-spinner fa-spin"> </i> -->
             </div>
-    
         </div>
-    
     </div>
 </template>
 
@@ -33,20 +33,23 @@
 import axios from 'axios'
 import { mapMutations } from 'vuex'
 import FlashMessage from '../components/flashMessage/FlashOKComponent.vue'
+import FlashMessageError from '@/components/flashMessage/FlashErrorComponent.vue'
 
 
 export default {
     name: "EsqueceuSenhaComponent",
 
     components: {
-        FlashMessage
+        FlashMessage,
+        FlashMessageError
     },
 
     data() {
         return {
             email: '',
             loading: false,
-            emailValidationState: null
+            emailValidationState: null,
+            emailTouched: false
         }
     },
 
@@ -55,11 +58,14 @@ export default {
 
             if (!this.email) {
                 this.emailValidationState = false;
-                this.$refs.emailInput.focus();
+                this.emailTouched = true;
+
+                this.$nextTick(() => {
+                    this.$refs.emailInput.focus();
+                });
+
                 return;
             }
-
-
 
             this.emailValidationState = true
             this.loading = true;
@@ -79,20 +85,30 @@ export default {
 
                     this.email = ''
 
-
-
                     console.log(res)
                 },
 
 
             ).catch(
                 err => {
+
+                    this.loading = false;
+                    this.emailValidationState = false;
+                    this.$store.commit('setFlashMessageError', 'E-mail inválido')
+                    setTimeout(() => {
+                        this.$store.commit('clearFlashMessageError');
+                    }, 10000)
+
+                    this.email = ''
+
                     console.log(err)
                 }
             )
         },
 
         ...mapMutations(['setFlashMessage']),
+
+        ...mapMutations(['setFlashMessageError']),
 
     }
 }

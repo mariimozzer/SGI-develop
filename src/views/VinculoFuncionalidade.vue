@@ -90,8 +90,8 @@
                             <br>
                             <tr class="titulo-tabela">
                                 <td scope="col"></td>
-                                <td scope="col">Telas Disponíveis</td>
-                                <td style="width: 60px;"><button type="button" @click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i></button></td>
+                                <td scope="col" v-if="!grupoSelecionado">Telas</td>
+                                <td scope="col"><button v-if="grupoSelecionado" type="button" @click="adicionarFuncGrupo" class="btn btn-success"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i>&nbsp; Vincular tela a grupo</button></td>
                                 <td scope="col"></td>
                             </tr>
     

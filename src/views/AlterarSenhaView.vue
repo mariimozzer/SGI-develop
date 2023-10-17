@@ -11,14 +11,14 @@
             <b-input-group-prepend is-text>
                 <b-icon icon="lock-fill"></b-icon>
             </b-input-group-prepend>
-            <b-form-input type="password" ref="currentInput" :state="validationState" placeholder="Senha Atual" v-model="senha.current_password"></b-form-input>
+            <b-form-input type="password" ref="currentInput" :state="validationState" placeholder="Senha Atual" v-model="current_password"></b-form-input>
         </b-input-group>
     
         <b-input-group class="mb-2">
             <b-input-group-prepend is-text>
                 <b-icon icon="lock-fill"></b-icon>
             </b-input-group-prepend>
-            <b-form-input type="password" ref="newPasswordInput" :state="validationState" placeholder="Nova Senha" v-model="senha.new_password"></b-form-input>
+            <b-form-input type="password" ref="newPasswordInput" :state="validationState" placeholder="Nova Senha" v-model="new_password"></b-form-input>
         </b-input-group>
     
         <b-input-group class="mb-2">
@@ -26,17 +26,17 @@
                 <b-icon icon="lock-fill"></b-icon>
             </b-input-group-prepend>
     
-            <b-form-input type="password" ref="newPasswordConfInput" :state="validationState" placeholder="Repita a Nova Senha" v-model="senha.new_password_confirmation"></b-form-input>
+            <b-form-input type="password" ref="newPasswordConfInput" :state="validationState" placeholder="Repita a Nova Senha" v-model="new_password_confirmation"></b-form-input>
         </b-input-group>
     
         <!-- <label style="color: red; text-decoration: double;" v-if="error">{{ error }}</label> -->
     
     
         <div v-if="!validationState && (
-                (currentPasswordTouched && !current_password) ||
-                (newPasswordTouched && !new_password) ||
-                (newPasswordConfTouched && !new_password_confirmation)
-            )" class="text-danger">Por favor, preencha todos os campos.</div>
+                                        (currentPasswordTouched && !current_password) ||
+                                        (newPasswordTouched && !new_password) ||
+                                        (newPasswordConfTouched && !new_password_confirmation)
+                                    )" class="text-danger">Por favor, preencha todos os campos.</div>
     
         <b-button @click="resetPassword" class="b-button">
             <b-icon v-if="!loading" icon="check-circle-fill" aria-hidden="true"></b-icon>
@@ -45,15 +45,17 @@
             <span v-if="loading">Salvando...</span>
         </b-button>
     
+        {{ current_password }} {{ new_password }} {{ new_password_confirmation }}
+    
     </div>
 </template>
   
 <script>
 import AlterarSenha from '@/models/AlterarSenha'
-import alterarSenhaService from '@/services/alterar_senha-service'
 import FlashMessage from '@/components/flashMessage/FlashOKComponent.vue'
 import FlashErrorMessage from '@/components/flashMessage/FlashErrorComponent.vue';
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 
 export default {
 
@@ -72,7 +74,8 @@ export default {
             new_password_confirmation: '',
             currentPasswordTouched: false,
             newPasswordTouched: false,
-            newPasswordConfTouched: false
+            newPasswordConfTouched: false,
+            reset_token: ''
 
 
         }
@@ -80,76 +83,99 @@ export default {
 
     methods: {
         resetPassword() {
-            this.loading = true
-
+            this.loading = true;
+            this.validationState = true;
             if (!this.current_password) {
-                this.validationState = false
-                this.currentPasswordTouched = true
-                this.loading = false
+                this.currentPasswordTouched = true;
 
                 this.$nextTick(() => {
                     this.$refs.currentInput.focus();
                 });
-                return
+
+                this.loading = false;
+                this.validationState = false;
+                return;
             }
 
-
             if (!this.new_password) {
-                this.validationState = false
-                this.newPasswordTouched = true
-                this.loading = false
-
+                this.newPasswordTouched = true;
 
                 this.$nextTick(() => {
                     this.$refs.newPasswordInput.focus();
                 });
 
-                return
+                this.loading = false;
+                this.validationState = false;
+                return;
             }
 
             if (!this.new_password_confirmation) {
-                this.validationState = false
-                this.newPasswordConfTouched = true
-                this.loading = false
-
+                this.newPasswordConfTouched = true;
 
                 this.$nextTick(() => {
                     this.$refs.newPasswordConfInput.focus();
                 });
 
-                return
+                this.loading = false;
+                this.validationState = false;
+                return;
             }
 
-            this.loading = true
-            this.validationState = true
+            if (this.new_password === this.new_password_confirmation) {
+                this.validationState = true;
+                this.currentPasswordTouched = true
+                this.newPasswordTouched = true
+                this.newPasswordConfTouched = true
+                this.reset_token = localStorage.getItem('token')
+                console.log(this.reset_token)
 
-            axios.post('http://192.168.0.6:8000/api/usuarios/senha/alterar', {
-                    current_password: this.current_password,
-                    new_password: this.new_password,
-                    new_password_confirmation: this.new_password_confirmation
-                })
-                .then(
-                    response => {
-                        console.log(response)
-                    }
-                )
-                .catch(error => {
-                    console.error(error)
-                })
+                axios.post('http://192.168.0.6:8000/api/usuario/senha/alterar', {
+                        current_password: this.current_password,
+                        new_password: this.new_password,
+                        new_password_confirmation: this.new_password_confirmation
+                    }, {
+                        headers: {
+                            'Authorization': `Bearer ${this.reset_token}`
+                        }
+                    })
+                    .then(
+                        response => {
+                            this.$store.commit('setFlashMessage', 'Senha resetada com sucesso!')
+                            this.current_password = ''
+                            this.new_password = ''
+                            this.new_password_confirmation = ''
+                            this.loading = false
+
+                            console.log(response)
+                        }
+                    )
+                    .catch(error => {
+                        this.loading = false
+                        this.validationState = false
+                        this.$store.commit('setFlashMessageError', 'Erro ao redefinir senha!')
+                        setTimeout(() => {
+                            this.$store.commit('clearFlashMessageError');
+                        }, 5000)
+                        console.error(error)
+                    })
 
 
-            alterarSenhaService.cadastrar(this.senha)
-                .then(() => {
-                    this.senha = new AlterarSenha();
+            } else {
+                this.loading = false
+                this.$store.commit('setFlashMessageError', 'As senhas não conferem!')
+                this.new_password = ''
+                this.new_password_confirmation = ''
+                this.current_password = ''
 
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            }
+
+
 
         },
 
+        ...mapMutations(['setFlashMessage']),
 
+        ...mapMutations(['setFlashMessageError'])
     }
 }
 </script>

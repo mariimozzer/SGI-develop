@@ -17,9 +17,20 @@ import VinculoFuncionalidade from "@/views/VinculoFuncionalidade"
 import AlterarSenhaView from "@/views/AlterarSenhaView"
 import EsqueceuSenhaView from "@/views/EsqueceuSenhaView"
 import ValidarSenhaView from "@/views/ValidarSenhaView"
+import VisualizarView from "@/views/VisualizarView"
 
 
 const routes = [
+
+  {
+    path: '/visualizarView', 
+    name: 'VisualizarView',
+    component: VisualizarView,
+    
+  },
+
+
+
   {
     path: '/validarSenha', 
     name: 'ValidarSenha',
@@ -44,7 +55,11 @@ const routes = [
   {
     path: '/home',
     name: 'HomeView',
-    component: HomeView
+    component: HomeView,
+    meta:{
+      hideMenu:true
+    }
+
   },
   {
     path: '/',

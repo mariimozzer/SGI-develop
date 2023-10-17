@@ -4,9 +4,9 @@ import router from './router'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
-import VueTheMask from 'vue-the-mask'
+// import VueTheMask from 'vue-the-mask'
 import store from './store'
-Vue.use(VueTheMask)
+// Vue.use(VueTheMask)
 
 
 Vue.use(BootstrapVue);

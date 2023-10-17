@@ -2,28 +2,28 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; ">
             <a class="navbar-brand" href="#">
-                                                        <img src="../../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
-                                                     </a>
+                                                                        <img src="../../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
+                                                                     </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                                    <span class="navbar-toggler-icon"></span>
-                                                     </button>
+                                                                    <span class="navbar-toggler-icon"></span>
+                                                                     </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <button v-for="menu in menus" :key="menu.id" @mouseover="activateMenu(menu)" class="btn menu-block text-white" :class="{ 'active': menu.active }" :style="{ backgroundColor: botoes }"> 
-                                                                    <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
-                                                                     </button>
+                                                                                    <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
+                                                                                     </button>
                 </ul>
                 <div class="icons">
                     <!-- <i class="fas fa-search"></i>
-                                            <i class="fas fa-cogs"></i>
-                                            <i class="fas fa-bell"></i> -->
+                                                            <i class="fas fa-cogs"></i>
+                                                            <i class="fas fa-bell"></i> -->
                     <!-- <a href="/setores" class="fas fa-user"></a>
-                                                <i class="fas fa-user" url="/setores"></i> -->
+                                                                <i class="fas fa-user" url="/setores"></i> -->
                     <div class="navbar-nav ml-auto">
                         <b-nav-item-dropdown right>
                             <template v-slot:button-content><i style="color: white;" class="fa-solid fa-circle-user"></i>
-                                                        <span class="username">&nbsp; Olá, {{ userName }}</span>
-                        </template>
+                                                                        <span class="username">&nbsp; Olá, {{ userName }}</span>
+</template>
                             <b-dropdown-item style="color: black" href="/alterarSenha">
                             <span style="color: black;"><i class="fa-solid fa-user-gear"></i>&nbsp; Alterar Senha</span>
                            </b-dropdown-item>
@@ -37,22 +37,20 @@
             </div>
         </nav>
     
-        <div v-if="activeMenu && activeMenu.submenus" class="content" :style="{ backgroundColor: activeMenu.color }" @mouseleave="closeContent">
-            <div v-if="activeMenu.submenus.length > 0" class="submenu">
-                <div v-for="(submenu) in activeMenu.submenus" :key="submenu.id">
-                    <h6>{{ submenu.category }}</h6>
-                    <ul>
-                        <li v-for="link in submenu.links" :key="link.id">
-                            <a @click="openSidebar(link)">{{ link.name }} 
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    
+        <div v-if="activeMenu && activeMenu.submenus" class="content" :style="{ backgroundColor: activeMenu.color} " @mouseleave="closeContent">
+    <div v-if="activeMenu.submenus.length > 0" class="submenu-columns">
+      <div v-for="(submenu, index) in activeMenu.submenus" :key="index" class="submenu-column">
+        <h6> <i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
+        <ul style="list-style-type: none;" >
+             <li v-for="link in submenu.links" :key="link.id">
+            <a style="cursor: pointer;" @click="openSidebar(link)">{{ link.name }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
            
-        <div v-if="showSidebar" class="sidebar">
+        <!-- <div v-if="showSidebar" class="sidebar">
             <ul>
                 <li v-if="selectedLink" :key="selectedLink.id" style="text-align: center;">
                     <h6>{{ selectedLink.name }}</h6>
@@ -63,7 +61,7 @@
                            </b-dropdown-item>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -80,67 +78,91 @@ export default {
             deslogar: null,
             userName: null,
             botoes: '#343537',
+            linkPlanilha: 'https://docs.google.com/spreadsheets/d/1CX0rII63ON_o7cMae2kp9Y7oJzw517BGyEo-9__HbMo/edit#gid=0',
 
-            menus: [{
-                    id: 1,
-                    name: 'Geral',
-                    icon: "fa-solid fa-file-pen",
-                    active: false,
-                    color: '#C8E6C9',
-                    submenus: [{
-                            id: 1,
-                            category: 'Geral',
-                            links: [
-                                { id: 1, name: 'Reuniões', url: '#' },
-                                { id: 2, name: 'Comunicado', url: '#' },
-                                { id: 3, name: 'Requisição', url: '#' },
-                                { id: 4, name: 'Agenda veículo', url: '#' },
-                                { id: 5, name: 'Agenda salas', url: '#' },
-                                { id: 6, name: 'Chamados', url: '#' },
+            menus: [
 
-                            ],
-                        },
-
-                    ],
-                },
                 {
-                    id: 2,
+                    id: 1,
                     name: 'Administrativo',
                     icon: "fa-solid fa-users",
                     active: false,
-                    color: '#FFF9C4',
+                    color: '#FFE2B7',
                     submenus: [{
-                            id: 2,
+                            id: 1,
                             category: 'Recursos Humanos',
+                            icon: 'fa-solid fa-image-portrait',
                             links: [
-                                { id: 7, name: 'SGP', url: '/setores' },
-                                { id: 8, name: 'Comunicados', url: '#' },
+                                { id: 1, name: 'SGP', url: '/setores' },
+                                { id: 2, name: 'Comunicados', url: '#' },
+                            ],
+                        },
+                        {
+                            id: 2,
+                            category: 'Compras',
+                            icon: 'fa-solid fa-cart-shopping',
+                            links: [
+                                { id: 3, name: 'Pedido', url: '#' },
+                                { id: 4, name: 'Autorização', url: '#' },
+                                { id: 5, name: 'Cotação', url: '#' },
+                                { id: 6, name: 'Aprovação', url: '#' },
                             ],
                         },
                         {
                             id: 3,
-                            category: 'Compras',
+                            category: 'Facilities',
+                            icon: 'fa-solid fa-building',
                             links: [
-                                { id: 9, name: 'Pedido', url: '#' },
-                                { id: 10, name: 'Autorização', url: '#' },
-                                { id: 11, name: 'Cotação', url: '#' },
-                                { id: 12, name: 'Aprovação', url: '#' },
+                                { id: 7, name: 'Acesso', url: '#' },
+                                { id: 8, name: 'Recebimento Material', url: '#' },
+                                { id: 9, name: 'NF +', url: '#' },
                             ],
                         },
                         {
                             id: 4,
-                            category: 'Facilities',
+                            category: 'Finanças',
+                            icon: 'fa-solid fa-piggy-bank',
                             links: [
-                                { id: 13, name: 'Acesso', url: '#' },
-                                { id: 14, name: 'Recebimento Material', url: '#' },
-                                { id: 15, name: 'NF +', url: '#' },
+                                { id: 10, name: 'Pagamento', url: '#' },
+
+                            ],
+                        },
+                    ],
+                },
+
+                {
+                    id: 2,
+                    name: 'Fábrica',
+                    icon: 'fa-solid fa-tablet-screen-button',
+                    active: false,
+                    color: '#BBDEFB',
+                    submenus: [{
+                            id: 5,
+                            category: 'Produção',
+                            icon: 'fa-solid fa-industry',
+                            links: [
+                                { id: 11, name: 'Apontamento', url: '#' },
+                                { id: 12, name: 'Agenda', url: '#' },
+                                { id: 13, name: 'Chão de Fábrica', url: '#' },
+                                { id: 14, name: 'Teste', url: '#' },
+                                { id: 15, name: 'Injeção', url: '#' },
+
+
                             ],
                         },
                         {
-                            id: 5,
-                            category: 'Finanças',
+                            id: 6,
+                            category: 'Mecânica',
+                            icon: 'fa-solid fa-toolbox',
                             links: [
-                                { id: 16, name: 'Pagamento', url: '#' },
+
+                            ],
+                        },
+                        {
+                            id: 7,
+                            category: 'Qualidade',
+                            icon: 'fa-solid fa-list-check',
+                            links: [
 
                             ],
                         },
@@ -148,85 +170,81 @@ export default {
                 },
                 {
                     id: 3,
-                    name: 'Operacional',
-                    icon: 'fa-solid fa-screwdriver-wrench',
-                    active: false,
-                    color: '#C5CAE9',
-                    submenus: [{
-                            id: 6,
-                            category: 'Produção',
-                            links: [
-                                { id: 17, name: 'Apontamento', url: '#' },
-                                { id: 18, name: 'Agenda', url: '#' },
-                                { id: 19, name: 'Chão de Fábrica', url: '#' },
-                                { id: 20, name: 'Teste', url: '#' },
-                                { id: 21, name: 'Injeção', url: '#' },
-
-
-                            ],
-                        },
-                        {
-                            id: 7,
-                            category: 'Mecânica',
-                            links: [
-
-                            ],
-                        },
-                        {
-                            id: 8,
-                            category: 'Qualidade',
-                            links: [
-
-                            ],
-                        },
-                    ],
-                },
-                {
-                    id: 4,
                     name: 'Gestão',
                     icon: 'fa-solid fa-user-tie',
                     active: false,
                     color: '#D1C4E9',
                     submenus: [{
-                            id: 9,
+                            id: 8,
                             category: 'Gestão',
+                            icon: 'fa-solid fa-chart-line',
                             links: [
-                                { id: 22, name: 'Dashboard', url: '#' },
-                                { id: 23, name: 'Chão de Fábrica', url: '#' },
-                                { id: 24, name: 'Relatórios', url: '#' },
+                                { id: 16, name: 'Dashboard', url: '#' },
+                                { id: 17, name: 'Chão de Fábrica', url: '#' },
+                                { id: 18, name: 'Relatórios', url: '#' },
                             ],
                         },
 
                     ],
                 },
+
+                {
+                    id: 4,
+                    name: 'Geral',
+                    icon: "fa-solid fa-file-pen",
+                    active: false,
+                    color: '#C8E6C9',
+
+
+                    submenus: [{
+                            id: 9,
+                            category: 'Geral',
+                            icon: 'fa-solid fa-bullhorn',
+                            links: [
+                                { id: 19, name: 'Reuniões', url: '#' },
+                                { id: 20, name: 'Comunicado', url: '#' },
+                                { id: 21, name: 'Requisição', url: '#' },
+                                { id: 22, name: 'Agenda veículo', url: '#' },
+                                { id: 23, name: 'Agenda salas', url: '#' },
+                                { id: 24, name: 'Chamados', url: '#' },
+
+                            ],
+                        },
+
+                    ],
+                },
+
+
+
+                // {
+                //     id: 5,
+                //     name: 'Negócios',
+                //     icon: 'fa-solid fa-briefcase',
+                //     active: false,
+                //     color: '#FFCDD2',
+                //     submenus: [{
+                //             id: 10,
+                //             category: 'Comercial',
+                //             links: [
+
+                //             ],
+                //         },
+                //         {
+                //             id: 11,
+                //             category: 'Marketing',
+                //             links: [
+
+                //             ],
+                //         },
+                //     ],
+                // },
                 {
                     id: 5,
-                    name: 'Negócios',
-                    icon: 'fa-solid fa-briefcase',
+                    name: 'Configuração',
+                    icon: 'fa-solid fa-screwdriver-wrench',
                     active: false,
                     color: '#FFCDD2',
-                    submenus: [{
-                            id: 10,
-                            category: 'Comercial',
-                            links: [
 
-                            ],
-                        },
-                        {
-                            id: 11,
-                            category: 'Marketing',
-                            links: [
-
-                            ],
-                        },
-                    ],
-                },
-                {
-                    id: 6,
-                    name: 'P&D',
-                    icon: 'fa-solid fa-tablet-screen-button',
-                    active: false,
-                    color: '#BBDEFB',
                     submenus: [
 
                     ],
@@ -248,18 +266,24 @@ export default {
         },
 
         activateMenu(menu) {
-            this.activeMenu = menu;
-            this.menus.forEach((m) => {
-                m.active = m === menu;
-            });
+            if (this.isMenuExpandido) {
+                this.activeMenu = menu;
+                this.menus.forEach((m) => {
+                    m.active = m === menu;
+                });
 
-            if (menu.submenus && menu.submenus.length > 0) {
-                this.activateSubMenu(menu.submenus[0]);
+                if (menu.submenus && menu.submenus.length > 0) {
+                    this.activateSubMenu(menu.submenus[0]);
+
+                }
             } else {
                 this.showSidebar = false;
                 this.sideBarMenus = [];
             }
         },
+
+
+
 
         activateSubMenu(submenu) {
             if (submenu.category === 'SGP ') {
@@ -272,9 +296,9 @@ export default {
                 ];
 
 
-          
 
-            } else { 
+
+            } else {
                 this.showSidebar = false;
                 this.sideBarMenus = [];
             }
@@ -306,11 +330,30 @@ export default {
     created() {
         this.userName = localStorage.getItem('userName')
 
+    },
+
+
+    computed: {
+        isMenuExpandido() {
+            return this.$route.name === 'AdicionarPessoa' && this.$parent.Administrativo;
+        }
     }
 };
 </script>
 
 <style>
+.submenu-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.submenu-column {
+    width: 20%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
 .username {
     color: white;
     font-family: 'montserrat', sans-serif;
@@ -321,6 +364,7 @@ export default {
     width: 100%;
     top: 0;
     cursor: pointer;
+    height: 100px;
 }
 
 .container {

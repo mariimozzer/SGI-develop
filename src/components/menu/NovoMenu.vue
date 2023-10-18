@@ -2,28 +2,28 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; ">
             <a class="navbar-brand" href="#">
-                                                                        <img src="../../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
-                                                                     </a>
+            <img src="../../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
+             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                                                    <span class="navbar-toggler-icon"></span>
-                                                                     </button>
+             <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <button v-for="menu in menus" :key="menu.id" @mouseover="activateMenu(menu)" class="btn menu-block text-white" :class="{ 'active': menu.active }" :style="{ backgroundColor: botoes }"> 
-                                                                                    <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
-                                                                                     </button>
+                <ul class="navbar-nav mx-auto">
+                    <button v-for="menu in menus" :key="menu.id" @mouseover="activateMenu(menu)"  class="btn menu-block text-white mb-2 mr-2" :class="{ 'active': menu.active }" :style="{ backgroundColor: botoes }"> 
+                        <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
+                    </button>
                 </ul>
                 <div class="icons">
                     <!-- <i class="fas fa-search"></i>
-                                                            <i class="fas fa-cogs"></i>
-                                                            <i class="fas fa-bell"></i> -->
+                         <i class="fas fa-cogs"></i>
+                         <i class="fas fa-bell"></i> -->
                     <!-- <a href="/setores" class="fas fa-user"></a>
-                                                                <i class="fas fa-user" url="/setores"></i> -->
+                        <i class="fas fa-user" url="/setores"></i> -->
                     <div class="navbar-nav ml-auto">
                         <b-nav-item-dropdown right>
                             <template v-slot:button-content><i style="color: white;" class="fa-solid fa-circle-user"></i>
-                                                                        <span class="username">&nbsp; Olá, {{ userName }}</span>
-</template>
+                            <span class="username">&nbsp; Olá, {{ userName }}</span>
+                            </template>
                             <b-dropdown-item style="color: black" href="/alterarSenha">
                             <span style="color: black;"><i class="fa-solid fa-user-gear"></i>&nbsp; Alterar Senha</span>
                            </b-dropdown-item>
@@ -39,11 +39,11 @@
     
         <div v-if="activeMenu && activeMenu.submenus" class="content" :style="{ backgroundColor: activeMenu.color} " @mouseleave="closeContent">
     <div v-if="activeMenu.submenus.length > 0" class="submenu-columns">
-      <div v-for="(submenu, index) in activeMenu.submenus" :key="index" class="submenu-column">
+      <div v-for="(submenu) in activeMenu.submenus" :key="submenu.id" class="submenu-column">
         <h6> <i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
         <ul style="list-style-type: none;" >
              <li v-for="link in submenu.links" :key="link.id">
-            <a style="cursor: pointer;" @click="openSidebar(link)">{{ link.name }}</a>
+            <a style="cursor: pointer; color: black; text-decoration: none;" :href="link.url">{{ link.name }}</a>
           </li>
         </ul>
       </div>
@@ -78,22 +78,21 @@ export default {
             deslogar: null,
             userName: null,
             botoes: '#343537',
-            linkPlanilha: 'https://docs.google.com/spreadsheets/d/1CX0rII63ON_o7cMae2kp9Y7oJzw517BGyEo-9__HbMo/edit#gid=0',
 
             menus: [
 
                 {
                     id: 1,
-                    name: 'Administrativo',
-                    icon: "fa-solid fa-users",
+                    name: 'ADMINISTRATIVO',
+                    icon: "fa-solid fa-briefcase",
                     active: false,
                     color: '#FFE2B7',
                     submenus: [{
                             id: 1,
                             category: 'Recursos Humanos',
-                            icon: 'fa-solid fa-image-portrait',
+                            icon: 'fa-solid fa-users',
                             links: [
-                                { id: 1, name: 'SGP', url: '/setores' },
+                                { id: 1, name: 'SGP', url: '/SGP' },
                                 { id: 2, name: 'Comunicados', url: '#' },
                             ],
                         },
@@ -111,7 +110,7 @@ export default {
                         {
                             id: 3,
                             category: 'Facilities',
-                            icon: 'fa-solid fa-building',
+                            icon: 'fa-solid fa-truck',
                             links: [
                                 { id: 7, name: 'Acesso', url: '#' },
                                 { id: 8, name: 'Recebimento Material', url: '#' },
@@ -132,7 +131,7 @@ export default {
 
                 {
                     id: 2,
-                    name: 'Fábrica',
+                    name: 'FÁBRICA',
                     icon: 'fa-solid fa-tablet-screen-button',
                     active: false,
                     color: '#BBDEFB',
@@ -153,7 +152,7 @@ export default {
                         {
                             id: 6,
                             category: 'Mecânica',
-                            icon: 'fa-solid fa-toolbox',
+                            icon: 'fa-solid fa-wrench',
                             links: [
 
                             ],
@@ -161,7 +160,7 @@ export default {
                         {
                             id: 7,
                             category: 'Qualidade',
-                            icon: 'fa-solid fa-list-check',
+                            icon: 'fa-solid fa-clipboard-check',
                             links: [
 
                             ],
@@ -170,7 +169,7 @@ export default {
                 },
                 {
                     id: 3,
-                    name: 'Gestão',
+                    name: 'GESTÃO',
                     icon: 'fa-solid fa-user-tie',
                     active: false,
                     color: '#D1C4E9',
@@ -190,11 +189,10 @@ export default {
 
                 {
                     id: 4,
-                    name: 'Geral',
+                    name: 'GERAL',
                     icon: "fa-solid fa-file-pen",
                     active: false,
                     color: '#C8E6C9',
-
 
                     submenus: [{
                             id: 9,
@@ -214,30 +212,6 @@ export default {
                     ],
                 },
 
-
-
-                // {
-                //     id: 5,
-                //     name: 'Negócios',
-                //     icon: 'fa-solid fa-briefcase',
-                //     active: false,
-                //     color: '#FFCDD2',
-                //     submenus: [{
-                //             id: 10,
-                //             category: 'Comercial',
-                //             links: [
-
-                //             ],
-                //         },
-                //         {
-                //             id: 11,
-                //             category: 'Marketing',
-                //             links: [
-
-                //             ],
-                //         },
-                //     ],
-                // },
                 {
                     id: 5,
                     name: 'Configuração',
@@ -260,13 +234,13 @@ export default {
     },
     methods: {
 
-        openSidebar(link) {
-            this.showSidebar = true;
-            this.selectedLink = link;
-        },
+        // openSidebar(link) {
+        //     this.showSidebar = true;
+        //     this.selectedLink = link;
+        // },
 
         activateMenu(menu) {
-            if (this.isMenuExpandido) {
+        
                 this.activeMenu = menu;
                 this.menus.forEach((m) => {
                     m.active = m === menu;
@@ -275,15 +249,12 @@ export default {
                 if (menu.submenus && menu.submenus.length > 0) {
                     this.activateSubMenu(menu.submenus[0]);
 
-                }
+                
             } else {
                 this.showSidebar = false;
                 this.sideBarMenus = [];
             }
         },
-
-
-
 
         activateSubMenu(submenu) {
             if (submenu.category === 'SGP ') {
@@ -294,9 +265,6 @@ export default {
                     { id: 2, name: 'Vincular', url: '#' },
                     { id: 3, name: 'Controle', url: '/setores' },
                 ];
-
-
-
 
             } else {
                 this.showSidebar = false;
@@ -334,14 +302,13 @@ export default {
 
 
     computed: {
-        isMenuExpandido() {
-            return this.$route.name === 'AdicionarPessoa' && this.$parent.Administrativo;
-        }
+       
     }
 };
 </script>
 
 <style>
+
 .submenu-columns {
     display: flex;
     flex-wrap: wrap;

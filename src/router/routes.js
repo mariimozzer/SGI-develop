@@ -18,9 +18,30 @@ import AlterarSenhaView from "@/views/AlterarSenhaView"
 import EsqueceuSenhaView from "@/views/EsqueceuSenhaView"
 import ValidarSenhaView from "@/views/ValidarSenhaView"
 import VisualizarView from "@/views/VisualizarView"
+import SGPView from "@/views/SGPView"
+import Login2View from "@/views/Login2View"
 
 
 const routes = [
+  {
+    path: '/2', 
+    name: 'Login2View',
+    component: Login2View,
+    meta: {
+      hideMenu: true
+    }
+    
+  },
+
+
+
+
+  {
+    path: '/SGP', 
+    name: 'SGPView',
+    component: SGPView,
+    
+  },
 
   {
     path: '/visualizarView', 
@@ -28,8 +49,6 @@ const routes = [
     component: VisualizarView,
     
   },
-
-
 
   {
     path: '/validarSenha', 

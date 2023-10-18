@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
     
     
     </div>
@@ -16,12 +16,20 @@ export default {
            
 
         }
+    },
+
+    methods: {
+
     }
 
  
     }
 
 </script>
+
+<style scoped>
+
+</style>
 
 
 

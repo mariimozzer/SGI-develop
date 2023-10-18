@@ -6,6 +6,7 @@
                 <hr>
             </div>
         </div>
+        <MenuSGP></MenuSGP>
         <div class="row sub-container">
             <div class="col-sm-1">
                 <b-button @click="adicionarUsuario" class="b-button">
@@ -41,7 +42,6 @@
                     <tbody>
     
                         <tr v-for="item in paginatedData" :key="item.id">
-    
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.email }}</td>
@@ -83,11 +83,13 @@ import usuarioService from '@/services/usuario-service'
 import Usuários from '@/models/Usuario'
 import Grupo from '@/models/Grupo'
 import grupoService from '@/services/grupo-service'
+import MenuSGP from "@/components/menu/MenuSGP.vue"
+
 
 export default {
     name: "ControleDeUsuarios",
     components: {
-
+        MenuSGP
     },
     filters: {
 

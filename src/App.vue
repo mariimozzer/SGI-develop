@@ -5,7 +5,7 @@
                 <div class="menu">
                     <MenuComponent v-if="!$route.meta.hideMenu"></MenuComponent> 
             </header>  -->
-        <header >
+        <header>
             <div class="menu">
                 <!-- <MenuComponent v-if="!$route.meta.hideMenu"></MenuComponent>  -->
                 <NovoMenu v-if="!$route.meta.hideMenu"></NovoMenu>
@@ -17,7 +17,9 @@
         <div >
             <router-view />
         </div>
-        <FooterComponent></FooterComponent>
+        
+        <FooterComponent class="footer"></FooterComponent>
+        
     </div>
 </template>
 
@@ -37,6 +39,10 @@ export default {
 </script>
 
 <style>
+
+.footer{
+    position: fixed;
+}
 
 :root {
     --first-color: #343537;

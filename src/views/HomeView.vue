@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; ">
             <a class="navbar-brand" href="#">
-            <img src="../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
+            <img src="../../public/img/logo-site.png" alt="Logo" style="width: 100px;">
                                                          </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                                         <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
                   <div id="caixasSobreEsteira"  style="display: flex;flex-flow: row;justify-content:space-around; padding-bottom: -300px;">
                       <div id="pcp" >
                           <div id="entrada" style="padding:40px;display: flex;flex-flow: column;justify-content: space-between;padding-left: 1px;padding-right: 1px;">
-                            <div @click="expandirMenu()" class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #FF914D;width: 160px;"> Administrativo</div>
+                            <div @click="Administrativo()" class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #FF914D;width: 160px; "> Administrativo</div>
 
                         </div>  
                       </div>
@@ -130,22 +130,16 @@ export default {
     data() {
         return {
             userName: null,
-            menuExpandido: false,
-            mostrarMenu: false 
-           
+         
         };
     },
 
     methods: {
+        Administrativo(){
 
-        expandirMenu() {
-        this.menuExpandido = true;
+            this.$router.push({name: 'SGPView'})
         },
-
-        administracao()
-        {
-            this.$router.push({name: "AdicionarPessoa"})
-        },
+        
 
         logout() {
             const token = localStorage.getItem('token')

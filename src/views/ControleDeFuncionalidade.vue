@@ -9,8 +9,6 @@
             <hr>
             
         </div>
-        <MenuSGP></MenuSGP>
-
         <div class="row sub-container">
     
             <div class="col-sm-1">
@@ -93,12 +91,11 @@
 <script>
 import funcionalidadeService from '@/services/funcionalidade-service'
 import Funcionalidade from '@/models/Funcionalidade'
-import MenuSGP from "@/components/menu/MenuSGP.vue"
 
 export default {
     name: "ControleDeFuncionalidades",
     components: {
-        MenuSGP
+        
     },
 
     data() {

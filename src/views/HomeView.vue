@@ -17,7 +17,7 @@
                             <span style="color: black;"><i class="fa-solid fa-user-gear"></i>&nbsp; Alterar Senha</span>
                            </b-dropdown-item>
                         <b-dropdown-item style="color: black" @click="logout">
-                            <span style="color: black;"><i class="fa-solid fa-person-walking-arrow-right"></i>&nbsp; Logout</span>
+                            <span style="color: black;"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Logout</span>
                            </b-dropdown-item>
                          
                        </b-nav-item-dropdown>

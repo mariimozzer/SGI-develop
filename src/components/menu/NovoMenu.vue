@@ -2,33 +2,29 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; ">
             <a class="navbar-brand" href="#">
-            <img src="../../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
-             </a>
+                <img src="../../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
+                 </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-             <span class="navbar-toggler-icon"></span>
-            </button>
+                 <span class="navbar-toggler-icon"></span>
+                </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
-                    <button v-for="menu in menus" :key="menu.id" @mouseover="activateMenu(menu)"  class="btn menu-block text-white mb-2 mr-2" :class="{ 'active': menu.active }" :style="{ backgroundColor: botoes }"> 
-                        <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
-                    </button>
+                    <button v-for="menu in menus" :key="menu.id" @mouseover="activateMenu(menu)" class="btn menu-block text-white mb-2 mr-2" :class="{ 'active': menu.active }" :style="{ backgroundColor: botoes }"> 
+                            <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
+                        </button>
                 </ul>
                 <div class="icons">
-                    <!-- <i class="fas fa-search"></i>
-                         <i class="fas fa-cogs"></i>
-                         <i class="fas fa-bell"></i> -->
-                    <!-- <a href="/setores" class="fas fa-user"></a>
-                        <i class="fas fa-user" url="/setores"></i> -->
+                  
                     <div class="navbar-nav ml-auto">
                         <b-nav-item-dropdown right>
                             <template v-slot:button-content><i style="color: white;" class="fa-solid fa-circle-user"></i>
-                            <span class="username">&nbsp; Olá, {{ userName }}</span>
+                                <span class="username">&nbsp; Olá, {{ userName }}</span>
                             </template>
                             <b-dropdown-item style="color: black" href="/alterarSenha">
                             <span style="color: black;"><i class="fa-solid fa-user-gear"></i>&nbsp; Alterar Senha</span>
                            </b-dropdown-item>
                         <b-dropdown-item style="color: black" @click="logout">
-                            <span style="color: black;"><i class="fa-solid fa-person-walking-arrow-right"></i>&nbsp; Logout</span>
+                            <span style="color: black;"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Logout</span>
                            </b-dropdown-item>
                          
                        </b-nav-item-dropdown>
@@ -43,7 +39,7 @@
         <h6> <i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
         <ul style="list-style-type: none;" >
              <li v-for="link in submenu.links" :key="link.id">
-            <a style="cursor: pointer; color: black; text-decoration: none;" :href="link.url">{{ link.name }}</a>
+            <a class="submenu-link" style="cursor: pointer; color: black; text-decoration: none;" :href="link.url">{{ link.name }}</a>
           </li>
         </ul>
       </div>
@@ -65,10 +61,8 @@
     </div>
 </template>
 
-
 <script>
 import axios from 'axios';
-
 
 export default {
     components: {},
@@ -92,8 +86,7 @@ export default {
                             category: 'Recursos Humanos',
                             icon: 'fa-solid fa-users',
                             links: [
-                                { id: 1, name: 'SGP', url: '/SGP' },
-                                { id: 2, name: 'Comunicados', url: '#' },
+                                { id: 1, name: 'Comunicados ', url: '#' },
                             ],
                         },
                         {
@@ -101,10 +94,11 @@ export default {
                             category: 'Compras',
                             icon: 'fa-solid fa-cart-shopping',
                             links: [
-                                { id: 3, name: 'Pedido', url: '#' },
-                                { id: 4, name: 'Autorização', url: '#' },
-                                { id: 5, name: 'Cotação', url: '#' },
-                                { id: 6, name: 'Aprovação', url: '#' },
+                                { id: 2, name: 'Aprovação', url: '#' },
+                                { id: 3, name: 'Autorização', url: '#' },
+                                { id: 4, name: 'Cotação', url: '#' },
+                                { id: 5, name: 'Pedido', url: 'http://192.168.0.5/sgi/admin/?page=solicitar_requisicao' },
+
                             ],
                         },
                         {
@@ -112,17 +106,18 @@ export default {
                             category: 'Facilities',
                             icon: 'fa-solid fa-truck',
                             links: [
-                                { id: 7, name: 'Acesso', url: '#' },
+                                { id: 6, name: 'Acesso', url: '#' },
+                                { id: 7, name: 'NF +', url: '#' },
                                 { id: 8, name: 'Recebimento Material', url: '#' },
-                                { id: 9, name: 'NF +', url: '#' },
+
                             ],
                         },
                         {
                             id: 4,
                             category: 'Finanças',
-                            icon: 'fa-solid fa-piggy-bank',
+                            icon: 'fa-solid fa-sack-dollar',
                             links: [
-                                { id: 10, name: 'Pagamento', url: '#' },
+                                { id: 9, name: 'Pagamento', url: '#' },
 
                             ],
                         },
@@ -140,11 +135,11 @@ export default {
                             category: 'Produção',
                             icon: 'fa-solid fa-industry',
                             links: [
-                                { id: 11, name: 'Apontamento', url: '#' },
-                                { id: 12, name: 'Agenda', url: '#' },
-                                { id: 13, name: 'Chão de Fábrica', url: '#' },
-                                { id: 14, name: 'Teste', url: '#' },
-                                { id: 15, name: 'Injeção', url: '#' },
+                                { id: 10, name: 'Apontamento', url: '#' },
+                                { id: 11, name: 'Agenda', url: '#' },
+                                { id: 12, name: 'Chão de Fábrica', url: '#' },
+                                { id: 13, name: 'Teste', url: '#' },
+                                { id: 14, name: 'Injeção', url: '#' },
 
 
                             ],
@@ -176,11 +171,11 @@ export default {
                     submenus: [{
                             id: 8,
                             category: 'Gestão',
-                            icon: 'fa-solid fa-chart-line',
+                            icon: 'fa-solid fa-circle-nodes',
                             links: [
+                                { id: 15, name: 'Chão de Fábrica', url: '#' },
                                 { id: 16, name: 'Dashboard', url: '#' },
-                                { id: 17, name: 'Chão de Fábrica', url: '#' },
-                                { id: 18, name: 'Relatórios', url: '#' },
+                                { id: 17, name: 'Relatórios', url: '#' },
                             ],
                         },
 
@@ -190,7 +185,7 @@ export default {
                 {
                     id: 4,
                     name: 'GERAL',
-                    icon: "fa-solid fa-file-pen",
+                    icon: "fa-solid fa-earth-americas",
                     active: false,
                     color: '#C8E6C9',
 
@@ -199,12 +194,13 @@ export default {
                             category: 'Geral',
                             icon: 'fa-solid fa-bullhorn',
                             links: [
-                                { id: 19, name: 'Reuniões', url: '#' },
-                                { id: 20, name: 'Comunicado', url: '#' },
-                                { id: 21, name: 'Requisição', url: '#' },
-                                { id: 22, name: 'Agenda veículo', url: '#' },
-                                { id: 23, name: 'Agenda salas', url: '#' },
-                                { id: 24, name: 'Chamados', url: '#' },
+                                                                                       
+                                { id: 18, name: 'Agenda veículo', url: '#' },
+                                { id: 19, name: 'Agenda salas', url: '#' },
+                                { id: 20, name: 'Chamados', url: '#' },
+                                { id: 21, name: 'Comunicado', url: '#' },
+                                { id: 22, name: 'Requisição', url: '#' },
+                                { id: 23, name: 'Reuniões', url: '#' },
 
                             ],
                         },
@@ -214,13 +210,61 @@ export default {
 
                 {
                     id: 5,
-                    name: 'Configuração',
+                    name: 'CONFIGURAÇÃO',
                     icon: 'fa-solid fa-screwdriver-wrench',
                     active: false,
                     color: '#FFCDD2',
 
-                    submenus: [
+                    submenus: [{
+                            id: 10,
+                            category: 'Grupos',
+                            icon: 'fa-solid fa-network-wired',
+                            links: [
+                                { id: 24, name: 'Adicionar Grupo', url: '/controle-de-grupo/novo' },
+                                { id: 25, name: 'Controle de Grupo', url: '/grupo' },
+                                { id: 26, name: 'Vincular Grupo', url: '/vinculo-de-grupo' },
+                          ],
+                        },
 
+                        {
+                            id: 11,
+                            category: 'Pessoas',
+                            icon: 'fa-solid fa-user',
+                            links: [
+                            { id: 27, name: 'Adicionar Pessoa', url: '/controle-de-pessoas/novo' },
+                            { id: 28, name: 'Controle de  Pessoas', url: '/pessoa' },
+                            ],
+                        },
+
+                        {
+                            id: 12,
+                            category: 'Setores',
+                            icon: 'fa-solid fa-shop',
+                            links: [
+                            { id: 29, name: 'Adicionar Setor', url: '/controle-de-setores/novo' },
+                            { id: 30, name: 'Controle de  Setores', url: '/setores' },
+                            ],
+                        },
+                        {
+                            id: 13,
+                            category: 'Telas',
+                            icon: 'fa-solid fa-desktop',
+                            links: [
+                            { id: 31, name: 'Adicionar Tela', url: '/funcionalidade/novo' },
+                            { id: 32, name: 'Controle de  Telas', url: '/funcionalidade' },
+                            { id: 33, name: 'Vincular Telas', url: '/vinculo-de-funcionalidade' },
+
+                            ],
+                        },
+                        {
+                            id: 14,
+                            category: 'Usuários',
+                            icon: 'fa-solid fa-people-group',
+                            links: [
+                            { id: 34, name: 'Adicionar Usuário', url: '/usuario/novo' },
+                            { id: 35, name: 'Controle de  Usuário', url: '/usuario' },
+                            ],
+                        },
                     ],
                 },
             ],
@@ -240,16 +284,16 @@ export default {
         // },
 
         activateMenu(menu) {
-        
-                this.activeMenu = menu;
-                this.menus.forEach((m) => {
-                    m.active = m === menu;
-                });
 
-                if (menu.submenus && menu.submenus.length > 0) {
-                    this.activateSubMenu(menu.submenus[0]);
+            this.activeMenu = menu;
+            this.menus.forEach((m) => {
+                m.active = m === menu;
+            });
 
-                
+            if (menu.submenus && menu.submenus.length > 0) {
+                this.activateSubMenu(menu.submenus[0]);
+
+
             } else {
                 this.showSidebar = false;
                 this.sideBarMenus = [];
@@ -302,18 +346,19 @@ export default {
 
 
     computed: {
-       
+
     }
 };
 </script>
 
 <style>
-
 .submenu-columns {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+
 
 .submenu-column {
     width: 20%;
@@ -379,12 +424,18 @@ export default {
 .submenu ul {
     list-style: none;
     padding: 0;
+    color: black !important;
 }
 
 .submenu li a {
-    color: #333;
+    color: black !important;
     text-decoration: none;
 }
+
+.submenu-link:hover{
+    color: rgb(129, 127, 127) !important;
+}
+
 
 .icons {
     display: flex;

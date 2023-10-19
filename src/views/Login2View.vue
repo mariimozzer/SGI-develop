@@ -4,7 +4,7 @@
             <FlashMessageError></FlashMessageError>
             <div class="box-login" style="background-color: #343537; color: white">
                 <div>
-                    <img class="logo" style="height: 150px;" src="../../public/img/logo-roboflex-vetor-branco.png">
+                    <!-- <img class="logo" style="height: 150px;" src="../../public/img/logo-roboflex-vetor-branco.png"> -->
     
                 </div>
     
@@ -169,6 +169,10 @@ export default {
 </script>
 
 <style scoped>
+
+.app{
+    background-color: var(--first-color);
+}
 .login-page {
     background-color: black;
     min-height: 100vh;

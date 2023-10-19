@@ -1,11 +1,8 @@
 <template>
     <div id="app">
 
-            <!-- <header>
-                <div class="menu">
-                    <MenuComponent v-if="!$route.meta.hideMenu"></MenuComponent> 
-            </header>  -->
-        <header>
+            <header style="background-color: var(--first-color);">
+        
             <div class="menu">
                 <!-- <MenuComponent v-if="!$route.meta.hideMenu"></MenuComponent>  -->
                 <NovoMenu v-if="!$route.meta.hideMenu"></NovoMenu>

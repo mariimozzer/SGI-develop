@@ -13,8 +13,9 @@
     
             <div class="col-sm-1">
                 <b-button @click="adicionarFuncionalidade" class="b-button">
-                    <b-icon icon="grid" aria-hidden="true"></b-icon>
-                    <b-icon icon="plus"  aria-hidden="true"></b-icon>
+                    <!-- <b-icon icon="grid" aria-hidden="true"></b-icon>
+                    <b-icon icon="plus"  aria-hidden="true"></b-icon> -->
+                    <i class="fa-solid fa-plus"></i>
 
                 </b-button>
             </div>
@@ -202,7 +203,10 @@ export default {
 <style scoped>
 .input-group {
     max-width: 300px;
-    /* Ajuste conforme necessário */
+}
+
+.titulo {
+    box-shadow: none;
 }
 </style>
 

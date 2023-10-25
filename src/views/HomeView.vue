@@ -1,17 +1,17 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; text-align: center; text-align: center;">
             <a class="navbar-brand" href="#">
-            <img src="../../public/img/logo-site.png" alt="Logo" style="width: 100px;">
-                                                         </a>
+                <img src="https://roboflex.com.br/wp-content/uploads/2023/05/logotipo-roboflex.png" alt="Logo" style="width: 75%; ">
+                                                             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                                        <span class="navbar-toggler-icon"></span>
-                                                         </button>
-           
-                    <div class="navbar-nav ml-auto">
-                        <b-nav-item-dropdown right>
-                            <template v-slot:button-content><i style="color: white;" class="fa-solid fa-circle-user"></i>
-                                                            <span class="username">&nbsp; Olá, {{ userName }}</span>
+                                                            <span class="navbar-toggler-icon"></span>
+                                                             </button>
+    
+            <div class="navbar-nav ml-auto">
+                <b-nav-item-dropdown right>
+                    <template v-slot:button-content><i style="color: white;" class="fa-solid fa-circle-user"></i>
+                                                                <span class="username">&nbsp; Olá, {{ userName }}</span>
 </template>
                             <b-dropdown-item style="color: black" href="/alterarSenha">
                             <span style="color: black;"><i class="fa-solid fa-user-gear"></i>&nbsp; Alterar Senha</span>
@@ -32,33 +32,33 @@
       <div id="primeiraSegundaColuna" style="display:flex;flex-flow:column; margin-bottom: 0px; padding-bottom: 0px;">
                   <!-- primeira linha -->
                   <div id="caixasSobreEsteira"  style="display: flex;flex-flow: row;justify-content:space-around; padding-bottom: -300px;">
-                      <div id="pcp" >
+                      <div id="adm" >
                           <div id="entrada" style="padding:40px;display: flex;flex-flow: column;justify-content: space-between;padding-left: 1px;padding-right: 1px;">
-                            <div @click="Administrativo()" class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #FF914D;width: 160px; "> Administrativo</div>
+                            <div @click="Administrativo()" class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #EF5350;width: 160px; "> Administrativo</div>
 
                         </div>  
                       </div>
-                      <div id="pcp">
+                      <div id="fabrica">
                           <div id="entrada" style="padding:40px;display: flex;flex-flow: column;justify-content: space-between;padding-left: 1px;padding-right: 1px;">
 
-                              <div  class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #3F51B5;width: 160px;">Fábrica</div>
+                              <div @click="Fabrica()" class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #3F51B5;width: 160px;">Fábrica</div>
                           </div>  
                       </div>
-                      <div id="apontamento">
+                      <div id="gestao">
                           <div id="entrada" style="padding:40px;display: flex;flex-flow: column;justify-content: space-between;padding-left: 1px;padding-right: 1px;">
                              
-                              <div  class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #9C27B0;width: 160px;">Gestão</div>
+                              <div @click="Gestao()"  class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #9C27B0;width: 160px;">Gestão</div>
                           </div>  
                       </div>
-                      <div id="gestao">
+                      <div id="geral">
                           <div id="entrada" style="padding:40px;display: flex;flex-flow: column;justify-content: space-between;padding-left: 1px;padding-right: 1px;">
                               
-                              <div class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #4AAB4E;width: 160px;">Geral</div>
+                              <div @click="Geral()" class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #4AAB4E;width: 160px;">Geral</div>
                           </div>  
                       </div>
-                      <div id="gestao">
+                      <div id="configuracao">
                           <div id="entrada" style="padding:40px;display: flex;flex-flow: column;justify-content: space-between;padding-left: 1px;padding-right: 1px;">
-                              <div class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #EF5350;width: 160px; ">Configuração</div>
+                              <div @click="Configuracao()" class="estante" style="text-align: center; font-size:18px;padding:5px;background-color: #F9A825;width: 160px; ">Configuração</div>
                           </div>  
                       </div>
                  </div>
@@ -117,29 +117,49 @@
     </div>
   </template>
   
-  <script>
+<script>
 import axios from 'axios';
 
 
 export default {
     name: "HomeComponent",
     components: {
-        
+
     },
-    
+
     data() {
         return {
             userName: null,
-         
+
         };
     },
 
     methods: {
-        Administrativo(){
+        Administrativo() {
 
-            this.$router.push({name: 'SGPView'})
+            this.$router.push({ name: 'AdministrativoView' })
         },
-        
+
+        Fabrica() {
+            this.$router.push({ name: 'FabricaView' })
+
+        },
+
+        Gestao() {
+            this.$router.push({ name: 'GestaoView' })
+
+        },
+
+        Geral() {
+            this.$router.push({ name: 'GeralView' })
+
+        },
+
+        Configuracao() {
+            this.$router.push({ name: 'ConfiguracaoView' })
+
+        },
+
 
         logout() {
             const token = localStorage.getItem('token')
@@ -160,86 +180,76 @@ export default {
         },
     },
 
-    created(){
+    created() {
         this.userName = localStorage.getItem('userName')
     }
 }
+</script>
+  
+<style scoped>
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
 
-  </script>
-  
-  <style scoped>
-   nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
+.estante {
+    color: white;
+    padding-left: 10px;
+    transform: perspective(800px) rotateY(-1deg);
+    transition: transform 0.1s ease 0s;
+    border-radius: 4px;
+    box-shadow: rgba(235, 233, 233, 0.325) 0px 0px 0px 1px, rgba(179, 179, 179, 0.667) 0px 1px 0px 0px, rgba(0, 0, 0, 0.03) 0px 0px 8px 0px, rgba(0, 0, 0, 0.1) 0px 20px 30px 0px;
+    transition: all .1s;
+    border: 10px solid transparent;
+    font-weight: bold;
+}
+
+.titulo {
+    padding-left: 10px;
+    transform: perspective(800px) rotateY(-1deg);
+    transition: transform 1s ease 0s;
+    border-radius: 4px;
+    box-shadow: rgba(235, 233, 233, 0.325) 0px 0px 0px 1px, rgba(179, 179, 179, 0.667) 0px 1px 0px 0px, rgba(0, 0, 0, 0.03) 0px 0px 8px 0px, rgba(0, 0, 0, 0.1) 0px 20px 30px 0px;
+    border: 10px solid transparent;
+}
+
+body {
+    background-color: #f4f5f5;
+    color: #060808;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+.estante:hover {
+    transform: translateY(0.1px);
+    box-shadow: 0 0 5px gray;
+    cursor: pointer;
+}
+
+.loading {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    border-radius: 4px;
+    animation: rotate 4s linear infinite;
+    opacity: 0.5;
+}
+
+/* Aqui definimos a nossa animação com o nome "rotate" */
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
     }
-  .estante {
-      color: white;
-      padding-left: 10px;
-      transform:
-        perspective(800px)
-        rotateY(-1deg);
-      transition: transform 0.1s ease 0s;
-      border-radius: 4px;
-      box-shadow:
-        rgba(235, 233, 233, 0.325) 0px 0px 0px 1px,
-        rgba(179, 179, 179, 0.667) 0px 1px 0px 0px,
-        rgba(0, 0, 0, 0.03) 0px 0px 8px 0px,
-        rgba(0, 0, 0, 0.1) 0px 20px 30px 0px;
-      transition: all .1s;
-      border: 10px solid transparent;
-      font-weight: bold;
-  }
-  .titulo {
-      padding-left: 10px;
-      transform:
-        perspective(800px)
-        rotateY(-1deg);
-      transition: transform 1s ease 0s;
-      border-radius: 4px;
-      box-shadow:
-        rgba(235, 233, 233, 0.325) 0px 0px 0px 1px,
-        rgba(179, 179, 179, 0.667) 0px 1px 0px 0px,
-        rgba(0, 0, 0, 0.03) 0px 0px 8px 0px,
-        rgba(0, 0, 0, 0.1) 0px 20px 30px 0px;
-      border: 10px solid transparent;
-  }
-  body {
-      background-color: #f4f5f5; 
-      color: #060808;
-      font-family: 'Inter', sans-serif;
-      font-family: 'Quicksand', sans-serif;
-      font-family: 'Roboto', sans-serif;
-    } 
-  
-  .estante:hover{
-      transform: translateY(0.1px); 
-      box-shadow: 0 0 5px gray; 
-      cursor: pointer;
-  }
-  
-  .loading {
-      width: 60px;
-      height: 60px;
-      margin: auto;
-      border-radius: 4px;
-      animation: rotate 4s linear infinite;
-      opacity : 0.5;
-  }
-  
-  /* Aqui definimos a nossa animação com o nome "rotate" */
-  @keyframes rotate {
-      from {
-          transform: rotate(0deg);
-      }
-  
-      to {
-          transform: rotate(359deg);
-      }
-  }
-  
-  footer{
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+footer {
     background: #24344231;
     width: 100%;
     height: 100px;
@@ -248,6 +258,5 @@ export default {
     left: 0;
     overflow-y: hidden;
     overflow-x: hidden;
-    }
-  
-    </style>
+}
+</style>

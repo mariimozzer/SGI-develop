@@ -157,9 +157,9 @@ export default {
         toggleGrupoToAdd(grupoId) {
             const index = this.selectedFuncToAdd.indexOf(grupoId);
             if (index !== -1) {
-                this.selectedFuncToAdd.splice(index, 1); // Remove the item
+                this.selectedFuncToAdd.splice(index, 1); 
             } else {
-                this.selectedFuncToAdd.push(grupoId); // Add the item
+                this.selectedFuncToAdd.push(grupoId); 
             }
         },
 
@@ -241,7 +241,6 @@ export default {
             return this.funcionalidades.filter(grupo => !this.funcGrupos.some(funcGrupos => funcGrupos.id === grupo.id));
         },
         filteredFuncionalidades() {
-            // Filtra as funcionalidades com base no termo de pesquisa
             return this.funcionalidadesParaAdicionar.filter((func) =>
                 func.nome.toLowerCase().includes(this.searchTerm.toLowerCase())
             );

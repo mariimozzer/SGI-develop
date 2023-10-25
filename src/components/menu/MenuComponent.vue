@@ -1,5 +1,5 @@
 <template>
-
+<div style="background-color: white;">
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="/dashboard">
                                 <img src="../../../public/img/logo-site.png">
@@ -82,6 +82,7 @@
             </ul>
         </div>
     </nav>
+</div>
 </template>
 
 
@@ -135,12 +136,10 @@ export default {
 
 .navbar-nav .nav-item {
     margin-left: 10px;
-    /* Espaçamento entre os itens */
 }
 
 .navbar-nav .nav-item i {
     margin-right: 5px;
-    /* Espaçamento entre o ícone e o nome do usuário */
 }
 
 .navbar-toggler {

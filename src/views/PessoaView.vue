@@ -5,7 +5,7 @@
             <div class="col-sm-12">
                 <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Pessoa </h3>
                 <hr/>
-                <br>
+                
             </div>
         </div>
         <div class="row">
@@ -79,10 +79,14 @@
                         <span v-if="loading"> &nbsp; Salvando...</span>
     
                     </b-button>
+                    <br>
                     <!-- <button @click="salvarPessoa" class="btn btn-primary float-right mr-2" ><i v-if="!loading" class="fas fa-spiner fa-spin"></i>Salvar</button> -->
                 </div>
+            
             </div>
+     
         </div>
+        <br>
     </div>
 </template>
 

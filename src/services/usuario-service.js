@@ -1,14 +1,6 @@
 
 import api from './api';
 
-// function obterTodosPayload(){
-
-//     let retorno='{"name":"grupoTeste","email": "mariana@gmail.com", "password": "123", "grupo_id":"2"}';
-//     let payload = [];
-//     payload = JSON.parse(retorno);
-//     return payload;
-//     console.log(payload);
-// }
 
 function obterTodos(){
     return new Promise((resolve, reject) => {

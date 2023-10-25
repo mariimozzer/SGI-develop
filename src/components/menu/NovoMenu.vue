@@ -1,8 +1,12 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; ">
-            <a class="navbar-brand" href="#">
-                <img src="../../../public/img/logo-site.png" alt="Logo" style="width: 120px;">
+            <a class="navbar-brand" href="/home">
+                
+                <img src="https://roboflex.com.br/wp-content/uploads/2023/05/logotipo-roboflex.png" alt="Logo" style="width: 75%; ">
+            
+                <!-- <img src="../../../public/img/logo-zontec-branco.png"  width="100px"> <br><br> -->
+            
                  </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                  <span class="navbar-toggler-icon"></span>
@@ -39,7 +43,7 @@
         <h6> <i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
         <ul style="list-style-type: none;" >
              <li v-for="link in submenu.links" :key="link.id">
-            <a class="submenu-link" style="cursor: pointer; color: black; text-decoration: none;" :href="link.url">{{ link.name }}</a>
+            <a class="submenu-link" style="cursor: pointer; color: black; text-decoration: none;" :href="link.url" >{{ link.name }}</a>
           </li>
         </ul>
       </div>
@@ -80,7 +84,7 @@ export default {
                     name: 'ADMINISTRATIVO',
                     icon: "fa-solid fa-briefcase",
                     active: false,
-                    color: '#FFE2B7',
+                    color: '#FFCDD2',
                     submenus: [{
                             id: 1,
                             category: 'Recursos Humanos',
@@ -195,9 +199,9 @@ export default {
                             icon: 'fa-solid fa-bullhorn',
                             links: [
                                                                                        
-                                { id: 18, name: 'Agenda veículo', url: '#' },
-                                { id: 19, name: 'Agenda salas', url: '#' },
-                                { id: 20, name: 'Chamados', url: '#' },
+                                { id: 18, name: 'Agenda veículo', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-ve%C3%ADculo?authuser=0' },
+                                { id: 19, name: 'Agenda salas', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-sala-de-reuni%C3%A3o?authuser=0',  },
+                                { id: 20, name: 'Chamados', url: '#'  },
                                 { id: 21, name: 'Comunicado', url: '#' },
                                 { id: 22, name: 'Requisição', url: '#' },
                                 { id: 23, name: 'Reuniões', url: '#' },
@@ -213,7 +217,7 @@ export default {
                     name: 'CONFIGURAÇÃO',
                     icon: 'fa-solid fa-screwdriver-wrench',
                     active: false,
-                    color: '#FFCDD2',
+                    color: '#FFECB3',
 
                     submenus: [{
                             id: 10,
@@ -377,6 +381,8 @@ export default {
     top: 0;
     cursor: pointer;
     height: 100px;
+    position: fixed;
+    z-index: 2;
 }
 
 .container {

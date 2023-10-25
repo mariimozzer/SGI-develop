@@ -9,8 +9,9 @@
         <div class="row sub-container">
             <div class="col-sm-1">
                 <b-button @click="adicionarUsuario" class="b-button">
-                    <b-icon icon="person-plus-fill" aria-hidden="true"></b-icon>
-                    
+                    <!-- <b-icon icon="person-plus-fill" aria-hidden="true"></b-icon> -->
+                    <i class="fa-solid fa-plus"></i>
+
                 </b-button>
             </div>
         </div>

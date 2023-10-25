@@ -1,13 +1,17 @@
-<template>
+<template >
     <div class="login-page">
         <form @submit.prevent="login" class="container">
             <FlashMessageError></FlashMessageError>
             <div class="box-login" style="background-color: #343537; color: white">
-                <div>
+                <div style="text-align: center;">
                     <!-- <img class="logo" style="height: 150px;" src="../../public/img/logo-roboflex-vetor-branco.png"> -->
-    
+                    <img class="logo" src="../../public/img/logo-zontec-branco.png" width="150px"><br><br>
+
+                    <img class="logo" src="../../public/img/logo-login-preto.png">
+
+
                 </div>
-    
+                <br>
                 <b-input-group class="mb-2">
                     <b-input-group-prepend is-text>
                         <b-icon icon="envelope-fill"></b-icon>
@@ -31,7 +35,7 @@
                 </div>
                 <br>
     
-                <div v-if="!validationState && (
+                <div style="text-align: center;" v-if="!validationState && (
                                             (emailTouched && !email) ||
                                             (passwordTouched && !password)
                                         )" class="text-danger">Por favor, preencha todos os campos.</div>
@@ -170,35 +174,20 @@ export default {
 
 <style scoped>
 
-.app{
-    background-color: var(--first-color);
-}
-.login-page {
-    background-color: black;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.login-page .top-section,
-.login-page .bottom-section {
-    background-color: white;
-    flex-shrink: 0;
-}
-
 .botaoLogin {
-    /* border: 1px solid; */
+    border: 0px solid;
     border-radius: 20px;
+    background-color: var(--second-color);
+    
 }
 
 .box-login {
-    width: 350px;
-    margin: auto;
-    border: 1px solid #ddd;
-    margin-top: 150px;
-    padding: 30px;
-    border-radius: 20px;
+    max-width: 80%; 
+  margin: auto;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  padding: 30px;
+  border-radius: 20px;
 }
 
 .logo {
@@ -217,5 +206,39 @@ export default {
     align-content: center;
     align-items: center;
     flex-direction: column;
+
 }
+
+
+
+@media (max-width: 768px) {
+
+.box-login {
+  max-width: 50%; 
+  margin: auto;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  padding: 30px;
+  border-radius: 20px;
+}
+.logo {
+  font-size: 18px;
+}
+}
+
+@media (max-width: 576px) {
+.box-login {
+  max-width: 90%; 
+  margin: auto;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  padding: 30px;
+  border-radius: 20px;
+}
+.logo {
+  font-size: 16px;
+}
+}
+
+
 </style>

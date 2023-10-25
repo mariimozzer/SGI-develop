@@ -18,11 +18,31 @@ import AlterarSenhaView from "@/views/AlterarSenhaView"
 import EsqueceuSenhaView from "@/views/EsqueceuSenhaView"
 import ValidarSenhaView from "@/views/ValidarSenhaView"
 import VisualizarView from "@/views/VisualizarView"
-import SGPView from "@/views/SGPView"
+import AdministrativoView from "@/views/AdministrativoView"
+import FabricaView from "@/views/FabricaView"
+import GestaoView from "@/views/GestaoView"
+import GeralView from "@/views/GeralView"
+import ConfiguracaoView from "@/views/ConfiguracaoView"
+
+
+
 import Login2View from "@/views/Login2View"
+import SideBarView from "@/views/SideBarView"
+import Home2View from "@/views/Home2View"
 
 
 const routes = [
+
+ 
+  {
+    path: '/home2', 
+    name: 'Home2View',
+    component: Home2View,
+    meta: {
+      hideMenu: true
+    }  
+  },
+
   {
     path: '/2', 
     name: 'Login2View',
@@ -33,15 +53,49 @@ const routes = [
     
   },
 
-
-
+  {
+    path: '/sideBarView',
+    name: 'SideBarView',
+    component: SideBarView
+  },
+ 
 
   {
-    path: '/SGP', 
-    name: 'SGPView',
-    component: SGPView,
+    path: '/AdministrativoView', 
+    name: 'AdministrativoView',
+    component: AdministrativoView,
     
   },
+
+  {
+    path: '/FabricaView', 
+    name: 'FabricaView',
+    component: FabricaView,
+ 
+  },
+
+  {
+    path: '/GestaoView', 
+    name: 'GestaoView',
+    component: GestaoView,
+
+
+},
+
+{
+  path: '/GeralView', 
+  name: 'GeralView',
+  component: GeralView,
+
+
+},
+{
+  path: '/ConfiguracaoView', 
+  name: 'ConfiguracaoView',
+  component: ConfiguracaoView,
+
+
+},
 
   {
     path: '/visualizarView', 
@@ -54,6 +108,9 @@ const routes = [
     path: '/validarSenha', 
     name: 'ValidarSenha',
     component: ValidarSenhaView,
+    meta: {
+      hideMenu: true
+    }
     
   },
 
@@ -61,7 +118,9 @@ const routes = [
     path: '/esqueceuSenha', 
     name: 'EsqueceuSenha',
     component: EsqueceuSenhaView,
-    
+    meta: {
+      hideMenu: true
+    }
   },
 
   {

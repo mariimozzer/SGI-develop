@@ -1,33 +1,31 @@
 <template>
-    <div id="app">
+     <div id="app">
 
-            <header style="background-color: var(--first-color);">
-        
-            <div class="menu">
-                <!-- <MenuComponent v-if="!$route.meta.hideMenu"></MenuComponent>  -->
-                <NovoMenu v-if="!$route.meta.hideMenu"></NovoMenu>
-            </div>
-        </header>
-        <br>
-        <br>
-        <br>
-        <div >
-            <router-view />
-        </div>
-        
-        <FooterComponent class="footer"></FooterComponent>
-        
-    </div>
+<header>
+
+<div class="menu">
+    <!-- <MenuComponent v-if="!$route.meta.hideMenu"></MenuComponent>  -->
+    <NovoMenu v-if="!$route.meta.hideMenu"></NovoMenu>
+</div>
+</header>
+<br>
+<br>
+<br>
+<div >
+<router-view />
+</div>
+
+<FooterComponent class="footer"></FooterComponent>
+
+</div>
 </template>
 
 <script>
-// import MenuComponent from "@/components/menu/MenuComponent.vue"
 import FooterComponent from "@/components/footer/FooterComponent"
 import NovoMenu from "@/components/menu/NovoMenu.vue"
 
 export default {
     components: {
-        // MenuComponent: MenuComponent,
         FooterComponent: FooterComponent,
         NovoMenu: NovoMenu
 
@@ -38,7 +36,7 @@ export default {
 <style>
 
 .footer{
-    position: fixed;
+    position: absolute;
 }
 
 :root {
@@ -85,6 +83,7 @@ export default {
 .titulo {
     text-align: center;
     color: var(--first-color);
+    box-shadow: none;
 }
 
 /* 
@@ -102,7 +101,7 @@ body {
 header {
     width: 100vw;
     margin-top: 0;
-    background-color: var(--first-color);
+    background-color: var(--first-color) ;
     padding: 0px;
 }
 
@@ -121,4 +120,7 @@ thead {
     z-index: -1;
     width: 100%;
 }
+
+
+
 </style>

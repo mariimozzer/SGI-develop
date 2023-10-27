@@ -5,9 +5,9 @@
             <div class="box-login" style="background-color: #343537; color: white">
                 <div style="text-align: center;">
                     <!-- <img class="logo" style="height: 150px;" src="../../public/img/logo-roboflex-vetor-branco.png"> -->
-                    <img class="logo" src="../../public/img/logo-zontec-branco.png" width="150px"><br><br>
+                    <!-- <img class="logo" src="../../public/img/logo-zontec-branco.png" width="150px"><br><br>
 
-                    <img class="logo" src="../../public/img/logo-login-preto.png">
+                    <img class="logo" src="../../public/img/logo-login-preto.png"> -->
 
 
                 </div>

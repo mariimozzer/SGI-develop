@@ -21,17 +21,35 @@ import VisualizarView from "@/views/VisualizarView"
 import AdministrativoView from "@/views/AdministrativoView"
 import FabricaView from "@/views/FabricaView"
 import GestaoView from "@/views/GestaoView"
-import GeralView from "@/views/GeralView"
-import ConfiguracaoView from "@/views/ConfiguracaoView"
+import SGPView from "@/views/SGPView"
 
 
 
 import Login2View from "@/views/Login2View"
 import SideBarView from "@/views/SideBarView"
 import Home2View from "@/views/Home2View"
+import Home3View from "@/views/Home3View"
+import Home4View from "@/views/Home4View"
 
 
 const routes = [
+
+  {
+    path: '/home3', 
+    name: 'Home3View',
+    component: Home3View,
+    meta: {
+      hideMenu: true
+    }  
+  },
+  {
+    path: '/home4', 
+    name: 'Home4View',
+    component: Home4View,
+    meta: {
+      hideMenu: true
+    }  
+  },
 
  
   {
@@ -52,6 +70,14 @@ const routes = [
     }
     
   },
+  {
+    path: '/SGP', 
+    name: 'SGPView',
+    component: SGPView,
+   
+   
+  },
+
 
   {
     path: '/sideBarView',
@@ -82,20 +108,7 @@ const routes = [
 
 },
 
-{
-  path: '/GeralView', 
-  name: 'GeralView',
-  component: GeralView,
 
-
-},
-{
-  path: '/ConfiguracaoView', 
-  name: 'ConfiguracaoView',
-  component: ConfiguracaoView,
-
-
-},
 
   {
     path: '/visualizarView', 

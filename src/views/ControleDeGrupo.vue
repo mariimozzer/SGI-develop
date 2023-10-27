@@ -1,12 +1,15 @@
 <template>
     <div class="container">
         <div class="row">
+
             <div class="col-sm-12">
                 <h3 class="titulo"> Gerenciamento de Grupo </h3>
                 <hr>
             </div>
         </div>
         <div class="row sub-container">
+            <SideBar></SideBar>
+
             <div class="col-sm-1">
                 <b-button @click="adicionarGrupo" class="b-button">
                     <!-- <b-icon icon="diagram3" aria-hidden="true"></b-icon> -->
@@ -80,11 +83,12 @@
 import grupoService from '@/services/grupo-service'
 import Grupo from '@/models/Grupo'
 import conversorDeData from '../utils/conversor-data'
+import SideBar from '../components/sideBar/sideBarComponent.vue';
 
 export default {
     name: "ControleDeGrupo",
     components: {
-
+SideBar
 
     },
     filters: {

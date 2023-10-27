@@ -2,28 +2,28 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; ">
             <a class="navbar-brand" href="/home">
-                
-                <img src="https://roboflex.com.br/wp-content/uploads/2023/05/logotipo-roboflex.png" alt="Logo" style="width: 75%; ">
-            
-                <!-- <img src="../../../public/img/logo-zontec-branco.png"  width="100px"> <br><br> -->
-            
-                 </a>
+                        
+                        <img src="https://roboflex.com.br/wp-content/uploads/2023/05/logotipo-roboflex.png" alt="Logo" style="width: 75%; ">
+
+                        <!-- <img src="../../../public/img/logo-zontec-branco.png"  width="100px"> <br><br> -->
+                    
+                         </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                 <span class="navbar-toggler-icon"></span>
-                </button>
+                         <span class="navbar-toggler-icon"></span>
+                        </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <button v-for="menu in menus" :key="menu.id" @mouseover="activateMenu(menu)" class="btn menu-block text-white mb-2 mr-2" :class="{ 'active': menu.active }" :style="{ backgroundColor: botoes }"> 
-                            <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
-                        </button>
+                                    <i :class="menu.icon" ></i> &nbsp; &nbsp;{{ menu.name }}
+                                </button>
                 </ul>
                 <div class="icons">
-                  
+    
                     <div class="navbar-nav ml-auto">
                         <b-nav-item-dropdown right>
                             <template v-slot:button-content><i style="color: white;" class="fa-solid fa-circle-user"></i>
-                                <span class="username">&nbsp; Olá, {{ userName }}</span>
-                            </template>
+                                        <span class="username">&nbsp; Olá, {{ userName }}</span>
+</template>
                             <b-dropdown-item style="color: black" href="/alterarSenha">
                             <span style="color: black;"><i class="fa-solid fa-user-gear"></i>&nbsp; Alterar Senha</span>
                            </b-dropdown-item>
@@ -85,14 +85,21 @@ export default {
                     icon: "fa-solid fa-briefcase",
                     active: false,
                     color: '#FFCDD2',
-                    submenus: [{
+                    submenus: [
+                        {
                             id: 1,
                             category: 'Recursos Humanos',
                             icon: 'fa-solid fa-users',
                             links: [
-                                { id: 1, name: 'Comunicados ', url: '#' },
+                                { id: 1, name: 'SGP ', url: '/SGP' },
+
                             ],
+
+                        
+
                         },
+                           
+                        
                         {
                             id: 2,
                             category: 'Compras',
@@ -125,6 +132,21 @@ export default {
 
                             ],
                         },
+                        {
+                            id: 9,
+                            category: 'Geral',
+                            icon: 'fa-solid fa-bullhorn',
+                            links: [
+
+                                { id: 18, name: 'Agenda veículo', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-ve%C3%ADculo?authuser=0' },
+                                { id: 19, name: 'Agenda salas', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-sala-de-reuni%C3%A3o?authuser=0', },
+                                { id: 20, name: 'Chamados', url: '#' },
+                                { id: 21, name: 'Comunicado', url: '#' },
+                                { id: 22, name: 'Requisição', url: '#' },
+                                { id: 23, name: 'Reuniões', url: '#' },
+
+                            ],
+                        }
                     ],
                 },
 
@@ -183,94 +205,95 @@ export default {
                             ],
                         },
 
-                    ],
-                },
-
-                {
-                    id: 4,
-                    name: 'GERAL',
-                    icon: "fa-solid fa-earth-americas",
-                    active: false,
-                    color: '#C8E6C9',
-
-                    submenus: [{
-                            id: 9,
-                            category: 'Geral',
-                            icon: 'fa-solid fa-bullhorn',
-                            links: [
-                                                                                       
-                                { id: 18, name: 'Agenda veículo', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-ve%C3%ADculo?authuser=0' },
-                                { id: 19, name: 'Agenda salas', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-sala-de-reuni%C3%A3o?authuser=0',  },
-                                { id: 20, name: 'Chamados', url: '#'  },
-                                { id: 21, name: 'Comunicado', url: '#' },
-                                { id: 22, name: 'Requisição', url: '#' },
-                                { id: 23, name: 'Reuniões', url: '#' },
-
-                            ],
-                        },
 
                     ],
                 },
 
-                {
-                    id: 5,
-                    name: 'CONFIGURAÇÃO',
-                    icon: 'fa-solid fa-screwdriver-wrench',
-                    active: false,
-                    color: '#FFECB3',
+                // {
+                //     id: 4,
+                //     name: 'GERAL',
+                //     icon: "fa-solid fa-earth-americas",
+                //     active: false,
+                //     color: '#C8E6C9',
 
-                    submenus: [{
-                            id: 10,
-                            category: 'Grupos',
-                            icon: 'fa-solid fa-network-wired',
-                            links: [
-                                { id: 24, name: 'Adicionar Grupo', url: '/controle-de-grupo/novo' },
-                                { id: 25, name: 'Controle de Grupo', url: '/grupo' },
-                                { id: 26, name: 'Vincular Grupo', url: '/vinculo-de-grupo' },
-                          ],
-                        },
+                //     submenus: [{
+                //             id: 9,
+                //             category: 'Geral',
+                //             icon: 'fa-solid fa-bullhorn',
+                //             links: [
 
-                        {
-                            id: 11,
-                            category: 'Pessoas',
-                            icon: 'fa-solid fa-user',
-                            links: [
-                            { id: 27, name: 'Adicionar Pessoa', url: '/controle-de-pessoas/novo' },
-                            { id: 28, name: 'Controle de  Pessoas', url: '/pessoa' },
-                            ],
-                        },
+                //                 { id: 18, name: 'Agenda veículo', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-ve%C3%ADculo?authuser=0' },
+                //                 { id: 19, name: 'Agenda salas', url: 'https://sites.google.com/roboflex.com.br/reservas/reservar-sala-de-reuni%C3%A3o?authuser=0',  },
+                //                 { id: 20, name: 'Chamados', url: '#'  },
+                //                 { id: 21, name: 'Comunicado', url: '#' },
+                //                 { id: 22, name: 'Requisição', url: '#' },
+                //                 { id: 23, name: 'Reuniões', url: '#' },
 
-                        {
-                            id: 12,
-                            category: 'Setores',
-                            icon: 'fa-solid fa-shop',
-                            links: [
-                            { id: 29, name: 'Adicionar Setor', url: '/controle-de-setores/novo' },
-                            { id: 30, name: 'Controle de  Setores', url: '/setores' },
-                            ],
-                        },
-                        {
-                            id: 13,
-                            category: 'Telas',
-                            icon: 'fa-solid fa-desktop',
-                            links: [
-                            { id: 31, name: 'Adicionar Tela', url: '/funcionalidade/novo' },
-                            { id: 32, name: 'Controle de  Telas', url: '/funcionalidade' },
-                            { id: 33, name: 'Vincular Telas', url: '/vinculo-de-funcionalidade' },
+                //             ],
+                //         },
 
-                            ],
-                        },
-                        {
-                            id: 14,
-                            category: 'Usuários',
-                            icon: 'fa-solid fa-people-group',
-                            links: [
-                            { id: 34, name: 'Adicionar Usuário', url: '/usuario/novo' },
-                            { id: 35, name: 'Controle de  Usuário', url: '/usuario' },
-                            ],
-                        },
-                    ],
-                },
+                //     ],
+                // },
+
+                // {
+                //     id: 5,
+                //     name: 'CONFIGURAÇÃO',
+                //     icon: 'fa-solid fa-screwdriver-wrench',
+                //     active: false,
+                //     color: '#FFECB3',
+
+                //     submenus: [{
+                //             id: 10,
+                //             category: 'Grupos',
+                //             icon: 'fa-solid fa-network-wired',
+                //             links: [
+                //                 { id: 24, name: 'Adicionar Grupo', url: '/controle-de-grupo/novo' },
+                //                 { id: 25, name: 'Controle de Grupo', url: '/grupo' },
+                //                 { id: 26, name: 'Vincular Grupo', url: '/vinculo-de-grupo' },
+                //           ],
+                //         },
+
+                //         {
+                //             id: 11,
+                //             category: 'Pessoas',
+                //             icon: 'fa-solid fa-user',
+                //             links: [
+                //             { id: 27, name: 'Adicionar Pessoa', url: '/controle-de-pessoas/novo' },
+                //             { id: 28, name: 'Controle de  Pessoas', url: '/pessoa' },
+                //             ],
+                //         },
+
+                //         {
+                //             id: 12,
+                //             category: 'Setores',
+                //             icon: 'fa-solid fa-shop',
+                //             links: [
+                //             { id: 29, name: 'Adicionar Setor', url: '/controle-de-setores/novo' },
+                //             { id: 30, name: 'Controle de  Setores', url: '/setores' },
+                //             ],
+                //         },
+                //         {
+                //             id: 13,
+                //             category: 'Telas',
+                //             icon: 'fa-solid fa-desktop',
+                //             links: [
+                //             { id: 31, name: 'Adicionar Tela', url: '/funcionalidade/novo' },
+                //             { id: 32, name: 'Controle de  Telas', url: '/funcionalidade' },
+                //             { id: 33, name: 'Vincular Telas', url: '/vinculo-de-funcionalidade' },
+
+                //             ],
+                //         },
+                //         {
+                //             id: 14,
+                //             category: 'Usuários',
+                //             icon: 'fa-solid fa-people-group',
+                //             links: [
+                //             { id: 34, name: 'Adicionar Usuário', url: '/usuario/novo' },
+                //             { id: 35, name: 'Controle de  Usuário', url: '/usuario' },
+                //             ],
+                //         },
+                //     ],
+                // },
             ],
 
             activeMenu: null,
@@ -362,8 +385,6 @@ export default {
     justify-content: space-between;
 }
 
-
-
 .submenu-column {
     width: 20%;
     box-sizing: border-box;
@@ -438,10 +459,9 @@ export default {
     text-decoration: none;
 }
 
-.submenu-link:hover{
+.submenu-link:hover {
     color: rgb(129, 127, 127) !important;
 }
-
 
 .icons {
     display: flex;

@@ -33,7 +33,7 @@
      
      <div id="saida" style="padding:40px;display: flex;flex-flow: column;justify-content: space-between;">
         <div id="estante" @click="Administrativo()" class="estante" style=" padding:40px;background-color: rgba(251, 246, 246, 0.111);border: 4px solid #EF5350;">
-            <img  src="../../public/img/adm4.png" width="200px" height="200px"  alt="">
+            <img  src="../../public/img/geral.png" width="200px" height="200px"  alt="">
         </div>
         <div  class="titulo" style="margin-top: 0px;padding-top: 0px; text-align: center;font-size:24px;padding:5px;">ADMINISTRATIVO</div>
     </div>  

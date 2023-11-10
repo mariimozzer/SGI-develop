@@ -1,7 +1,7 @@
 <template>
     <div class="admin-view">
       <div class="submenu-columns">
-        <div v-for="submenu in managementSubmenu" :key="submenu.id" class="submenu-column" style="background-color: #D1C4E9;">
+        <div v-for="submenu in managementSubmenu" :key="submenu.id" class="submenu-column" style="background-color: #8794A3;">
             <br>
           <h6><i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
           <ul>
@@ -42,8 +42,9 @@
   
   <style scoped>
   .admin-view {
-    background-color: #D1C4E9;
+    background-color: #8794A3;
     padding: 20px;
+    margin-left: 0;
   }
   
   .submenu-columns {
@@ -63,6 +64,7 @@
   h6 {
     margin: 0;
     font-size: 16px;
+    color: white
   }
   
   i {
@@ -80,7 +82,7 @@
   }
   
   a {
-    color: black;
+    color: rgb(255, 255, 255);
     text-decoration: none;
   }
   

@@ -5,18 +5,18 @@
             <div class="col-sm-12">
                 <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Pessoa </h3>
                 <hr/>
-                
+    
             </div>
         </div>
         <div class="row">
             <br>
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="nomeCompleto">Nome Completo</label>
                     <input id="nomeCompleto" v-model="pessoa.nomeCompleto" type="text" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-2">
                 <div class="form-group">
                     <label>Sexo</label>
                     <br>
@@ -29,37 +29,43 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="dtNasc">Data de Nascimento</label>
                     <input id="dtNasc" type="date" v-model="pessoa.dtNasc" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="CPF">CPF</label>
                     <input id="CPF" type="text" v-model="pessoa.CPF" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" v-model="pessoa.email" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="celular">Celular</label>
                     <input id="celular" type="text" v-model="pessoa.celular" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="id_setor">Setor</label>
                     <select class="combo form-select" v-model="pessoa.id_setor">
-                                        <option value="" disabled> Selecione o Setor </option>
-                                        <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option>
-                                </select>
+                                                <option value="" disabled> Selecione o Setor </option>
+                                                <option v-for="item in setores" :key="item.id" :value="item.id">{{ item.nome }}</option>
+                                        </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="avatar">Selecione uma foto:</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
                 </div>
             </div>
     
@@ -82,9 +88,9 @@
                     <br>
                     <!-- <button @click="salvarPessoa" class="btn btn-primary float-right mr-2" ><i v-if="!loading" class="fas fa-spiner fa-spin"></i>Salvar</button> -->
                 </div>
-            
+    
             </div>
-     
+    
         </div>
         <br>
     </div>

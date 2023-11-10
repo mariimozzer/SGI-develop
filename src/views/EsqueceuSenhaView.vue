@@ -5,9 +5,10 @@
     
     
         <div class="box-login">
-            <h4 class="titulo"> Esqueceu sua Senha ?</h4>
-            <hr>
-            <br>
+            <h4 class="titulo"> Esqueceu sua Senha ? </h4>
+            <hr><br>
+            <label style="text-align: center;">Informe o e-mail para o qual deseja redefinir sua senha</label>
+            <br><br>
             <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
                     <b-icon icon="envelope-fill"></b-icon>
@@ -16,7 +17,8 @@
             </b-input-group>
             <div v-if="!emailValidationState && emailTouched && !email" class="text-danger">Por favor, preencha o campo de email.</div>
             <b-button @click="resetarSenha" class="b-button">
-                <b-icon v-if="!loading" icon="check-circle-fill" aria-hidden="true"></b-icon>
+                <i v-if="!loading" class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                <!-- <b-icon v-if="!loading" icon="check-circle-fill" aria-hidden="true"></b-icon> -->
                 <i v-if="loading" class="fas fa-spinner fa-spin"></i> &nbsp;
                 <span v-if="!loading">Enviar código de recuperação</span>
                 <span v-if="loading">Enviando...</span>
@@ -25,6 +27,8 @@
                 <br>
                 <!-- <i v-if="loading" class="fas fa-spinner fa-spin"> </i> -->
             </div>
+            <br><br>
+            <label style="text-align: center; color: rgb(116, 112, 112);">Você receberá um código token por e-mail para cadastrar uma nova senha</label>
         </div>
     </div>
 </template>
@@ -77,7 +81,7 @@ export default {
             }).then(
                 res => {
                     this.$store.commit('setFlashMessage', 'E-mail código de validação enviado com sucesso!');
-                    // this.$router.push({ name: "ValidarSenha" })
+                    this.$router.push({ name: "ValidarSenha" })
                     this.loading = false;
                     setTimeout(() => {
                         this.$store.commit('clearFlashMessage');

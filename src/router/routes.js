@@ -24,15 +24,49 @@ import GestaoView from "@/views/GestaoView"
 import SGPView from "@/views/SGPView"
 
 
-
 import Login2View from "@/views/Login2View"
+import Login3View from "@/views/Login3View"
+import Login4View from "@/views/Login4View"
 import SideBarView from "@/views/SideBarView"
 import Home2View from "@/views/Home2View"
 import Home3View from "@/views/Home3View"
 import Home4View from "@/views/Home4View"
+import Home5View from "@/views/Home5View"
+
 
 
 const routes = [
+  {
+    path: '/login4', 
+    name: 'Login4View',
+    component: Login4View,
+    meta: {
+      hideMenu: true
+    }  
+  },
+
+
+
+
+  {
+    path: '/login3', 
+    name: 'Login3View',
+    component: Login3View,
+    meta: {
+      hideMenu: true
+    }  
+  },
+
+
+  {
+    path: '/home5', 
+    name: 'Home5View',
+    component: Home5View,
+    meta: {
+      hideMenu: true
+    }  
+  },
+
 
   {
     path: '/home3', 

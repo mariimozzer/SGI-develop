@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-2">
+    <div class="container mt-2 view">
         <h3 class="titulo"> Vincular Usuário a Grupos </h3>
         <hr>
         <div class="d-flex p-2 justify-content-center row align-items-start gap-4 mb-2">
@@ -430,6 +430,9 @@ export default {
 </script>
 
 <style scoped>
+.view{
+    position: fixed;
+}
 .titulo-tabela {
     font-weight: bold;
 }

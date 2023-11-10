@@ -4,34 +4,46 @@
         <br><br><br><br><br>
 
         <h5>Controle</h5>
-        <div class="categorias1">
-            <a href="/grupo" style="text-decoration: none; color: rgb(255, 255, 255);">Grupos</a>
+        <div class="categorias1" @click="grupos()">
+            <a style="text-decoration: none; color: rgb(255, 255, 255);">Grupos</a>
         </div>
     
-        <div class="categorias1" href="/pessoa">
-            <a  style="text-decoration: none; color: rgb(255, 255, 255);">Pessoas</a>
+        <div class="categorias1" @click="pessoas()">
+            <a style="text-decoration: none; color: rgb(255, 255, 255);">Pessoas</a>
         </div>
-        <div class="categorias1">
-            <a href="/usuario" style="text-decoration: none; color: rgb(255, 255, 255);">Usuários</a>
+        <div class="categorias1" @click="usuarios()">
+            <a style="text-decoration: none; color: rgb(255, 255, 255);">Usuários</a>
         </div>
-        <div class="categorias1">
-            <a href="/setores" style="text-decoration: none; color: rgb(255, 255, 255);">Setores</a>
+        <div class="categorias1" @click="setores()">
+            <a style="text-decoration: none; color: rgb(255, 255, 255);">Setores</a>
         </div>
-        <div class="categorias1">
-            <a href="/funcionalidades" style="text-decoration: none; color: rgb(255, 255, 255);">Telas</a>
+        <div class="categorias1" @click="funcionalidades()">
+            <a style="text-decoration: none; color: rgb(255, 255, 255);">Telas</a>
         </div>
         <br>
-        <div class="category1" @click="toggleDropdown2('Grupos')">
+
+        <h5>Vincular</h5>
+        <div class="categorias1" @click="vinculoGrupos()">
+            <a style="text-decoration: none; color: rgb(255, 255, 255);">Grupo</a>
+        </div>
+    
+        <div class="categorias1" @click="vinculoTelas()">
+            <a style="text-decoration: none; color: rgb(255, 255, 255);">Telas</a>
+        </div>
+        <br>
+
+
+        <!-- <div class="category1" @click="toggleDropdown2('Grupos')">
             <h5>Adicionar&nbsp; <i v-if="!showDropdown2" class="fa-solid fa-chevron-down fa-2xs"></i><i v-if="showDropdown2" class="fa-solid fa-angle-up fa-2xs"></i></h5>
             <div class="dropdown" v-if="showDropdown2 === 'Grupos'">
-                <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Grupos</div>
+                <div class="option2" @click="handleOption('adicionarGrupo')">Grupos</div>
                 <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Pessoas</div>
                 <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Setores</div>
                 <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Telas</div>
                 <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Usuários</div>
     
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -53,10 +65,40 @@ export default {
             } else {
                 this.showDropdown2 = category;
             }
+        },
+
+        grupos(){
+            this.$router.push({name: "ControleDeGrupo"})
+
+        },
+
+        pessoas(){
+            this.$router.push({name: "ControleDePessoas"})
+        },
+
+        usuarios(){
+            this.$router.push({name: "ControleDeUsuarios"})
+
+        },
+
+        setores(){
+            this.$router.push({name: "ControleDeSetores"})
+
+        },
+        funcionalidades(){
+            this.$router.push({name: "ControleDeFuncionalidade"})
+
+        },
+        vinculoGrupos(){
+            this.$router.push({name: "VincularGrupo"})
+
+        },
+        vinculoTelas(){
+            this.$router.push({name: "VincularFuncionalidade"})
+
         }
 
-
-
+        
     }
 
 }
@@ -73,7 +115,7 @@ export default {
     width: 300px;
     height: 100vh;
     position: fixed;
-    z-index: -1;
+    /* z-index: -1; */
     top: 0;
     left: 0px;
     overflow-y: hidden;

@@ -3,8 +3,8 @@
         <div class="row">
     <SideBarComponent></SideBarComponent>
     
-    <div class="col-md-4"> 
-        <img src="../../public/img/sgp-logo.png">
+    <div class="col-sm-12"> 
+        <!-- <img src="../../public/img/sgp-logo.png"> -->
 
     </div>
 

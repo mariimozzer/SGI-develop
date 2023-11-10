@@ -10,9 +10,8 @@
 </header>
 <br>
 <br>
-<br>
 <div >
-<router-view />
+<router-view class="router"/>
 </div>
 
 <FooterComponent class="footer"></FooterComponent>
@@ -25,15 +24,28 @@ import FooterComponent from "@/components/footer/FooterComponent"
 import NovoMenu from "@/components/menu/NovoMenu.vue"
 
 export default {
+    data(){
+        return {
+            
+        }
+    },
     components: {
         FooterComponent: FooterComponent,
         NovoMenu: NovoMenu
 
-    }
-}
+    },
+
+    
+   } 
+   
+  
+
 </script>
 
 <style>
+.router {
+    margin-left: 900px;
+}
 
 .footer{
     position: absolute;
@@ -115,11 +127,11 @@ thead {
     width: 100%;
 }
 
-.router {
+/* .router {
     position: absolute;
     z-index: -1;
     width: 100%;
-}
+} */
 
 
 

@@ -3,9 +3,9 @@
     <FlashMessageError></FlashMessageError>
     <div class="box-login">
       <div style="text-align: center;">
-        <img  src="../../public/img/logoZontecPreto.png" width="150px"><br><br>
+        <!-- <img  src="../../public/img/logoZontecPreto.png" width="150px"><br><br> -->
 
-        <img class="logo" src="../../public/img/logo-preta.png" ><br><br>
+        <img class="logo" src="../../public/img/tha3.png" width="250px"><br><br>
         <!-- <br><br><br> -->
         
       </div>
@@ -24,7 +24,7 @@
       </b-input-group>
       <br>
 
-      <div class="form-check">
+      <div class="form-check ">
         <input class="form-check-input" type="radio" id="roboflex" value="roboflex" v-model="local">
         <label class="form-check-label" for="roboflex"> Roboflex </label>
         <br>
@@ -183,7 +183,7 @@ export default {
 
 .logo {
   text-align: center;
-  background-image: url(../../public/img/logo-preta.png);
+  /* background-image: url(../../public/img/logo-preta.png); */
   color: var(--first-color);
   padding: 100;
   font-size: 22px;

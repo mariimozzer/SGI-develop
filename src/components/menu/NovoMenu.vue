@@ -40,10 +40,10 @@
         <div v-if="activeMenu && activeMenu.submenus" class="content" :style="{ backgroundColor: activeMenu.color} " @mouseleave="closeContent">
     <div v-if="activeMenu.submenus.length > 0" class="submenu-columns">
       <div v-for="(submenu) in activeMenu.submenus" :key="submenu.id" class="submenu-column">
-        <h6> <i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
+        <h6 style="color: rgb(255, 255, 255);"> <i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
         <ul style="list-style-type: none;" >
              <li v-for="link in submenu.links" :key="link.id">
-            <a class="submenu-link" style="cursor: pointer; color: black; text-decoration: none;" :href="link.url" >{{ link.name }}</a>
+            <a class="submenu-link" style="cursor: pointer; color: rgb(255, 255, 255); text-decoration: none;" :href="link.url" >{{ link.name }}</a>
           </li>
         </ul>
       </div>
@@ -84,7 +84,7 @@ export default {
                     name: 'ADMINISTRATIVO',
                     icon: "fa-solid fa-briefcase",
                     active: false,
-                    color: '#FFCDD2',
+                    color: '#3b373b',
                     submenus: [
                         {
                             id: 1,
@@ -155,7 +155,7 @@ export default {
                     name: 'FÁBRICA',
                     icon: 'fa-solid fa-tablet-screen-button',
                     active: false,
-                    color: '#BBDEFB',
+                    color: '#656e77',
                     submenus: [{
                             id: 5,
                             category: 'Produção',
@@ -193,7 +193,7 @@ export default {
                     name: 'GESTÃO',
                     icon: 'fa-solid fa-user-tie',
                     active: false,
-                    color: '#D1C4E9',
+                    color: '#8794A3',
                     submenus: [{
                             id: 8,
                             category: 'Gestão',
@@ -383,6 +383,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+ 
 }
 
 .submenu-column {
@@ -451,11 +452,11 @@ export default {
 .submenu ul {
     list-style: none;
     padding: 0;
-    color: black !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .submenu li a {
-    color: black !important;
+    color: rgb(134, 132, 132) !important;
     text-decoration: none;
 }
 

@@ -5,9 +5,15 @@
         <FlashErrorMessage></FlashErrorMessage>
     
         <div class="box-login">
+            <div v-if="codigoValido">
+                <b-button variant="outline-secondary" @click="toggleShowPassword ">
+                    <b-icon :icon="showPasswordConf ? 'eye-fill' : 'eye-slash-fill'"></b-icon>
+                </b-button>
+            </div><br>
     
-            <h4 class="titulo"> Validar Senha </h4>
+            <h4 class="titulo"> Validação de Token &nbsp;  <b-icon icon="shield-lock"></b-icon></h4>
             <hr>
+            <label style="text-align: center;">Insira o código token que você recebeu por email </label>
             <br>
             <b-input-group class="mb-2">
     
@@ -20,46 +26,61 @@
             <div v-if="!validationState && codeTouched && !codigo" class="text-danger">Por favor, preencha o campo de código.</div>
     
             <b-button v-if="!codigoValido" @click="validarCodigo" class="b-button">
-                <b-icon v-if="!loading" icon="check-circle-fill" aria-hidden="true"></b-icon>
-                <i v-if="loading" class="fas fa-spinner fa-spin"></i> &nbsp;
+                <i v-if="!loading" class="fa-solid fa-key" aria-hidden="true"></i> &nbsp;
+                <!-- <b-icon v-if="!loading" icon="key-fill"></b-icon> -->
+                <i v-if="loading" class="fas fa-spinner fa-spin"></i>
                 <span v-if="!loading">Verificar </span>
-                <span v-if="loading">Verificando...</span>
+                <span v-if="loading"> &nbsp; Verificando...</span>
             </b-button>
     
             <div v-if="codigoValido">
     
-                <br>
-                <br>
-                <b-input-group class="mb-2">
-                    <b-input-group-prepend is-text>
-                        <b-icon icon="lock-fill"></b-icon>
-                    </b-input-group-prepend>
-                    <b-form-input type="password" ref="newPasswordInput" :state="validationState" v-model="new_password" placeholder="Senha"></b-form-input>
-                </b-input-group>
-    
-                <b-input-group class="mb-2">
-                    <b-input-group-prepend is-text>
-                        <b-icon icon="lock-fill"></b-icon>
-                    </b-input-group-prepend>
-                    <b-form-input type="password" ref="newPasswordConfirmationInput" :state="validationState" v-model="new_password_confirmation" placeholder="Repita a Senha"></b-form-input>
-                </b-input-group>
-    
-    
-                <div v-if="!validationState && (
-                (newPasswordTouched && !new_password) ||
-                (newPasswordConfTouched && !new_password_confirmation)
-            )" class="text-danger">Por favor, preencha todos os campos.</div>
+            <br>
+            <br>
+            <b-input-group class="mb-2">
+                <b-input-group-prepend is-text>
+                    <b-icon icon="lock-fill"></b-icon>
+                </b-input-group-prepend>
+                <b-form-input :type="showNewPassword ? 'text' : 'password'" ref="newPasswordInput" :state="validationState" placeholder="Nova Senha" v-model="new_password"></b-form-input>
 
+                <!-- <b-form-input type="password" ref="newPasswordInput" :state="validationState" v-model="new_password" placeholder="Senha"></b-form-input> -->
+            </b-input-group>
     
-                <b-button @click="resetarSenha" class="b-button">
-                    <b-icon v-if="!loading" icon="check-circle-fill" aria-hidden="true"></b-icon>
-                    <i v-if="loading" class="fas fa-spinner fa-spin"></i> &nbsp;
-                    <span v-if="!loading">Resetar Senha</span>
-                    <span v-if="loading">Resetando...</span>
-                </b-button>
+            <b-input-group class="mb-2">
+                <b-input-group-prepend is-text>
+                    <b-icon icon="lock-fill"></b-icon>
+                </b-input-group-prepend>
+                <b-form-input :type="showPasswordConf ? 'text' : 'password'" ref="newPasswordConfInput" :state="validationState" placeholder="Repita a Nova Senha" v-model="new_password_confirmation"></b-form-input>
+
+                <!-- <b-form-input type="password" ref="newPasswordConfInput" :state="validationState" v-model="new_password_confirmation" placeholder="Repita a Senha"></b-form-input> -->
+            </b-input-group>
     
-            </div>
+            <div class="matches" v-if='notSamePasswords' style="color: red; text-align: center;">
+            <p>A senhas não conferem!</p>
         </div>
+    
+            <div v-if="!validationState && (
+                                (newPasswordTouched && !new_password) ||
+                                (newPasswordConfTouched && !new_password_confirmation)
+                            )" class="text-danger">Por favor, preencha todos os campos.</div>
+    
+    
+            <b-button @click="resetarSenha" class="b-button" v-if='passwordsFilled && !notSamePasswords && passwordValidation.valid'>
+                <b-icon v-if="!loading" icon="check-circle-fill" aria-hidden="true"></b-icon>
+                <i v-if="loading" class="fas fa-spinner fa-spin"></i> &nbsp;
+                <span v-if="!loading">Resetar Senha</span>
+                <span v-if="loading">Resetando...</span>
+            </b-button>
+    
+            <transition name="hint" appear>
+                <div v-if='passwordValidation.errors.length > 0 && !submitted' class='hints'>
+                    <!-- <h6 style="text-align: center;">Requerimentos</h6> -->
+                    <hr>
+                    <p style="color: green;" v-for='error in passwordValidation.errors' :key="error.id">{{error}} </p>
+                </div>
+            </transition>
+        </div>
+    </div>
     </div>
 </template>
 
@@ -68,7 +89,6 @@ import axios from 'axios';
 import FlashMessage from '@/components/flashMessage/FlashOKComponent.vue';
 import FlashErrorMessage from '@/components/flashMessage/FlashErrorComponent.vue';
 import { mapMutations } from 'vuex'
-
 
 export default {
     name: "ValidarSenhaComponent",
@@ -88,17 +108,36 @@ export default {
             codeTouched: false,
             loading: false,
             newPasswordTouched: false,
-            newPasswordConfTouched: false
+            newPasswordConfTouched: false,
+            submitted: false,
+            showNewPassword: false,
+            showPasswordConf: false,
+            rules: [
+                { message: '- Minimo de 1 Letra Maiúscula', regex: /[A-Z]+/ },
+                { message: '- Mínimo de 6 caracteres', regex: /.{6,}/ },
+                { message: '- Minímo de 1 número', regex: /[0-9]+/ },
+                { message: '- Mínimo de 1 caracter especial (ex: @ ! , . * -)', regex: /[^a-zA-Z 0-9]+/g },
+            ]
         }
-
     },
 
     watch: {
 
-
     },
 
     methods: {
+        toggleShowPassword(field) {
+
+            if (field === 'new') {
+                this.showNewPassword = !this.showNewPassword;
+
+            } else if (field === 'confirmation') {
+                this.showPasswordConf = !this.showPasswordConf;
+            }
+            this.showNewPassword = !this.showNewPassword;
+            this.showPasswordConf = !this.showPasswordConf;
+        },
+
         validarCodigo() {
             if (!this.codigo) {
                 this.validationState = false
@@ -114,33 +153,30 @@ export default {
             this.validationState = true
             this.loading = true
 
-            axios.post('http://192.168.0.6:8000/api/validar-codigo',
-            { codigo: this.codigo })
+            axios.post('http://192.168.0.6:8000/api/validar-codigo', { codigo: this.codigo })
                 .then(
                     response => {
-                    if (response.data === 0) {
-                        this.erroCodigo = true;
-                        this.$store.commit('setFlashMessageError', 'Código inválido ou expirado!')
-                        this.codigo = ''
-                        this.loading = false
+                        if (response.data === 0) {
+                            this.erroCodigo = true;
+                            this.$store.commit('setFlashMessageError', 'Código inválido ou expirado!')
+                            this.codigo = ''
+                            this.loading = false
 
 
 
-                    } else if (response.data === 1) {
-                        this.$store.commit('setFlashMessage', 'Código verificado!')
+                        } else if (response.data === 1) {
+                            this.$store.commit('setFlashMessage', 'Código verificado!')
 
-                        this.erroCodigo = false;
-                        this.codigoValido = true;
-                        this.loading = false
+                            this.erroCodigo = false;
+                            this.codigoValido = true;
+                            this.loading = false
 
-                    }
-                })
+                        }
+                    })
                 .catch(error => {
                     console.error(error);
                 });
         },
-
-
 
         resetarSenha() {
 
@@ -213,6 +249,32 @@ export default {
 
         ...mapMutations(['setFlashMessageError'])
 
+    },
+
+    computed: {
+        notSamePasswords() {
+            if (this.passwordsFilled) {
+                return (this.new_password !== this.new_password_confirmation)
+            } else {
+                return false
+            }
+        },
+        passwordsFilled() {
+            return (this.new_password !== '' && this.new_password_confirmation !== '')
+        },
+        passwordValidation() {
+            let errors = []
+            for (let condition of this.rules) {
+                if (!condition.regex.test(this.new_password)) {
+                    errors.push(condition.message)
+                }
+            }
+            if (errors.length === 0) {
+                return { valid: true, errors }
+            } else {
+                return { valid: false, errors }
+            }
+        },
     }
 }
 </script>

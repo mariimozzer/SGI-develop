@@ -2,8 +2,8 @@
   <footer :text="['center', 'lg-start']" class="footer">
     <!-- Copyright -->
     <div class="text-center p-3">
-      © 2023 Copyright:
-      <a style="color: white;" href="https://roboflex.com.br/" target="_blank">Roboflex</a>
+      © 2023 Copyright: Zontec
+      <!-- <a style="color: white;" href="https://roboflex.com.br/" target="_blank">Roboflex</a> -->
     </div>
     <!-- Copyright -->
   </footer>

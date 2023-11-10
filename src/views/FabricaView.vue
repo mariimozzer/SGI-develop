@@ -1,9 +1,9 @@
 <template>
-    <div>
-      
+
+
     <div class="admin-view">
       <div class="submenu-columns">
-        <div v-for="submenu in factorySubmenu" :key="submenu.id" class="submenu-column" style="background-color: #BBDEFB;">
+        <div v-for="submenu in factorySubmenu" :key="submenu.id" class="submenu-column" style="background-color: #656e77;">
             <br>
           <h6><i :class="submenu.icon"></i> &nbsp; {{ submenu.category }}</h6>
           <ul>
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-</div>
+
   </template>
   
 <script>
@@ -66,8 +66,10 @@ nav {
 }
 
 .admin-view {
-    background-color: #BBDEFB;
+    background-color: #656e77;
     padding: 20px;
+    margin-left: 0;
+
 }
 
 .submenu-columns {
@@ -87,6 +89,7 @@ nav {
 h6 {
     margin: 0;
     font-size: 16px;
+    color: white;
 }
 
 i {
@@ -104,7 +107,7 @@ li {
 }
 
 a {
-    color: black;
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 

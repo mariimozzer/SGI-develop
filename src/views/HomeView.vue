@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; text-align: center; text-align: center;">
             <a class="navbar-brand" href="#">
                 <img src="https://roboflex.com.br/wp-content/uploads/2023/05/logotipo-roboflex.png" alt="Logo" style="width: 75%; ">
@@ -187,6 +187,10 @@ export default {
 </script>
   
 <style scoped>
+.home{
+    margin-left: 0;
+}
+
 nav {
     position: fixed;
     top: 0;

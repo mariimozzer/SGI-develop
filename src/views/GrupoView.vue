@@ -2,6 +2,8 @@
     <div class="container">
         <FlashMessage></FlashMessage>
         <div class="row">
+            <SideBarComponent></SideBarComponent>
+
             <div class="col-sm-12">
                 <h3 class="titulo">{{modoCadastro ? "Adicionar" : "Editar" }} Grupo </h3>
                 <hr/>
@@ -40,12 +42,15 @@ import Grupo from '@/models/Grupo'
 import grupoService from '@/services/grupo-service';
 import FlashMessage from '@/components/flashMessage/FlashOKComponent.vue'
 import { mapMutations } from 'vuex';
+import SideBarComponent from '@/components/sideBar/sideBarComponent.vue'
+
 
 
 export default {
     name: "GrupoComponent",
     components: {
-        FlashMessage
+        FlashMessage,
+        SideBarComponent
     },
     data() {
         return {

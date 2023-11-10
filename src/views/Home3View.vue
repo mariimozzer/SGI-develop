@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
       <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="color: white; text-align: center;">
         <a class="navbar-brand" href="#">
           <img src="https://roboflex.com.br/wp-content/uploads/2023/05/logotipo-roboflex.png" alt="Logo" style="width: 75%;">
@@ -25,8 +25,9 @@
     
       <div class="three-columns" style="justify-content: center; color: white; text-align: center;">
         <div class="column" id="column1" >
+          
           <br><br>
-          <img  src="../../public/img/admColorido.png"  width="500px"><br><br>
+          <img  src="../../public/img/admColorido.png" @click="Administrativo()" width="500px"><br><br>
           <h1>Administrativo</h1>
 
         </div>
@@ -54,6 +55,11 @@ export default {
 
     },
 methods: {
+  
+  Administrativo(){
+    this.$router.push({ name: 'AdministrativoView' })
+
+  },
 
 
 logout() {
@@ -89,6 +95,10 @@ logout() {
 
   
   <style scoped>
+.home{
+  margin-left: 0;
+}
+
   nav {
       position: fixed;
       top: 0;
@@ -106,10 +116,10 @@ logout() {
   }
   
   .column:hover {
-    background-color: #f0f8ff;
+    background-color: #ffffff;
       box-shadow: 0 0 1000px rgb(255, 255, 255);
       cursor: pointer;
-      opacity: 0.2;
+      opacity: 0.3;
   }
 
 
@@ -125,15 +135,25 @@ logout() {
   #column1 {
      border: 10px solid none;
       background-color: var(--first-color);
+      background-repeat: no-repeat;
+
+      /* opacity: 0.2; */
+
   }
   
   #column2 {
       border: 10px solid  none;
       background-color:#393D40;
+      background-repeat: no-repeat;
+
+      /* opacity: 0.2; */
+
   }
   
   #column3 {
       border: 10px solid none;
       background-color:#515558;
+      background-repeat: no-repeat;
+      /* opacity: 0.2; */
   }
   </style>

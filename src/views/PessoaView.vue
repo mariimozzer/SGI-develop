@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <br>
-            <div class="col-sm-6">
+            <div class="col-sm-10">
                 <div class="form-group">
                     <label for="nomeCompleto">Nome Completo</label>
                     <input id="nomeCompleto" v-model="pessoa.nomeCompleto" type="text" class="form-control">
@@ -35,6 +35,7 @@
                     <input id="dtNasc" type="date" v-model="pessoa.dtNasc" class="form-control">
                 </div>
             </div>
+            
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="CPF">CPF</label>
@@ -62,15 +63,17 @@
                                         </select>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <br><br>
+            <div class="col-sm-8">
                 <div class="form-group">
-                    <label for="avatar">Selecione uma foto:</label>
+                    <label for="avatar">Selecione uma foto:</label><br>
                     <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
                 </div>
             </div>
     
             <div class="col-sm-12">
-                <div class="form-check">
+                <div class="form-check checkbox">
+                    <br>
                     <input class="form-check-input" type="checkbox" id="checkUsuario" value="usuarioGerar" v-model="gerarUsuarioCheck" />
                     <label class="form-check-label" for="checkUsuario">Gerar Usuario ? </label>
                 </div>

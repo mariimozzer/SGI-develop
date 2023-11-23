@@ -3,11 +3,7 @@
     <FlashMessageError></FlashMessageError>
     <div class="box-login">
       <div style="text-align: center;">
-        <!-- <img  src="../../public/img/logoZontecPreto.png" width="150px"><br><br> -->
-
-        <img class="logo" src="../../public/img/tha3.png" width="250px"><br><br>
-        <!-- <br><br><br> -->
-        
+        <img class="logo" src="../../public/img/tha3.png" width="150px"><br><br>        
       </div>
 
       <b-input-group class="mb-2">
@@ -170,6 +166,7 @@ export default {
 .botaoLogin {
   border: 1px solid;
   border-radius: 20px;
+  width: 70%;
 }
 
 .box-login {
@@ -190,6 +187,7 @@ export default {
 }
 
 .container {
+  
   display: flex;
   justify-content: center;
   align-content: center;

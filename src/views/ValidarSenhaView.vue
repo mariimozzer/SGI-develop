@@ -5,11 +5,14 @@
         <FlashErrorMessage></FlashErrorMessage>
     
         <div class="box-login">
-            <div v-if="codigoValido">
+            <div style="text-align: right;"> 
+                <div v-if="codigoValido">
                 <b-button variant="outline-secondary" @click="toggleShowPassword ">
                     <b-icon :icon="showPasswordConf ? 'eye-fill' : 'eye-slash-fill'"></b-icon>
                 </b-button>
-            </div><br>
+            </div>
+            </div>
+           <br>
     
             <h4 class="titulo"> Validação de Token &nbsp;  <b-icon icon="shield-lock"></b-icon></h4>
             <hr>
@@ -74,7 +77,7 @@
     
             <transition name="hint" appear>
                 <div v-if='passwordValidation.errors.length > 0 && !submitted' class='hints'>
-                    <!-- <h6 style="text-align: center;">Requerimentos</h6> -->
+                    <!-- <h5 style="text-align: center;">Critérios</h5> -->
                     <hr>
                     <p style="color: green;" v-for='error in passwordValidation.errors' :key="error.id">{{error}} </p>
                 </div>

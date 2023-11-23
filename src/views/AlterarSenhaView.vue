@@ -1,15 +1,18 @@
 <template>
+    <div class="container">
+        <br><br><br>
     <div class="box-login">
         <FlashErrorMessage></FlashErrorMessage>
         <FlashMessage></FlashMessage>
     
-        <div>
+        <div style="text-align: right;">
             <b-button variant="outline-secondary" @click="toggleShowPassword ">
                 <b-icon :icon="showNewPasswordConf ? 'eye-fill' : 'eye-slash-fill'"></b-icon>
             </b-button>
-            <h4 class="titulo"> Alterar Senha </h4>
         </div>
-    
+        <br>
+        <h4 class="titulo"> Alterar Senha </h4>
+
         <hr>
     
         <b-input-group class="mb-2">
@@ -61,7 +64,7 @@
         <transition name="hint" appear>
             <div v-if='passwordValidation.errors.length > 0 && !submitted' class='hints'>
     
-                <!-- <h5 style="text-align: center;">Requerimentos</h5> -->
+                <!-- <h5 style="text-align: center;">Critérios</h5> -->
                 <hr>
                 <p style="color: green;" v-for='error in passwordValidation.errors' :key="error.id">{{error}} </p>
             </div>
@@ -84,6 +87,7 @@
     
     
     </div>
+</div>
 </template>
   
 <script>
@@ -262,8 +266,16 @@ export default {
 </script>
   
 <style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .box-login {
-    max-width: 350px;
+    max-width: 400px;
     margin: auto;
     border: 1px solid #ddd;
     margin-top: 50px;
@@ -283,10 +295,10 @@ export default {
     cursor: pointer;
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
     .box-login {
         margin-top: 20px;
     }
-}
+} */
 </style>
   

@@ -48,19 +48,45 @@
                     <label>Sistema</label>
                     <br>
                     <select class="form-select" v-model="funcionalidade.sistema_id">
-                                                            <option value="" disabled>Selecione o sistema</option>
-                                                            <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+                                                                <option value="" disabled>Selecione o sistema</option>
+                                                                <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
                     <!-- <input id="sistema" type="text" v-model="funcionalidade.sistema_id" class="form-control"> -->
-    
     
                 </div>
             </div>
+           
+                <div class="col-sm-12">
+                    <div class="form-group">
+                    <label>URL Ícone (SVG)</label>
+                    <input id="icone" type="text" v-model="funcionalidade.icone" class="form-control">
+    
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Tema</label>
+                    <select class="form-select" v-model="funcionalidade.sistema_id">
+                                                                <option value="" disabled>Selecione o sistema</option>
+                                                                <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+                </div>
+
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Área</label>
+                    <select class="form-select" v-model="funcionalidade.sistema_id">
+                                                                <option value="" disabled>Selecione o sistema</option>
+                                                                <option v-for="item in sistemasDisponiveis" :key="item.id" :value="item.id">{{ item.nome }}</option></select>
+                </div>
+
+            </div>
+    
             <div class="form-group">
                 <div class="col-sm-12">
                     <button @click="cancelar" class="btn btn-default float-right">Cancelar</button>
                     <!-- <button @click="salvarFuncionalidade" class="btn btn-primary float-right mr-2">Salvar</button> -->
                     <b-button @click="salvarFuncionalidade" aria-hidden="true" class="btn btn-primary float-right mr-2">
-                        <i v-if="loading" class="fas fa-spinner fa-spin"></i> 
+                        <i v-if="loading" class="fas fa-spinner fa-spin"></i>
                         <span v-if="!loading">Salvar</span>
                         <span v-if="loading">&nbsp; Salvando...</span>
     
@@ -95,7 +121,7 @@ export default {
     },
 
     computed: {
-        flashMessage(){
+        flashMessage() {
             return this.$store.state.flashMessage
         }
     },
@@ -148,9 +174,9 @@ export default {
                     this.loading = false
 
                     this.$store.commit('setFlashMessage', 'Tela cadastrada com sucesso!');
-                        setTimeout(() => {
-                            this.$store.commit('clearFlashMessage');
-                        }, 5000)
+                    setTimeout(() => {
+                        this.$store.commit('clearFlashMessage');
+                    }, 5000)
 
                 })
                 .catch(error => {

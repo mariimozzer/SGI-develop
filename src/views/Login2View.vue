@@ -1,13 +1,9 @@
 <template >
-    <div class="login-page">
         <form @submit.prevent="login" class="container">
             <FlashMessageError></FlashMessageError>
             <div class="box-login" style="background-color: #343537; color: white">
                 <div style="text-align: center;">
-                    <!-- <img class="logo" style="height: 150px;" src="../../public/img/logo-roboflex-vetor-branco.png"> -->
-                    <!-- <img class="logo" src="../../public/img/logo-zontec-branco.png" width="150px"><br><br>
-
-                    <img class="logo" src="../../public/img/logo-login-preto.png"> -->
+                    <img class="logo" src="../../public/img/thalamus_white2.png" width="150px"><br><br>        
 
 
                 </div>
@@ -40,7 +36,7 @@
                                             (passwordTouched && !password)
                                         )" class="text-danger">Por favor, preencha todos os campos.</div>
     
-                <div class="col-sm-12">
+                <div class="col-sm-12 text-center">
                     <Button class="botaoLogin" value="Entrar"><i v-if="loading" class="fas fa-spinner fa-spin"></i> &nbsp;
                                                     <span v-if="!loading">Entrar</span>
                                                     <span v-if="loading">Processando...</span></Button>
@@ -51,7 +47,6 @@
                 </div>
             </div>
         </form>
-    </div>
 </template>
 
 <script>
@@ -175,9 +170,11 @@ export default {
 <style scoped>
 
 .botaoLogin {
-    border: 0px solid;
+    border: 1px solid;
     border-radius: 20px;
+    width: 70%;
     background-color: var(--second-color);
+    border: none;
     
 }
 
@@ -192,8 +189,7 @@ export default {
 
 .logo {
     text-align: center;
-    background-image: url(../../public/img/logo-roboflex-vetor-branco.png);
-    height: 100px;
+    /* background-image: url(../../public/img/logo-roboflex-vetor-branco.png); */
     color: var(--first-color);
     padding: 100;
     font-size: 22px;

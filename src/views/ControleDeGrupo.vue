@@ -174,4 +174,15 @@ SideBar
     }
 };
 </script>
+
+<style scoped>
+  /* .container{
+    margin-left: 400px; 
+    transition: margin-left 0.5s;
+} 
+
+.sub-container{
+    padding-left: 320px; 
+}  */
+</style>
   

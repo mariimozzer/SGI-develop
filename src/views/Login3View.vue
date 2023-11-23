@@ -6,6 +6,7 @@
                 <div class="card1 pb-5">
                     <div class="row">
                     </div>
+                    <br><br><br><br>
                     <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
                         <img src="../../public/img/tha3.png" class="image">
                     </div>
@@ -19,7 +20,7 @@
                         <div class="twitter text-center mr-3"><div class="fa fa-twitter"></div></div>
                         <div class="linkedin text-center mr-3"><div class="fa fa-linkedin"></div></div>
                     </div> -->
-                    <div class="row mb-4 px-3">
+                    <div class="row mb-4 px-3 justify-content-center">
                         <img src="../../public/img/logo-preta.png" class="logo">
 
                     </div>
@@ -39,15 +40,15 @@
                         <label class="mb-1"><h6 class="mb-0 text-sm">Senha</h6></label>
                         <input type="password" name="password" placeholder="12345678">
                     </div><br>
-                    <div class="row px-3 mb-4">
+                    <div class="row px-3 mb-4" style="text-align: center;">
                         <!-- <div class="custom-control custom-checkbox custom-control-inline">
                             <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> 
                             <label for="chk1" class="custom-control-label text-sm">Remember me</label>
                         </div> -->
                         <a href="#" class="ml-auto mb-0 text-sm">Esqueceu sua senha ?</a>
                     </div>
-                    <div class="row mb-3 px-3 " >
-                        <button type="submit" class="btn ">Login</button>
+                    <div class="row mb-3 px-3 justify-content-center" >
+                        <button type="submit" class="btn">Login</button>
                     </div>
                     <!-- <div class="row mb-4 px-3">
                         <small class="font-weight-bold">Don't have an account? <a class="text-danger ">Register</a></small>
@@ -55,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-blue py-4 " style="background-color: var(--first-color);">
+        <div class="bg-blue py-4" style="background-color: var(--first-color);">
             <div class="row px-3">
                 <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2023. Todos os direitos reservados.</small>
                 <!-- <div class="social-contact ml-4 ml-sm-auto">
@@ -73,6 +74,22 @@
 </template>
 
 <style scoped>
+.btn{
+    width: 35%;
+    background-color: var(--first-color) !important;
+    color: rgb(255, 255, 255) !important;
+    padding: 10px !important;
+    margin: 6px 0 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #FBBF77 !important;
+}
+
+
 body {
     color: #000;
     overflow-x: hidden;
@@ -96,6 +113,7 @@ body {
     margin-top: 20px;
     margin-left: 35px;
 }
+
 
 .image {
     width: 300px;

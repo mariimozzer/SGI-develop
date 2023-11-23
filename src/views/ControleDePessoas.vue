@@ -1,23 +1,25 @@
 <template>
     <div class="container">
+        <br>
         <!-- Flash Message -->
         <FlashMessage></FlashMessage>
         <br>
-
-
+    
         <div class="row">
             <div class="col-md-12">
                 <h3 class="titulo"> Gerenciamento de Pessoas </h3>
                 <hr>
             </div>
         </div>
+    
+  
         <div class="row sub-container">
             <div class="col-md-1">
                 <b-button @click="adicionarPessoa" class="b-button">
                     <!-- <b-icon icon="person-badge"  aria-hidden="true"></b-icon>
-                    <b-icon icon="plus"  aria-hidden="true"></b-icon> -->
+                            <b-icon icon="plus"  aria-hidden="true"></b-icon> -->
                     <i class="fa-solid fa-plus"></i>
-
+    
                 </b-button>
             </div>
         </div>
@@ -70,16 +72,16 @@
                     <ul class="pagination">
                         <li class="page-item" :class="{disabled: currentPage === 0}">
                             <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-                                  <span aria-hidden="true">&laquo;</span>
-                                </a>
+                                          <span aria-hidden="true">&laquo;</span>
+                                        </a>
                         </li>
                         <li v-for="n in numberOfPages" :key="n" class="page-item" :class="{active: n === currentPage}">
                             <a class="page-link" href="#" @click="setPage(n)">{{ n + 1 }}</a>
                         </li>
                         <li class="page-item" :class="{disabled: currentPage === numberOfPages - 1}">
                             <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-                                  <span aria-hidden="true">&raquo;</span>
-                                </a>
+                                          <span aria-hidden="true">&raquo;</span>
+                                        </a>
                         </li>
                     </ul>
                 </nav>
@@ -126,7 +128,7 @@ export default {
             });
             return pessoasFiltradas.slice(startIndex, endIndex);
         },
-        
+
         numberOfPages() {
             return Math.ceil(this.pessoas.length / this.itemsPerPage);
         },

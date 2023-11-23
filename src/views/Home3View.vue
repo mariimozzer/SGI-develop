@@ -109,15 +109,15 @@ logout() {
   .three-columns {
       display: flex;
       width: 100vw;
-      height: 90vh;
+      height: 100vh;
       justify-content: space-between center;
       align-items: center;
 
   }
   
   .column:hover {
-    background-color: #ffffff;
-      box-shadow: 0 0 1000px rgb(255, 255, 255);
+    background-color: #000000;
+      box-shadow: 0 0 1000px rgb(0, 0, 0);
       cursor: pointer;
       opacity: 0.3;
   }

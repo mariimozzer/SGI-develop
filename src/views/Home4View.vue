@@ -104,7 +104,7 @@ nav {
 .three-columns {
     display: flex;
     width: 100vw;
-    height: 90vh;
+    height: 100vh;
     justify-content: space-between center;
     align-items: center;
 }
@@ -147,7 +147,7 @@ nav {
 #column1 {
     border: 10px solid none;
     background-color: var(--first-color);
-    background-image: url(../../public/img/adm835.png);
+    background-image: url(../../public/img/home4_1.png);
     background-repeat: no-repeat;
     filter: grayscale(100%);
   transition: filter 0.3s ease; 
@@ -156,7 +156,7 @@ nav {
 #column2 {
     border: 10px solid none;
     background-color: #393D40;
-    background-image: url(../../public/img/fabrica2-835.png);
+    background-image: url(../../public/img/home4_2.png);
     background-repeat: no-repeat;
     filter: grayscale(100%);
   transition: filter 0.3s ease; 
@@ -166,7 +166,7 @@ nav {
 #column3 {
     border: 10px solid none;
     background-color: #515558;
-    background-image: url(../../public/img/gestao835.png);
+    background-image: url(../../public/img/home4_3.png);
     background-repeat: no-repeat;
     filter: grayscale(100%);
   transition: filter 0.3s ease; 

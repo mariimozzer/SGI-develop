@@ -8,19 +8,18 @@
     <NovoMenu v-if="!$route.meta.hideMenu"></NovoMenu>
 </div>
 </header>
-<br>
-<br>
+
 <div >
 <router-view class="router"/>
 </div>
 
-<FooterComponent class="footer"></FooterComponent>
+<FooterComponent v-if="!$route.meta.hideFooter" class="footer"></FooterComponent>
 
 </div>
 </template>
 
 <script>
-import FooterComponent from "@/components/footer/FooterComponent"
+import FooterComponent from "@/components/footer/Footer2Component"
 import NovoMenu from "@/components/menu/NovoMenu.vue"
 
 export default {

@@ -1,64 +1,103 @@
 <template>
-    <div class="submenu-administrativo1" style="text-align: center;">
+    <div>
+        <div class="submenu-administrativo1" style="text-align: center;">
     
-        <br><br><br><br><br>
+    <br><br><br><br><br>
 
-        <h5>Controle</h5>
-        <div class="categorias1" @click="grupos()">
-            <a style="text-decoration: none; color: rgb(255, 255, 255);">Grupos</a>
-        </div>
-    
-        <div class="categorias1" @click="pessoas()">
-            <a style="text-decoration: none; color: rgb(255, 255, 255);">Pessoas</a>
-        </div>
-        <div class="categorias1" @click="usuarios()">
-            <a style="text-decoration: none; color: rgb(255, 255, 255);">Usuários</a>
-        </div>
-        <div class="categorias1" @click="setores()">
-            <a style="text-decoration: none; color: rgb(255, 255, 255);">Setores</a>
-        </div>
-        <div class="categorias1" @click="funcionalidades()">
-            <a style="text-decoration: none; color: rgb(255, 255, 255);">Telas</a>
-        </div>
-        <br>
-
-        <h5>Vincular</h5>
-        <div class="categorias1" @click="vinculoGrupos()">
-            <a style="text-decoration: none; color: rgb(255, 255, 255);">Grupo</a>
-        </div>
-    
-        <div class="categorias1" @click="vinculoTelas()">
-            <a style="text-decoration: none; color: rgb(255, 255, 255);">Telas</a>
-        </div>
-        <br>
-
-
-        <!-- <div class="category1" @click="toggleDropdown2('Grupos')">
-            <h5>Adicionar&nbsp; <i v-if="!showDropdown2" class="fa-solid fa-chevron-down fa-2xs"></i><i v-if="showDropdown2" class="fa-solid fa-angle-up fa-2xs"></i></h5>
-            <div class="dropdown" v-if="showDropdown2 === 'Grupos'">
-                <div class="option2" @click="handleOption('adicionarGrupo')">Grupos</div>
-                <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Pessoas</div>
-                <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Setores</div>
-                <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Telas</div>
-                <div class="option2" @click="handleOption('Grupos', 'Adicionar')">Usuários</div>
-    
-            </div>
-        </div> -->
+    <h5>Controle</h5>
+    <div class="categorias1" @click="teste()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Grupos</a>
     </div>
+
+    <div class="categorias1" @click="pessoas()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Pessoas</a>
+    </div>
+    <div class="categorias1" @click="usuarios()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Usuários</a>
+    </div>
+    <div class="categorias1" @click="setores()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Setores</a>
+    </div>
+    <div class="categorias1" @click="funcionalidades()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Telas</a>
+    </div>
+    <br>
+
+    <h5>Vincular</h5>
+    <div class="categorias1" @click="vinculoGrupos()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Grupo</a>
+    </div>
+    <div class="categorias1" @click="vinculoTelas()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Telas</a>
+    </div>
+    <br>
+    <h5>Customização</h5>
+    <div class="categorias1" @click="customizarSistema()">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">Personalizar Sistema</a>
+    </div>
+    <br>
+
+</div>
+
+<br><br>
+<table class="table table-hover">
+<tbody>
+    <tr v-for="item in menuPrincipal" :key="item.id">
+
+    
+    <div class="categorias1" @click="teste2(item.id)">
+        <a style="text-decoration: none; color: rgb(255, 255, 255);">{{ item.nome }}</a>
+    </div>
+    </tr>
+</tbody>
+</table>
+
+
+    </div>
+   
 </template>
 
 <script>
+import axios from 'axios'
+import Menu from '@/models/Menu.js'
+
 export default {
     data() {
 
         return {
             showDropdown2: null,
+            menuPrincipal: '', 
+            nome: ''
+
 
         }
 
     },
 
     methods: {
+
+        teste2(id){
+            axios.get(`http://192.168.0.6:8000/api/menu/estrutura/${id}`)
+            .then(response => {
+                this.menuPrincipal = response.data.data.map((p) => new Menu(p));
+               
+            })
+         
+            console.log('menu',this.menuPrincipal)
+        },
+
+
+        teste(){
+            axios.get(`http://192.168.0.6:8000/api/menu/estrutura`)
+            .then(response => {
+                this.menuPrincipal = response.data.data.map((p) => new Menu(p));
+               
+            })
+         
+            console.log('menu',this.menuPrincipal)
+        },
+
+
         toggleDropdown2(category) {
             if (this.showDropdown2 === category) {
                 this.showDropdown2 = null;
@@ -67,38 +106,43 @@ export default {
             }
         },
 
-        grupos(){
-            this.$router.push({name: "ControleDeGrupo"})
+        grupos() {
+            this.$router.push({ name: "ControleDeGrupo" })
 
         },
 
-        pessoas(){
-            this.$router.push({name: "ControleDePessoas"})
+        pessoas() {
+            this.$router.push({ name: "ControleDePessoas" })
         },
 
-        usuarios(){
-            this.$router.push({name: "ControleDeUsuarios"})
+        usuarios() {
+            this.$router.push({ name: "ControleDeUsuarios" })
 
         },
 
-        setores(){
-            this.$router.push({name: "ControleDeSetores"})
+        setores() {
+            this.$router.push({ name: "ControleDeSetores" })
 
         },
-        funcionalidades(){
-            this.$router.push({name: "ControleDeFuncionalidade"})
+        funcionalidades() {
+            this.$router.push({ name: "ControleDeFuncionalidade" })
 
         },
-        vinculoGrupos(){
-            this.$router.push({name: "VincularGrupo"})
+        vinculoGrupos() {
+            this.$router.push({ name: "VincularGrupo" })
 
         },
-        vinculoTelas(){
-            this.$router.push({name: "VincularFuncionalidade"})
+        vinculoTelas() {
+            this.$router.push({ name: "VincularFuncionalidade" })
+
+        },
+        customizarSistema() {
+            this.$router.push({ name: "CustomizacaoSistema" })
 
         }
 
-        
+
+
     }
 
 }
@@ -110,6 +154,7 @@ export default {
     margin-bottom: 10px;
     cursor: pointer;
 }
+
 .submenu-administrativo1 {
     background-color: #333;
     width: 300px;
@@ -118,10 +163,17 @@ export default {
     /* z-index: -1; */
     top: 0;
     left: 0px;
-    overflow-y: hidden;
+    overflow-y: auto;
+    /* scroll */
     padding: 20px;
     color: #f0f0f0;
 }
+
+/* @media only screen and (max-width: 768px) {
+    .submenu-administrativo1 {
+        width: 100%;
+    }
+} */
 
 .option2 {
     padding: 5px;
@@ -130,6 +182,12 @@ export default {
     margin-bottom: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+.option2,
+.dropdown .option2,
+.categorias1 {
+    width: 100%;
 }
 
 .dropdown {
@@ -159,7 +217,6 @@ export default {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 
 .categorias1:hover {
     transform: translateY(0.1px);
